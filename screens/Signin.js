@@ -1,40 +1,43 @@
 import React, { useState } from 'react';
-import { View, Image, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, Image, Text, TextInput, StyleSheet } from 'react-native';
+import Button from '../components/shared/Button';
 import logo from '../assets/png/logo.png';
+import colors from '../theme/color';
 
 const Signin = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
   return (
-    <View>
+    <View style={styles.screen}>
       <Text style={styles.title}>Hamchi</Text>
       <Image
         style={styles.logo}
         source={logo}
       />
-      <TextInput
-        style={styles.input}
-        placeholder="이메일 주소"
-        value={email}
-        onChangeText={setEmail}
-      />
-      <TextInput
-        style={styles.input}
-        placeholder="비밀번호"
-        value={password}
-        onChangeText={setPassword}
-        secureTextEntry
-      />
-      <TouchableOpacity style={styles.button}>
-        <Text>로그인</Text>
-      </TouchableOpacity>
+      <View style={styles.inputContainer}>
+        <TextInput
+          style={styles.input}
+          placeholder="이메일 주소"
+          value={email}
+          onChangeText={setEmail}
+        />
+        <TextInput
+          style={styles.input}
+          placeholder="비밀번호"
+          value={password}
+          onChangeText={setPassword}
+          secureTextEntry
+        />
+        <Button text="로그인" />
+      </View>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
   screen: {
+    alignItems: 'center',
     padding: 50,
   },
   title: {
@@ -44,18 +47,16 @@ const styles = StyleSheet.create({
     width: 150,
     height: 150,
   },
-  input: {
+  inputContainer: {
     width: 300,
-    borderColor: 'black',
-    borderWidth: 1,
-    padding: 12,
-    margin: 8,
   },
-  button: {
-    width: 200,
-    height: 100,
-    backgroundColor: 'skyblue',
-  }
+  input: {
+    margin: 8,
+    padding: 15,
+    borderWidth: 1,
+    borderRadius: 5,
+    borderColor: colors.outline,
+  },
 });
 
 export default Signin;

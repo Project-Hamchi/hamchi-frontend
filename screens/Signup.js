@@ -49,6 +49,7 @@ const styles = StyleSheet.create({
   screen: {
     flexDirection: "column",
     alignItems: "center",
+    justifyContent: "center",
   },
   title: {
     fontSize: 60,
