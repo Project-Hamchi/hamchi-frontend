@@ -2,28 +2,29 @@ import React from 'react';
 import { Text, TouchableOpacity, StyleSheet } from 'react-native';
 import colors from '../../theme/color';
 
-const Button = ({ text }) => {
-  return (
-    <TouchableOpacity style={styles.button}>
-      <Text style={styles.content}>{text}</Text>
-    </TouchableOpacity>
-  );
-};
+const Button = ({ text, type }) => {
+  const btnBgColor = type === 'filled' ? colors.main : colors.transparent;
+  const btnTextColor = type === 'filled' ? colors.white : colors.main;
 
-const styles = StyleSheet.create({
-  button: {
+  const buttonCommonStyle = {
     alignItems: "center",
     margin: 8,
     padding: 15,
     marginTop: 30,
     borderRadius: 30,
-    backgroundColor: colors.main,
-  },
-  content: {
+    backgroundColor: btnBgColor,
+  };
+  const textCommonStyle = {
     fontSize: 15,
     fontWeight: 'bold',
-    color: colors.white,
-  }
-});
+    color: btnTextColor,
+  };
+
+  return (
+    <TouchableOpacity style={[buttonCommonStyle]}>
+      <Text style={[textCommonStyle]}>{text}</Text>
+    </TouchableOpacity>
+  );
+};
 
 export default Button;

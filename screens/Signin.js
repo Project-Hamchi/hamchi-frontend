@@ -29,7 +29,9 @@ const Signin = () => {
           onChangeText={setPassword}
           secureTextEntry
         />
-        <Button text="로그인" />
+        <Button text="로그인" type="filled" />
+        <Button text="회원가입"
+        />
       </View>
     </View>
   );
