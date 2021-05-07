@@ -1,16 +1,12 @@
-import { configurestore } from '@reduxjs/toolkit';
-import { createLogger } from 'redux-logger';
+import { configureStore } from '@reduxjs/toolkit';
 import ReduxThunk from 'redux-thunk';
 import { userSlice } from './userSlice';
 
 const middleware = [ReduxThunk];
 
-if (process.env.NODE_ENV !== 'production') {
-  middleware.push(createLogger());
-}
-
-const store = configurestore({
-  reducer: userSlice.reducer,
+const store = configureStore({
+  reducer: { user: userSlice.reducer },
+  middleware: middleware
 });
 
 export default store;

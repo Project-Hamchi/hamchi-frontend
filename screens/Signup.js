@@ -3,12 +3,31 @@ import { View, Image, Text, StyleSheet } from 'react-native';
 import Input from '../components/shared/Input';
 import Button from '../components/shared/Button';
 import logo from '../assets/png/logo.png';
+import userAPI from '../api/user';
 
-const Signup = () => {
+const Signup = ({ navigation }) => {
   const [email, setEmail] = useState('');
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+
+  async function handleSubmit() {
+    try {
+      const signupInput = {
+        email,
+        username,
+        password,
+        confirmPassword
+      };
+
+      const response = await userAPI.requestSignup(signupInput);
+      if (response.code === 200) {
+        navigation.navigate('Sign in');
+      }
+
+    } catch (err) {
+    }
+  }
 
   return (
     <View style={styles.screen}>
@@ -40,7 +59,10 @@ const Signup = () => {
           onChangeText={setConfirmPassword}
           secureTextEntry
         />
-        <Button text="회원가입" type="filled" />
+        <Button text="회원가입"
+          type="filled"
+          onPress={handleSubmit}
+        />
       </View>
     </View>
   );
