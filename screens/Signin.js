@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { fetchSignin } from '../reducers/userSlice';
 import { View, Image, Text, StyleSheet } from 'react-native';
 import Input from '../components/shared/Input';
 import Button from '../components/shared/Button';
@@ -8,6 +10,16 @@ import colors from '../theme/color';
 const Signin = ({ navigation }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const dispatch = useDispatch();
+
+  function handleSubmit() {
+    const signinInput = {
+      email,
+      password
+    };
+
+    dispatch(fetchSignin(signinInput));
+  }
 
   return (
     <View style={styles.screen}>
@@ -28,7 +40,10 @@ const Signin = ({ navigation }) => {
           onChangeText={setPassword}
           secureTextEntry
         />
-        <Button text="로그인" type="filled" />
+        <Button text="로그인"
+          type="filled"
+          onPress={handleSubmit}
+        />
         <Button text="회원가입"
           onPress={() => navigation.navigate('Sign up')}
         />

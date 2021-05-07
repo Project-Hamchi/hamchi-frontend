@@ -1,11 +1,26 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import userAPI from '../api/user';
+import * as Keychain from 'react-native-keychain';
 
 export const fetchSignin = createAsyncThunk(
-  'user/signin',
+  'user/fetchSignin',
   async (loginInput) => {
-    const response = await userAPI.requestSignin(loginInput);
-    return response;
+    try {
+      const response = await userAPI.requestSignin(loginInput);
+      const { appIdToken, currentUser } = response;
+
+      if (response.appIdToken) {
+        await Keychain.setGenericPassword(
+          currentUser.email,
+          currentUser.password
+        );
+        return response;
+      } else {
+        return [];
+      }
+    } catch (err) {
+      throw err;
+    }
   }
 );
 
@@ -14,26 +29,21 @@ export const userSlice = createSlice({
   initialState: {
     username: '',
     email: '',
+    appIdToken: '',
     isFetching: false,
     isSuccess: false,
     isError: false,
     errorMessage: '',
   },
   reducers: {
-    clearState: (state) => {
-      state.isError = false;
-      state.isSuccess = false;
-      state.isFetching = false;
-
-      return state;
-    },
   },
   extraReducers: {
     [fetchSignin.fulfilled]: (state, { payload }) => {
       state.isFetching = false;
       state.isSuccess = true;
-      state.email = payload.email;
-      state.username = payload.username;
+      state.email = payload.currentUser.email;
+      state.username = payload.currentUser.username;
+      state.appIdToken = payload.appIdToken;
     },
     [fetchSignin.pending]: (state) => {
       state.isFetching = true;

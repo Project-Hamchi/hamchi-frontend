@@ -8,7 +8,7 @@ const requestSignin = async (signinInput) => {
     body: JSON.stringify(signinInput)
   });
 
-  return response;
+  return await response.json();
 };
 
 const requestSignup = async (signupInput) => {
