@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
-import { View, Image, Text, TextInput, StyleSheet } from 'react-native';
+import { View, Image, Text, StyleSheet } from 'react-native';
+import Input from '../components/shared/Input';
 import Button from '../components/shared/Button';
 import logo from '../assets/png/logo.png';
 import colors from '../theme/color';
 
-const Signin = () => {
+const Signin = ({ navigation }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
@@ -16,14 +17,12 @@ const Signin = () => {
         source={logo}
       />
       <View style={styles.inputContainer}>
-        <TextInput
-          style={styles.input}
+        <Input
           placeholder="이메일 주소"
           value={email}
           onChangeText={setEmail}
         />
-        <TextInput
-          style={styles.input}
+        <Input
           placeholder="비밀번호"
           value={password}
           onChangeText={setPassword}
@@ -31,6 +30,7 @@ const Signin = () => {
         />
         <Button text="로그인" type="filled" />
         <Button text="회원가입"
+          onPress={() => navigation.navigate('Sign up')}
         />
       </View>
     </View>

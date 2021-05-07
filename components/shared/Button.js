@@ -2,7 +2,7 @@ import React from 'react';
 import { Text, TouchableOpacity, StyleSheet } from 'react-native';
 import colors from '../../theme/color';
 
-const Button = ({ text, type }) => {
+const Button = ({ text, type, onPress }) => {
   const btnBgColor = type === 'filled' ? colors.main : colors.transparent;
   const btnTextColor = type === 'filled' ? colors.white : colors.main;
 
@@ -21,7 +21,7 @@ const Button = ({ text, type }) => {
   };
 
   return (
-    <TouchableOpacity style={[buttonCommonStyle]}>
+    <TouchableOpacity style={[buttonCommonStyle]} onPress={onPress}>
       <Text style={[textCommonStyle]}>{text}</Text>
     </TouchableOpacity>
   );
