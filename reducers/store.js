@@ -1,7 +1,7 @@
 import { configurestore } from '@reduxjs/toolkit';
 import { createLogger } from 'redux-logger';
 import ReduxThunk from 'redux-thunk';
-import rootReducer from './reducers';
+import { userSlice } from './userSlice';
 
 const middleware = [ReduxThunk];
 
@@ -10,8 +10,7 @@ if (process.env.NODE_ENV !== 'production') {
 }
 
 const store = configurestore({
-  reducer: rootReducer,
-  middleware: middleware
+  reducer: userSlice.reducer,
 });
 
 export default store;

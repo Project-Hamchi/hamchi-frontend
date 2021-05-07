@@ -1,4 +1,4 @@
-const requestSignin = (signinInput) => {
+const requestSignin = async (signinInput) => {
   const url = 'http://localhost:3000/user/signin';
   const response = await fetch(url, {
     method: 'POST',
@@ -11,7 +11,7 @@ const requestSignin = (signinInput) => {
   return response;
 };
 
-const requestSignup = (signupInput) => {
+const requestSignup = async (signupInput) => {
   const url = 'http://localhost:3000/user/signup';
   const response = await fetch(url, {
     method: 'POST',
@@ -23,3 +23,10 @@ const requestSignup = (signupInput) => {
 
   return response;
 };
+
+const userAPI = {
+  requestSignin,
+  requestSignup
+};
+
+export default userAPI;
