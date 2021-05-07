@@ -1,22 +1,23 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import userAPI from '../api/user';
 import * as Keychain from 'react-native-keychain';
+import thunk from 'redux-thunk';
 
 export const fetchSignin = createAsyncThunk(
   'user/fetchSignin',
-  async (loginInput) => {
+  async (loginInput, thunkAPI) => {
     try {
       const response = await userAPI.requestSignin(loginInput);
       const { appIdToken, currentUser } = response;
 
-      if (response.appIdToken) {
+      if (response.code === 200) {
         await Keychain.setGenericPassword(
           currentUser.email,
           currentUser.password
         );
         return response;
       } else {
-        return [];
+        return thunkAPI.rejectWithValue(response);
       }
     } catch (err) {
       throw err;
