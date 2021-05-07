@@ -18,10 +18,10 @@ const requestSignup = async (signupInput) => {
     headers: {
       'Content-Type': 'application/json'
     },
-    body: JSON.stringify(signinInput)
+    body: JSON.stringify(signupInput)
   });
 
-  return response;
+  return await response.json();
 };
 
 const userAPI = {
