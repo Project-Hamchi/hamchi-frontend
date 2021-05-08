@@ -9,10 +9,10 @@ const AuthStack = createStackNavigator();
 export default function AuthNavigator() {
   return (
     <NavigationContainer>
-      <AuthStack.Navigator initialRouteName="Sign in">
+      <AuthStack.Navigator initialRouteName="card">
         <AuthStack.Screen name="Sign in" component={Signin} />
         <AuthStack.Screen name="Sign up" component={Signup} />
       </AuthStack.Navigator>
-    </NavigationContainer>
+    </NavigationContainer >
   );
 }
