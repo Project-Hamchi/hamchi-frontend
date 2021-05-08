@@ -1,5 +1,4 @@
 import React from 'react';
-import { View } from 'react-native';
 import AdoptCardList from '../components/AdoptCardList';
 import Menu from '../components/shared/Menu';
 import Header from '../components/shared/Header';

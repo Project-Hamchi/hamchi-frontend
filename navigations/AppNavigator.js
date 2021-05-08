@@ -14,7 +14,7 @@ export default function AppNavigator() {
       <AppStack.Navigator screenOptions={{
         headerShown: false
       }} >
-        {!isSignedIn ?
+        {isSignedIn ?
           <>
             <AppStack.Screen name="Main" component={Main} />
           </>

@@ -3,7 +3,7 @@ import { View, ScrollView, StyleSheet } from 'react-native';
 import AdoptCard from './AdoptCard';
 
 const PhotoCardList = () => {
-  const arr = Array(5).fill(1);
+  const arr = [1, 2, 3, 4, 5];
 
   return (
     <ScrollView style={styles.scrollContainer}>

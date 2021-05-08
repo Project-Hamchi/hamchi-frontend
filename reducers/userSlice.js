@@ -1,7 +1,5 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import userAPI from '../api/user';
-import * as Keychain from 'react-native-keychain';
-import thunk from 'redux-thunk';
 
 export const fetchSignin = createAsyncThunk(
   'user/fetchSignin',
@@ -11,11 +9,12 @@ export const fetchSignin = createAsyncThunk(
       const { appIdToken, currentUser } = response;
 
       if (response.code === 200) {
-        await Keychain.setGenericPassword(
-          currentUser.email,
-          currentUser.password
-        );
-        return response;
+        // await Keychain.setGenericPassword(
+        //   currentUser.email,
+        //   currentUser.password
+        // );
+
+        return response.data;
       } else {
         return thunkAPI.rejectWithValue(response);
       }
@@ -32,7 +31,7 @@ export const userSlice = createSlice({
     email: '',
     appIdToken: '',
     isFetching: false,
-    isSuccess: false,
+    isSignedIn: false,
     isError: false,
     errorMessage: '',
   },
@@ -41,7 +40,7 @@ export const userSlice = createSlice({
   extraReducers: {
     [fetchSignin.fulfilled]: (state, { payload }) => {
       state.isFetching = false;
-      state.isSuccess = true;
+      state.isSignedIn = true;
       state.email = payload.currentUser.email;
       state.username = payload.currentUser.username;
       state.appIdToken = payload.appIdToken;
