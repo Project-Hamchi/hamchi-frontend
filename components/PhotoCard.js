@@ -1,16 +1,18 @@
 import React from 'react';
 import { View, StyleSheet, Image } from 'react-native';
-import jungle from '../assets/tape/jungle.png';
-import robo from '../assets/tape/robo.png';
-import syrian from '../assets/tape/syrian.png';
+import jungle from '../assets/tape/jungle1.png';
+import robo from '../assets/tape/robo1.png';
+import syrian from '../assets/tape/syrian1.png';
 import colors from '../theme/color';
 
-const PhotoCard = () => {
+const PhotoCard = ({ type = 1 }) => {
+  const labelByTypes = [robo, jungle, syrian];
+
   return (
     <View style={styles.cardContainer}>
       <Image
         style={styles.tape}
-        source={jungle}
+        source={labelByTypes[type]}
       />
       <View style={styles.card}></View>
     </View>
@@ -23,15 +25,15 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   card: {
-    width: '40%',
+    width: '90%',
     height: 150,
     borderRadius: 10,
     backgroundColor: colors.outline,
   },
   tape: {
-    width: '24%',
-    height: 30,
-    top: 15,
+    width: '40%',
+    height: 20,
+    top: 12,
     zIndex: 1,
   }
 });
