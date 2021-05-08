@@ -6,7 +6,7 @@ const PhotoCardList = () => {
   const arr = Array(5).fill(1);
 
   return (
-    <ScrollView>
+    <ScrollView style={styles.scrollContainer}>
       <View style={styles.container}>
         <View style={styles.left}>
           {arr.map((item) => {
@@ -24,6 +24,10 @@ const PhotoCardList = () => {
 };
 
 const styles = StyleSheet.create({
+  scrollContainer: {
+    flexGrow: 0.8,
+    height: 300
+  },
   container: {
     flexDirection: 'row',
     width: '100%',
