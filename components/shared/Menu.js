@@ -1,12 +1,15 @@
 import React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 
 import { Ionicons } from '@expo/vector-icons';
 import { AntDesign } from '@expo/vector-icons';
 import { FontAwesome } from '@expo/vector-icons';
 import colors from '../../theme/color';
 
-const Menu = ({ navigation }) => {
+const Menu = () => {
+  const navigation = useNavigation();
+
   return (
     <View style={styles.container}>
       <TouchableOpacity style={styles.button}>
@@ -17,7 +20,10 @@ const Menu = ({ navigation }) => {
         <Ionicons name="document-outline" size={25} color="black" />
         <Text style={styles.text}>신청서</Text>
       </TouchableOpacity>
-      <TouchableOpacity style={styles.button}>
+      <TouchableOpacity
+        onPress={() => { navigation.navigate('Main', { screen: 'CreatePost' }); }}
+        style={styles.button}
+      >
         <AntDesign name="pluscircleo" size={25} color="black" />
         <Text style={styles.text}>플러스</Text>
       </TouchableOpacity>

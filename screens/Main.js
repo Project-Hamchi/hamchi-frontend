@@ -1,15 +1,18 @@
 import React from 'react';
-import AdoptCardList from '../components/AdoptCardList';
-import Menu from '../components/shared/Menu';
-import Header from '../components/shared/Header';
+import { Text, View } from 'react-native';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+
+import Feeds from './Feeds';
+import PostForm from '../components/PostForm';
+
+const Tab = createBottomTabNavigator();
 
 const Main = () => {
   return (
-    <>
-      <Header title="집을 찾아요" />
-      <AdoptCardList />
-      <Menu />
-    </>
+    <Tab.Navigator>
+      <Tab.Screen name="Feeds" component={Feeds} />
+      <Tab.Screen name="CreatePost" component={PostForm} />
+    </Tab.Navigator>
   );
 };
 
