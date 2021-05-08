@@ -5,7 +5,7 @@ import { Camera } from 'expo-camera';
 export default function Picture() {
   const [hasPermission, setHasPermission] = useState(null);
   const [type, setType] = useState(Camera.Constants.Type.back);
-  const [uri, setUri] = useState('');
+  const [uri, setUri] = useState(null);
   const cameraRef = useRef(null);
 
   const takePicture = async () => {
@@ -28,7 +28,6 @@ export default function Picture() {
   }
   return (
     <View style={styles.container}>
-      <Image style={styles.taken} source={{ uri: uri }} />
       <Camera
         style={styles.camera}
         type={type}
@@ -51,6 +50,15 @@ export default function Picture() {
             <Text style={styles.text}> Flip </Text>
           </TouchableOpacity>
         </View>
+        <View>
+          {uri &&
+            <View style={styles.buttonContainer}>
+              <View style={styles.taken}>
+                <Image style={styles.stretch} source={{ uri: uri }} />
+              </View>
+            </View>
+          }
+        </View>
       </Camera>
     </View >
   );
@@ -59,9 +67,12 @@ export default function Picture() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center'
   },
   camera: {
     flex: 1,
+    width: '100%'
   },
   buttonContainer: {
     flex: 1,
@@ -75,8 +86,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   snap: {
-    width: 200,
-    height: 200,
+    width: 100,
+    height: 100,
     borderRadius: 100,
     backgroundColor: 'white'
   },
@@ -87,5 +98,11 @@ const styles = StyleSheet.create({
   taken: {
     width: 100,
     height: 180,
-  }
+    backgroundColor: 'white'
+  },
+  stretch: {
+    width: 120,
+    height: 180,
+    resizeMode: 'stretch',
+  },
 });
