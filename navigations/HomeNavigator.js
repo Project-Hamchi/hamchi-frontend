@@ -1,19 +1,16 @@
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { createStackNavigator } from '@react-navigation/stack';
+import Main from '../screens/Main';
 
-const Tab = createBottomTabNavigator();
+const Stack = createStackNavigator();
 
 export default function HomNavigator() {
   return (
     <NavigationContainer>
-      <Tab.Navigator>
-        <Tab.Screen name="Main" />
-        <Tab.Screen name="Posts" />
-        <Tab.Screen name="Camera" />
-        <Tab.Screen name="Message" />
-        <Tab.Screen name="MyPage" />
-      </Tab.Navigator>
+      <Stack.Navigator>
+        <Stack.Screen name="Main" component={Main} />
+      </Stack.Navigator>
     </NavigationContainer>
   );
 }
