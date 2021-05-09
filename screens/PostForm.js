@@ -1,16 +1,34 @@
 import React from 'react';
-import Header from '../components/shared/Header';
 import Form from '../components/shared/Form';
-import { View, TouchableOpacity, ScrollView, StyleSheet } from 'react-native';
+import { View, TouchableOpacity, ScrollView, Image, StyleSheet } from 'react-native';
 
-const PostForm = ({ navigation }) => {
+const PostForm = ({ route, navigation }) => {
+  let uri;
 
+  if (route.params) {
+    uri = route.params.uri;
+  }
+
+  function handlePress() {
+    uri = null;
+    navigation.navigate('Camera');
+  }
 
   return (
     <>
       <ScrollView>
         <View style={styles.container}>
-          <TouchableOpacity style={styles.container} onPress={() => { navigation.navigate('Camera') }} />
+          {uri ?
+            <View>
+              <Image
+                style={styles.stretch}
+                source={{ uri: uri }} />
+            </View>
+            : <TouchableOpacity
+              style={styles.container}
+              onPress={handlePress}
+            />
+          }
         </View>
         <Form
           fields={{
@@ -51,7 +69,6 @@ const PostForm = ({ navigation }) => {
   );
 };
 
-
 const styles = StyleSheet.create({
   container: {
     backgroundColor: 'gray',
@@ -59,8 +76,9 @@ const styles = StyleSheet.create({
     height: 300,
     marginBottom: 30,
   },
-  button: {
-    resizeMode: 'stretch',
+  stretch: {
+    width: '100%',
+    height: 300
   }
 });
 

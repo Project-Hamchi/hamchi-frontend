@@ -1,11 +1,10 @@
 import React from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, Image } from 'react-native';
-import Header from '../components/shared/Header';
+import { StyleSheet, View, TouchableOpacity, Image } from 'react-native';
 import colors from '../theme/color';
 
 export default function Preview({ route, navigation }) {
-  console.log(route.params);
   const uri = route.params.uri;
+
   return (
     <>
       <Image style={styles.stretch} source={{ uri: uri }}></Image>

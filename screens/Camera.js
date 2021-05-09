@@ -1,7 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, Image } from 'react-native';
-import Header from '../components/shared/Header';
-import Preview from './Preview';
 import { Camera } from 'expo-camera';
 import colors from '../theme/color';
 
