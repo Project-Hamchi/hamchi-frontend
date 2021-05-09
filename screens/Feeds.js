@@ -8,7 +8,6 @@ const Feeds = () => {
     <>
       <Header title="집을 찾아요" />
       <AdoptCardList />
-      <Menu />
     </>
   );
 };
