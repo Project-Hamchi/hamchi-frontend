@@ -1,20 +1,21 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, Image } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import { Camera } from 'expo-camera';
 import colors from '../theme/color';
 
 export default function Picture({ navigation }) {
   const [hasPermission, setHasPermission] = useState(null);
-  const [uri, setUri] = useState(null);
+  const [photo, setPhoto] = useState(null);
 
-  const type = Camera.Constants.Type.back;
   const cameraRef = useRef(null);
 
   const takePicture = async () => {
-    const photo = await cameraRef.current.takePictureAsync();
-    setUri(photo.uri);
-
-    navigation.navigate('Preview', { uri: photo.uri, hello: "teset" });
+    const photo = await cameraRef.current.takePictureAsync({
+      quality: 0.3,
+      base64: true
+    });
+    setPhoto(photo.base64);
+    navigation.navigate('Preview', { photo: photo });
   }
 
   useEffect(() => {
@@ -35,7 +36,7 @@ export default function Picture({ navigation }) {
       <View style={styles.container}>
         <Camera
           style={styles.camera}
-          type={type}
+          type={Camera.Constants.Type.back}
           ref={cameraRef}
           ratio={'1:1'}
         >

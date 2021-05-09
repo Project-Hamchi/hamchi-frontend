@@ -1,9 +1,40 @@
-import React from 'react';
-import { View, Text } from 'react-native';
+import React, { useState } from 'react';
+import { View, Text, Button } from 'react-native';
 import Input from './Input';
 
-const Form = ({ fields }) => {
+const getInitialState = (fieldKeys) => {
+  const state = {};
+  fieldKeys.forEach((key) => {
+    state[key] = '';
+  });
+
+  return state;
+};
+
+const Form = ({ photo, fields, action, afterSubmit }) => {
   const fieldsKeys = Object.keys(fields);
+  const [values, setValues] = useState(getInitialState(fieldsKeys));
+
+  const onChangeValue = (key, value) => {
+    const newState = { ...values, [key]: value };
+    setValues(newState);
+  };
+
+  const getValues = () => {
+    return fieldsKeys.sort().map((key) => values[key]);
+  };
+
+  const submit = async () => {
+    // const values = getValues();
+
+    try {
+      const result = await action({ ...values, base64: photo });
+
+      // await afterSubmit(result);
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   return (
     <>
@@ -16,11 +47,12 @@ const Form = ({ fields }) => {
             <Input
               {...field.inputProps}
               value={field.value}
-              onChangeText={field.onChangeText}
+              onChangeText={(text) => onChangeValue(key, text)}
             />
           </View>
         );
       })}
+      <Button onPress={submit} title="저장" />
     </>
   );
 };

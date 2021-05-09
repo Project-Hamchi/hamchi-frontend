@@ -3,15 +3,15 @@ import { StyleSheet, View, TouchableOpacity, Image } from 'react-native';
 import colors from '../theme/color';
 
 export default function Preview({ route, navigation }) {
-  const uri = route.params.uri;
+  const photo = route.params.photo;
 
   return (
     <>
-      <Image style={styles.stretch} source={{ uri: uri }}></Image>
+      <Image style={styles.stretch} source={{ uri: photo.uri }}></Image>
       <View style={styles.buttonContainer}>
         <TouchableOpacity
           style={styles.snap}
-          onPress={() => { navigation.navigate('PostForm', { uri: uri }) }}
+          onPress={() => { navigation.navigate('PostForm', { photo: photo }) }}
         />
       </View>
     </>

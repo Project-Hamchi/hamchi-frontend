@@ -1,16 +1,17 @@
 import React from 'react';
 import Form from '../components/shared/Form';
 import { View, TouchableOpacity, ScrollView, Image, StyleSheet } from 'react-native';
+import postAPI from '../api/post';
 
 const PostForm = ({ route, navigation }) => {
-  let uri;
+  let photo;
 
   if (route.params) {
-    uri = route.params.uri;
+    photo = route.params.photo;
   }
 
   function handlePress() {
-    uri = null;
+    photo = null;
     navigation.navigate('Camera');
   }
 
@@ -18,11 +19,11 @@ const PostForm = ({ route, navigation }) => {
     <>
       <ScrollView>
         <View style={styles.container}>
-          {uri ?
+          {photo ?
             <View>
               <Image
                 style={styles.stretch}
-                source={{ uri: uri }} />
+                source={{ uri: photo.uri }} />
             </View>
             : <TouchableOpacity
               style={styles.container}
@@ -31,6 +32,7 @@ const PostForm = ({ route, navigation }) => {
           }
         </View>
         <Form
+          photo={photo}
           fields={{
             name: {
               label: '이름',
@@ -44,16 +46,22 @@ const PostForm = ({ route, navigation }) => {
                 placeholder: '햄스터 나이를 입력하세요'
               }
             },
-            gender: {
-              label: '성별',
+            type: {
+              label: '타입',
               inputProps: {
-                placeholder: '햄스터 성별을 입력하세요'
+                placeholder: '햄스터 종류를 입력하세요'
               }
             },
             location: {
               label: '지역',
               inputProps: {
                 placeholder: '지역을 입력하세요'
+              }
+            },
+            number: {
+              label: '개체수',
+              inputProps: {
+                placeholder: '몇마리 인가요?'
               }
             },
             details: {
@@ -63,6 +71,7 @@ const PostForm = ({ route, navigation }) => {
               }
             }
           }}
+          action={postAPI.requestCreatePost}
         />
       </ScrollView>
     </>
