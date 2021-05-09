@@ -1,16 +1,22 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, Image } from 'react-native';
+import Header from '../components/shared/Header';
+import Preview from './Preview';
 import { Camera } from 'expo-camera';
+import colors from '../theme/color';
 
-export default function Picture() {
+export default function Picture({ navigation }) {
   const [hasPermission, setHasPermission] = useState(null);
-  const [type, setType] = useState(Camera.Constants.Type.back);
   const [uri, setUri] = useState(null);
+
+  const type = Camera.Constants.Type.back;
   const cameraRef = useRef(null);
 
   const takePicture = async () => {
     const photo = await cameraRef.current.takePictureAsync();
     setUri(photo.uri);
+
+    navigation.navigate('Preview', { uri: photo.uri, hello: "teset" });
   }
 
   useEffect(() => {
@@ -27,46 +33,28 @@ export default function Picture() {
     return <Text>No access to camera</Text>;
   }
   return (
-    <View style={styles.container}>
-      <Camera
-        style={styles.camera}
-        type={type}
-        ref={cameraRef}
-      >
-        <View style={styles.buttonContainer}>
-          <TouchableOpacity
-            style={styles.button}
-            onPress={() => {
-              setType(
-                type === Camera.Constants.Type.back
-                  ? Camera.Constants.Type.front
-                  : Camera.Constants.Type.back
-              );
-            }}>
-            <TouchableOpacity
-              style={styles.snap}
-              onPress={takePicture
-              }></TouchableOpacity>
-            <Text style={styles.text}> Flip </Text>
-          </TouchableOpacity>
-        </View>
-        <View>
-          {uri &&
-            <View style={styles.buttonContainer}>
-              <View style={styles.taken}>
-                <Image style={styles.stretch} source={{ uri: uri }} />
-              </View>
-            </View>
-          }
-        </View>
-      </Camera>
-    </View >
+    <>
+      <View style={styles.container}>
+        <Camera
+          style={styles.camera}
+          type={type}
+          ref={cameraRef}
+          ratio={'1:1'}
+        >
+        </Camera>
+      </View >
+      <View style={styles.buttonContainer}>
+        <TouchableOpacity
+          style={styles.snap}
+          onPress={takePicture} />
+      </View>
+    </>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    flexGrow: 0.8,
     justifyContent: 'center',
     alignItems: 'center'
   },
@@ -75,9 +63,10 @@ const styles = StyleSheet.create({
     width: '100%'
   },
   buttonContainer: {
-    flex: 1,
+    flexGrow: 0.2,
     backgroundColor: 'transparent',
     flexDirection: 'row',
+    justifyContent: 'center',
     margin: 20,
   },
   button: {
@@ -89,7 +78,8 @@ const styles = StyleSheet.create({
     width: 100,
     height: 100,
     borderRadius: 100,
-    backgroundColor: 'white'
+    alignSelf: 'center',
+    backgroundColor: colors.main
   },
   text: {
     fontSize: 18,
