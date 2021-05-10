@@ -6,7 +6,10 @@ import { createLogger } from 'redux-logger';
 const middleware = [ReduxThunk, createLogger()];
 
 const store = configureStore({
-  reducer: { user: userSlice.reducer },
+  reducer:
+  {
+    user: userSlice.reducer,
+  },
   middleware: middleware
 });
 

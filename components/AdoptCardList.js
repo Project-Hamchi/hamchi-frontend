@@ -2,20 +2,22 @@ import React from 'react';
 import { View, ScrollView, StyleSheet } from 'react-native';
 import AdoptCard from './AdoptCard';
 
-const PhotoCardList = () => {
-  const arr = [1, 2, 3, 4, 5];
+const PhotoCardList = ({ posts }) => {
+  const half = Math.ceil(posts.length / 2);
+  const leftSidePosts = posts.splice(0, half);
+  const rightSidePosts = posts.splice(-half);
 
   return (
     <ScrollView style={styles.scrollContainer}>
       <View style={styles.container}>
         <View style={styles.left}>
-          {arr.map((item) => {
-            return (<AdoptCard key={item} />)
+          {leftSidePosts.map((item) => {
+            return (<AdoptCard key={item._id} data={item} />)
           })}
         </View>
         <View style={styles.right}>
-          {arr.map((item) => {
-            return (<AdoptCard key={item} />)
+          {rightSidePosts.map((item) => {
+            return (<AdoptCard key={item._id} data={item} />)
           })}
         </View>
       </View>
