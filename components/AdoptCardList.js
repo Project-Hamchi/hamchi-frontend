@@ -25,7 +25,7 @@ const PhotoCardList = () => {
 
 const styles = StyleSheet.create({
   scrollContainer: {
-    flexGrow: 0.8,
+    flexGrow: 1,
     height: 300
   },
   container: {

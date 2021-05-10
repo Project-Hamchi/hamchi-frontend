@@ -5,10 +5,13 @@ import { createStackNavigator } from '@react-navigation/stack';
 import Signin from '../screens/Signin';
 import Signup from '../screens/Signup';
 import Main from '../screens/Main';
+
 const AppStack = createStackNavigator();
+
 export default function AppNavigator() {
   const user = useSelector(state => state.user);
   const isSignedIn = user.isSignedIn;
+
   return (
     <NavigationContainer>
       <AppStack.Navigator screenOptions={{

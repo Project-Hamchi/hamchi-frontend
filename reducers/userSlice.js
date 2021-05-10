@@ -13,7 +13,6 @@ export const fetchSignin = createAsyncThunk(
         //   currentUser.email,
         //   currentUser.password
         // );
-
         return response.data;
       } else {
         return thunkAPI.rejectWithValue(response);
@@ -27,6 +26,7 @@ export const fetchSignin = createAsyncThunk(
 export const userSlice = createSlice({
   name: 'user',
   initialState: {
+    userId: '',
     username: '',
     email: '',
     appIdToken: '',
@@ -41,6 +41,7 @@ export const userSlice = createSlice({
     [fetchSignin.fulfilled]: (state, { payload }) => {
       state.isFetching = false;
       state.isSignedIn = true;
+      state.userId = payload.currentUser._id;
       state.email = payload.currentUser.email;
       state.username = payload.currentUser.username;
       state.appIdToken = payload.appIdToken;

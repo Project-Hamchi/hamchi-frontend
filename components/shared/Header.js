@@ -1,25 +1,33 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, Button, StyleSheet } from 'react-native';
+import { Ionicons } from '@expo/vector-icons';
 import colors from '../../theme/color';
 
-const Header = ({ title }) => {
+const Header = ({ title, back, submit }) => {
   return (
     <View style={styles.container}>
+      {back && <Ionicons name='arrow-back-outline' size={30} />}
       <Text style={styles.title}>{title}</Text>
+      {submit && <Button title={submit} />}
     </View>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    flexGrow: 0.1,
-    justifyContent: 'flex-end',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
     borderBottomWidth: 1,
-    borderBottomColor: colors.outline
+    borderBottomColor: colors.outline,
+    paddingTop: 20,
+    paddingBottom: 8,
   },
   title: {
     fontSize: 20,
-    margin: 10
+  },
+  button: {
+    paddingTop: 30,
   }
 });
 
