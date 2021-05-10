@@ -1,9 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { useSelector } from 'react-redux';
 import Form from '../components/shared/Form';
 import { View, TouchableOpacity, ScrollView, Image, StyleSheet } from 'react-native';
 import postAPI from '../api/post';
 
 const PostForm = ({ route, navigation }) => {
+  const userId = useSelector(state => state.user.userId);
   let photo;
 
   if (route.params) {
@@ -13,6 +15,11 @@ const PostForm = ({ route, navigation }) => {
   function handlePress() {
     photo = null;
     navigation.navigate('Camera');
+  }
+
+  function handleAfterSubmit() {
+    photo = null;
+    navigation.navigate('피드');
   }
 
   return (
@@ -32,6 +39,7 @@ const PostForm = ({ route, navigation }) => {
           }
         </View>
         <Form
+          userId={userId}
           photo={photo}
           fields={{
             name: {
@@ -72,6 +80,7 @@ const PostForm = ({ route, navigation }) => {
             }
           }}
           action={postAPI.requestCreatePost}
+          afterSubmit={handleAfterSubmit}
         />
       </ScrollView>
     </>

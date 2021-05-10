@@ -1,5 +1,5 @@
 const requestCreatePost = async (postInput) => {
-  const url = 'http://localhost:3000/posts/new';
+  const url = 'http://192.168.0.97:3000/posts/new';
   const response = await fetch(url, {
     method: 'POST',
     headers: {
@@ -7,8 +7,7 @@ const requestCreatePost = async (postInput) => {
     },
     body: JSON.stringify(postInput)
   });
-  const a = await response.json();
-  console.log(a);
+
   return await response.json();
 };
 
