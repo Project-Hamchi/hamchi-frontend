@@ -1,5 +1,8 @@
+import { SERVER_URL } from '@env';
+
 const requestCreatePost = async (postInput) => {
-  const url = 'http://192.168.0.97:3000/posts/new';
+  const url = `${SERVER_URL}/posts/new`;
+
   const response = await fetch(url, {
     method: 'POST',
     headers: {
@@ -11,8 +14,22 @@ const requestCreatePost = async (postInput) => {
   return await response.json();
 };
 
+const requestGetPosts = async (page) => {
+  const url = `${SERVER_URL}/posts/`;
+  const response = await fetch(url, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({ page })
+  });
+
+  return await response.json();
+};
+
 const postAPI = {
-  requestCreatePost
+  requestCreatePost,
+  requestGetPosts
 };
 
 export default postAPI;

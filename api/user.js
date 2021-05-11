@@ -1,5 +1,7 @@
+import { SERVER_URL } from '@env';
+
 const requestSignin = async (signinInput) => {
-  const url = 'http://192.168.0.97:3000/user/signin';
+  const url = `${SERVER_URL}/user/signin`;
   const response = await fetch(url, {
     method: 'POST',
     headers: {
@@ -12,7 +14,7 @@ const requestSignin = async (signinInput) => {
 };
 
 const requestSignup = async (signupInput) => {
-  const url = 'http://192.168.0.97:3000/user/signup';
+  const url = `${SERVER_URL}/user/signup`;
   const response = await fetch(url, {
     method: 'POST',
     headers: {

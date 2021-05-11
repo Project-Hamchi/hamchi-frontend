@@ -1,11 +1,9 @@
-import React, { useState } from 'react';
-import { useSelector } from 'react-redux';
+import React from 'react';
 import Form from '../components/shared/Form';
 import { View, TouchableOpacity, ScrollView, Image, StyleSheet } from 'react-native';
 import postAPI from '../api/post';
 
 const PostForm = ({ route, navigation }) => {
-  const userId = useSelector(state => state.user.userId);
   let photo;
 
   if (route.params) {
@@ -39,7 +37,6 @@ const PostForm = ({ route, navigation }) => {
           }
         </View>
         <Form
-          userId={userId}
           photo={photo}
           fields={{
             name: {
@@ -75,7 +72,7 @@ const PostForm = ({ route, navigation }) => {
             details: {
               label: '세부사항',
               inputProps: {
-                placeholder: '그 외 세부사항을 입력하세요'
+                placeholder: '최소 환경 조건 및 세부사항을 입력하세요'
               }
             }
           }}

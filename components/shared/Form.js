@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useSelector } from 'react-redux';
 import { View, Text, Button } from 'react-native';
 import Input from './Input';
 
@@ -11,9 +12,12 @@ const getInitialState = (fieldKeys) => {
   return state;
 };
 
-const Form = ({ userId, photo, fields, action, afterSubmit }) => {
+const Form = ({ photo, fields, action, afterSubmit }) => {
   const fieldsKeys = Object.keys(fields);
   const [values, setValues] = useState(getInitialState(fieldsKeys));
+
+  const userId = useSelector(state => state.user.userId);
+  const username = useSelector(state => state.user.username);
 
   const onChangeValue = (key, value) => {
     const newState = { ...values, [key]: value };
@@ -26,7 +30,7 @@ const Form = ({ userId, photo, fields, action, afterSubmit }) => {
 
   const submit = async () => {
     try {
-      const result = await action({ ...values, userId, base64: photo });
+      const result = await action({ ...values, userId, username, base64: photo });
       afterSubmit();
     } catch (err) {
       console.log(err);
