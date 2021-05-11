@@ -59,7 +59,7 @@ const PostForm = ({ route, navigation }) => {
             type: {
               label: '종',
               inputType: 'radio',
-              options: ['로보로브스키', '드워프', '골든', '그 외']
+              options: ['Robo', 'Jungle', 'Syrian', 'other']
             },
             location: {
               label: '지역',

@@ -2,6 +2,7 @@ import React from 'react';
 
 import { View, Text, TouchableOpacity, ScrollView, Image, StyleSheet } from 'react-native';
 import Form from '../components/shared/Form';
+import submissionAPI from '../api/submissions';
 
 const SubmissionForm = ({ route, navigation }) => {
   let photo;
@@ -36,7 +37,7 @@ const SubmissionForm = ({ route, navigation }) => {
         <Form
           photo={photo}
           fields={{
-            name: {
+            experience: {
               label: '햄스터 사육 경험',
               inputType: 'radio',
               options: ['없음', '1번', '2번 이상']
@@ -54,6 +55,8 @@ const SubmissionForm = ({ route, navigation }) => {
               }
             },
           }}
+          action={submissionAPI.requestCreateSubmission}
+          afterSubmit={handleAfterSubmit}
         />
       </ScrollView>
     </>
