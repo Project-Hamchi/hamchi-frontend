@@ -32,7 +32,6 @@ const Form = ({ additionalParams, fields, action, afterSubmit }) => {
   const submit = async () => {
     try {
       const result = await action({ ...values, userId, username, ...additionalParams });
-
       afterSubmit();
     } catch (err) {
       console.log(err);
