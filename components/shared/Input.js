@@ -16,10 +16,10 @@ const Input = ({ placeholder, value, onChangeText, secureTextEntry }) => {
 
 const styles = StyleSheet.create({
   input: {
-    margin: 8,
+    margin: 10,
     padding: 15,
     borderWidth: 1,
-    borderRadius: 5,
+    textAlign: 'center',
     borderColor: colors.outline,
   },
 });

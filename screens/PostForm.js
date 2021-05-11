@@ -12,7 +12,7 @@ const PostForm = ({ route, navigation }) => {
 
   function handlePress() {
     photo = null;
-    navigation.navigate('Camera');
+    navigation.navigate('Camera', { redirectTo: 'PostForm' });
   }
 
   function handleAfterSubmit() {
@@ -48,14 +48,18 @@ const PostForm = ({ route, navigation }) => {
             age: {
               label: '나이',
               inputProps: {
-                placeholder: '햄스터 나이를 입력하세요'
+                placeholder: '햄스터 나이(개월 수)를 입력하세요'
               }
             },
+            gender: {
+              label: '성별',
+              inputType: 'radio',
+              options: ['남', '여', '미확인']
+            },
             type: {
-              label: '타입',
-              inputProps: {
-                placeholder: '햄스터 종류를 입력하세요'
-              }
+              label: '종',
+              inputType: 'radio',
+              options: ['로보로브스키', '드워프', '골든', '그 외']
             },
             location: {
               label: '지역',

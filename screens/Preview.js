@@ -3,7 +3,7 @@ import { StyleSheet, View, TouchableOpacity, Image } from 'react-native';
 import colors from '../theme/color';
 
 export default function Preview({ route, navigation }) {
-  const photo = route.params.photo;
+  const { photo, redirectTo } = route.params;
 
   return (
     <>
@@ -11,7 +11,7 @@ export default function Preview({ route, navigation }) {
       <View style={styles.buttonContainer}>
         <TouchableOpacity
           style={styles.snap}
-          onPress={() => { navigation.navigate('PostForm', { photo: photo }) }}
+          onPress={() => { navigation.navigate(redirectTo, { photo: photo }) }}
         />
       </View>
     </>

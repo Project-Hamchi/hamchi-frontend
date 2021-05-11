@@ -2,8 +2,12 @@ import React from 'react';
 import { ScrollView, Image, View, Text, StyleSheet } from 'react-native';
 import Button from '../components/shared/Button';
 
-const Hamster = ({ route }) => {
+const Hamster = ({ route, navigation }) => {
   const post = route.params.post;
+
+  function handlePress() {
+    navigation.navigate('SubmissionForm');
+  }
 
   return (
     <ScrollView style={styles.container}>
@@ -17,7 +21,11 @@ const Hamster = ({ route }) => {
         <Text style={styles.text}>지역: {post.location}</Text>
         <Text style={styles.text}>종: {post.type}</Text>
         <Text style={styles.text}>세부 사항: {post.details}</Text>
-        <Button type="filled" text="입양 신청서 쓰기" />
+        <Button
+          type="filled"
+          text="입양 신청서 쓰기"
+          onPress={handlePress}
+        />
       </View>
     </ScrollView>
   );

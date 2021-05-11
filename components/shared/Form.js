@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
-import { View, Text, Button } from 'react-native';
+import { View, Text, Button, StyleSheet } from 'react-native';
 import Input from './Input';
+import RadioButton from './RadioButton';
 
 const getInitialState = (fieldKeys) => {
   const state = {};
@@ -15,7 +16,6 @@ const getInitialState = (fieldKeys) => {
 const Form = ({ photo, fields, action, afterSubmit }) => {
   const fieldsKeys = Object.keys(fields);
   const [values, setValues] = useState(getInitialState(fieldsKeys));
-
   const userId = useSelector(state => state.user.userId);
   const username = useSelector(state => state.user.username);
 
@@ -44,12 +44,18 @@ const Form = ({ photo, fields, action, afterSubmit }) => {
 
         return (
           <View key={key}>
-            <Text>{field.label}</Text>
-            <Input
-              {...field.inputProps}
-              value={field.value}
-              onChangeText={(text) => onChangeValue(key, text)}
-            />
+            <Text style={style.label}>{field.label}</Text>
+            {field.inputType === 'radio' ?
+              <RadioButton
+                options={field.options}
+                onChangeOption={(option) => onChangeValue(key, option)}
+              />
+              : <Input
+                {...field.inputProps}
+                value={field.value}
+                onChangeText={(text) => onChangeValue(key, text)}
+              />
+            }
           </View>
         );
       })}
@@ -57,5 +63,13 @@ const Form = ({ photo, fields, action, afterSubmit }) => {
     </>
   );
 };
+
+const style = StyleSheet.create({
+  label: {
+    fontWeight: 'bold',
+    textAlign: 'center',
+    marginTop: 8,
+  }
+});
 
 export default Form;
