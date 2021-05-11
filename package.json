@@ -27,6 +27,8 @@
   },
   "devDependencies": {
     "@babel/core": "^7.9.0",
+    "metro-react-native-babel-preset": "^0.59.0",
+    "react-native-dotenv": "^2.5.5",
     "redux-logger": "^3.0.6"
   },
   "private": true
