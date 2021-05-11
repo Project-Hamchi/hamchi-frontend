@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { View, TouchableOpacity, StyleSheet, FlatList } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
 import AdoptCard from './AdoptCard';
 import postAPI from '../api/post';
 
@@ -8,7 +7,6 @@ const PhotoCardList = ({ onPressCard }) => {
   const [page, setPage] = useState(1);
   const [posts, setPosts] = useState([]);
   const [isScrollEnd, setIsScrollEnd] = useState(false);
-  const navigation = useNavigation();
   const [ids, setIds] = useState({});
 
   useEffect(() => {
@@ -41,12 +39,6 @@ const PhotoCardList = ({ onPressCard }) => {
     getPosts();
   }
 
-  // function handlePressCard(id) {
-  //   const selectedPost = posts[ids[id]];
-  //   console.log(selectedPost);
-  //   navigation.navigate('Hamster', { post: selectedPost });
-  // }
-
   return (
     <FlatList
       keyExtractor={(item) => item._id}
@@ -55,9 +47,8 @@ const PhotoCardList = ({ onPressCard }) => {
         return (
           <TouchableOpacity
             key={item._id}
-            // onPress={event => { handlePressCard(item._id) }}
-            onPress={() => { onPressCard(posts[ids[item._id]]) }}
             style={index % 2 === 0 ? styles.left : styles.right}
+            onPress={() => { onPressCard(item) }}
           >
             <AdoptCard data={item} />
           </TouchableOpacity>

@@ -3,9 +3,10 @@ import { View, StyleSheet, Text } from 'react-native';
 import PhotoCard from './PhotoCard';
 import colors from '../theme/color';
 
-const AdoptCard = ({ data }) => {
+const AdoptCard = ({ data, onPress }) => {
   return (
-    <View style={styles.cardContainer}>
+    <View
+      style={styles.cardContainer}>
       <PhotoCard
         uri={data.image}
         type={data.type}
