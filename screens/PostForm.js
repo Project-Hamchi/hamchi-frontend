@@ -37,7 +37,7 @@ const PostForm = ({ route, navigation }) => {
           }
         </View>
         <Form
-          photo={photo}
+          additionalParams={{ photo }}
           fields={{
             name: {
               label: '이름',

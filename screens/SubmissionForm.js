@@ -6,6 +6,7 @@ import submissionAPI from '../api/submissions';
 
 const SubmissionForm = ({ route, navigation }) => {
   let photo;
+  const postId = route.params.postId;
 
   if (route.params) {
     photo = route.params.photo;
@@ -16,6 +17,10 @@ const SubmissionForm = ({ route, navigation }) => {
     navigation.navigate('Camera', { redirectTo: 'SubmissionForm' });
   }
 
+  function handleAfterSubmit() {
+    photo = null;
+    navigation.navigate('피드');
+  }
   return (
     <>
       <ScrollView>
@@ -35,7 +40,7 @@ const SubmissionForm = ({ route, navigation }) => {
           }
         </View>
         <Form
-          photo={photo}
+          additionalParams={{ photo, postId }}
           fields={{
             experience: {
               label: '햄스터 사육 경험',

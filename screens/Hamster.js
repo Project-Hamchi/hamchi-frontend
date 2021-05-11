@@ -6,7 +6,7 @@ const Hamster = ({ route, navigation }) => {
   const post = route.params.post;
 
   function handlePress() {
-    navigation.navigate('SubmissionForm');
+    navigation.navigate('SubmissionForm', { postId: post._id });
   }
 
   return (

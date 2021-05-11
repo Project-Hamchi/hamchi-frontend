@@ -13,9 +13,10 @@ const getInitialState = (fieldKeys) => {
   return state;
 };
 
-const Form = ({ photo, fields, action, afterSubmit }) => {
+const Form = ({ additionalParams, fields, action, afterSubmit }) => {
   const fieldsKeys = Object.keys(fields);
   const [values, setValues] = useState(getInitialState(fieldsKeys));
+
   const userId = useSelector(state => state.user.userId);
   const username = useSelector(state => state.user.username);
 
@@ -30,7 +31,8 @@ const Form = ({ photo, fields, action, afterSubmit }) => {
 
   const submit = async () => {
     try {
-      const result = await action({ ...values, userId, username, base64: photo });
+      const result = await action({ ...values, userId, username, ...additionalParams });
+
       afterSubmit();
     } catch (err) {
       console.log(err);
