@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import colors from '../../theme/color';
 
-const Input = ({ options, onChangeOption }) => {
+const RadioButton = ({ options, onChangeOption }) => {
   const [selectedOption, setSelectedOption] = useState();
 
   function handleOptionPress(item) {
@@ -57,4 +57,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Input;
+export default RadioButton;

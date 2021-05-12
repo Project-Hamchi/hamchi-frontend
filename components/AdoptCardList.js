@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { View, TouchableOpacity, StyleSheet, FlatList } from 'react-native';
+import { TouchableOpacity, StyleSheet, FlatList } from 'react-native';
+import Toggle from './shared/Toggle';
+import Modal from './shared/Modal';
+import Filter from './Filter';
 import AdoptCard from './AdoptCard';
 import postAPI from '../api/post';
 
@@ -8,6 +11,24 @@ const PhotoCardList = ({ onPressCard }) => {
   const [posts, setPosts] = useState([]);
   const [isScrollEnd, setIsScrollEnd] = useState(false);
   const [ids, setIds] = useState({});
+
+  const [isFiltered, setIsFiltered] = useState(false);
+  const [filter, setFilter] = useState({});
+
+  const hamsterTypes = ['골든', '드워프', '로보', '그 외'];
+  const [selectedHamsterTypes, setSelectedHamsterTypes] = useState({});
+
+  function handleSelectHamsterType(type) {
+    const newTypes = { ...selectedHamsterTypes };
+
+    if (selectedHamsterTypes[type]) {
+      delete newTypes[type];
+      setSelectedHamsterTypes({ ...newTypes });
+    } else {
+      newTypes[type] = true;
+      setSelectedHamsterTypes({ ...newTypes });
+    }
+  }
 
   useEffect(() => {
     getPosts();
@@ -40,23 +61,32 @@ const PhotoCardList = ({ onPressCard }) => {
   }
 
   return (
-    <FlatList
-      keyExtractor={(item) => item._id}
-      data={posts}
-      renderItem={({ item, index }) => {
-        return (
-          <TouchableOpacity
-            key={item._id}
-            style={index % 2 === 0 ? styles.left : styles.right}
-            onPress={() => { onPressCard(item) }}
-          >
-            <AdoptCard data={item} />
-          </TouchableOpacity>
-        );
-      }}
-      onEndReached={handleEndReached}
-      onEndReachedThreshold={0.8}
-    />
+    <>
+      <Toggle isOn={isFiltered} setIsOn={setIsFiltered} />
+      <Filter
+        title="햄스터 타입"
+        types={hamsterTypes}
+        selectedTypes={selectedHamsterTypes}
+        onSelectType={handleSelectHamsterType}
+      />
+      <FlatList
+        data={posts}
+        keyExtractor={(item) => item._id}
+        renderItem={({ item, index }) => {
+          return (
+            <TouchableOpacity
+              key={item._id}
+              style={index % 2 === 0 ? styles.left : styles.right}
+              onPress={() => { onPressCard(item) }}
+            >
+              <AdoptCard data={item} />
+            </TouchableOpacity>
+          );
+        }}
+        onEndReached={handleEndReached}
+        onEndReachedThreshold={0.8}
+      />
+    </>
   );
 };
 
@@ -64,16 +94,16 @@ const styles = StyleSheet.create({
   left: {
     width: '50%',
     height: 120,
+    alignSelf: 'flex-start',
     flexDirection: 'column',
-    justifyContent: 'space-between',
-    alignSelf: 'flex-start'
+    justifyContent: 'space-between'
   },
   right: {
     width: '50%',
     height: 120,
+    alignSelf: 'flex-end',
     flexDirection: 'column',
-    justifyContent: 'space-between',
-    alignSelf: 'flex-end'
+    justifyContent: 'space-between'
   },
 });
 

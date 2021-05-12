@@ -2,8 +2,7 @@ import React, { useState, useRef } from 'react';
 import { Animated, View, Text, Pressable, StyleSheet, Easing } from 'react-native';
 import colors from '../../theme/color';
 
-const Toggle = () => {
-  const [isOn, setIsOn] = useState(false);
+const Toggle = ({ isOn, setIsOn }) => {
   const moveAnim = useRef(new Animated.Value(1)).current;
   const moveToggleWheel = moveAnim.interpolate({
     inputRange: [0, 1],
@@ -33,10 +32,10 @@ const Toggle = () => {
           </Animated.View>
           <View style={styles.options} >
             <View style={styles.all}>
-              <Text style={{ color: isOn ? colors.black : colors.main }}>전체</Text>
+              <Text style={[styles.text, { color: isOn ? colors.black : colors.main }]}>전체</Text>
             </View>
             <View style={styles.tag}>
-              <Text style={{ color: isOn ? colors.main : colors.black }}>관심태그</Text>
+              <Text style={[styles.text, { color: isOn ? colors.main : colors.black }]}>관심태그</Text>
             </View>
           </View>
         </View>
@@ -86,6 +85,9 @@ const styles = StyleSheet.create({
     paddingLeft: 1,
     width: 50,
     textAlign: "center",
+  },
+  text: {
+    fontWeight: "bold",
   }
 });
 
