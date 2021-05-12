@@ -3,9 +3,10 @@ import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import { Camera } from 'expo-camera';
 import colors from '../theme/color';
 
-export default function Picture({ navigation }) {
+export default function Picture({ route, navigation }) {
   const [hasPermission, setHasPermission] = useState(null);
   const [photo, setPhoto] = useState(null);
+  const { redirectTo } = route.params;
 
   const cameraRef = useRef(null);
 
@@ -15,7 +16,7 @@ export default function Picture({ navigation }) {
       base64: true
     });
     setPhoto(photo.base64);
-    navigation.navigate('Preview', { photo: photo });
+    navigation.navigate('Preview', { photo: photo, redirectTo: redirectTo });
   }
 
   useEffect(() => {

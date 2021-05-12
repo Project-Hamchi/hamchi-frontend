@@ -14,8 +14,9 @@ const requestCreatePost = async (postInput) => {
   return await response.json();
 };
 
-const requestGetPosts = async (page) => {
-  const url = `${SERVER_URL}/posts/`;
+const requestGetPosts = async (page, type) => {
+  const filterType = type.reduce((acc, type) => (acc + '&type=' + type), '').substring(1);
+  const url = `${SERVER_URL}/posts/?${encodeURI(filterType)}`;
   const response = await fetch(url, {
     method: 'POST',
     headers: {

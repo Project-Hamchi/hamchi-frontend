@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
-import { View, Text, Button } from 'react-native';
+import { View, Text, Button, StyleSheet } from 'react-native';
 import Input from './Input';
+import RadioButton from './RadioButton';
 
 const getInitialState = (fieldKeys) => {
   const state = {};
@@ -12,7 +13,7 @@ const getInitialState = (fieldKeys) => {
   return state;
 };
 
-const Form = ({ photo, fields, action, afterSubmit }) => {
+const Form = ({ additionalParams, fields, action, afterSubmit }) => {
   const fieldsKeys = Object.keys(fields);
   const [values, setValues] = useState(getInitialState(fieldsKeys));
 
@@ -30,7 +31,7 @@ const Form = ({ photo, fields, action, afterSubmit }) => {
 
   const submit = async () => {
     try {
-      const result = await action({ ...values, userId, username, base64: photo });
+      const result = await action({ ...values, userId, username, ...additionalParams });
       afterSubmit();
     } catch (err) {
       console.log(err);
@@ -44,12 +45,18 @@ const Form = ({ photo, fields, action, afterSubmit }) => {
 
         return (
           <View key={key}>
-            <Text>{field.label}</Text>
-            <Input
-              {...field.inputProps}
-              value={field.value}
-              onChangeText={(text) => onChangeValue(key, text)}
-            />
+            <Text style={style.label}>{field.label}</Text>
+            {field.inputType === 'radio' ?
+              <RadioButton
+                options={field.options}
+                onChangeOption={(option) => onChangeValue(key, option)}
+              />
+              : <Input
+                {...field.inputProps}
+                value={field.value}
+                onChangeText={(text) => onChangeValue(key, text)}
+              />
+            }
           </View>
         );
       })}
@@ -57,5 +64,13 @@ const Form = ({ photo, fields, action, afterSubmit }) => {
     </>
   );
 };
+
+const style = StyleSheet.create({
+  label: {
+    fontWeight: 'bold',
+    textAlign: 'center',
+    marginTop: 8,
+  }
+});
 
 export default Form;

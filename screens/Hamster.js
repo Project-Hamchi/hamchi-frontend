@@ -1,9 +1,15 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 import { ScrollView, Image, View, Text, StyleSheet } from 'react-native';
 import Button from '../components/shared/Button';
 
-const Hamster = ({ route }) => {
+const Hamster = ({ route, navigation }) => {
   const post = route.params.post;
+  const userId = useSelector(state => state.user.userId);
+
+  function handlePress() {
+    navigation.navigate('SubmissionForm', { postId: post._id });
+  }
 
   return (
     <ScrollView style={styles.container}>
@@ -17,7 +23,11 @@ const Hamster = ({ route }) => {
         <Text style={styles.text}>지역: {post.location}</Text>
         <Text style={styles.text}>종: {post.type}</Text>
         <Text style={styles.text}>세부 사항: {post.details}</Text>
-        <Button type="filled" text="입양 신청서 쓰기" />
+        {userId !== post.owner && <Button
+          type="filled"
+          text="입양 신청서 쓰기"
+          onPress={handlePress}
+        />}
       </View>
     </ScrollView>
   );
