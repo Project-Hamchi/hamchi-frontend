@@ -5,8 +5,15 @@ const hamsterType = {
   others: '그 외'
 };
 
+const experienceType = {
+  none: '없음',
+  one: '한번',
+  many: '두번 이상'
+};
+
 const enumToString = {
-  hamsterType
+  hamsterType,
+  experienceType
 };
 
 export default enumToString;

@@ -83,7 +83,7 @@ const PhotoCardList = ({ onPressCard }) => {
 
   return (
     <>
-      <Toggle isOn={isFiltered} onChangeIsOn={handleIsToggleOn} />
+
       <Modal
         animationType="slide"
         transparent={true}
@@ -105,12 +105,15 @@ const PhotoCardList = ({ onPressCard }) => {
           ></Pressable>
         </View>
       </Modal>
-      <Pressable
-        onPress={() => {
-          setIsModalVisible(!isModalVisible)
-        }}>
-        <Text>필터 설정</Text>
-      </Pressable>
+      <View style={styles.config}>
+        <Toggle isOn={isFiltered} onChangeIsOn={handleIsToggleOn} />
+        <Pressable
+          onPress={() => {
+            setIsModalVisible(!isModalVisible)
+          }}>
+          <Text>필터 설정</Text>
+        </Pressable>
+      </View>
       <FlatList
         data={posts}
         keyExtractor={(item) => item._id}
@@ -160,6 +163,13 @@ const styles = StyleSheet.create({
   },
   buttonClose: {
     backgroundColor: "#2196F3",
+  },
+  config: {
+    position: 'absolute',
+    alignSelf: 'flex-end',
+    paddingRight: 10,
+    paddingTop: 12,
+    zIndex: 1,
   }
 });
 

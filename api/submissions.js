@@ -15,7 +15,7 @@ const requestCreateSubmission = async (submissionInput) => {
 };
 
 const submissionAPI = {
-  requestCreateSubmission
+  requestCreateSubmission,
 };
 
 export default submissionAPI;

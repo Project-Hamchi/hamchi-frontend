@@ -45,7 +45,7 @@ const SubmissionForm = ({ route, navigation }) => {
             experience: {
               label: '햄스터 사육 경험',
               inputType: 'radio',
-              options: ['없음', '1번', '2번 이상']
+              options: ['none', 'one', 'many']
             },
             location: {
               label: '지역',
