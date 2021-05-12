@@ -1,22 +1,41 @@
 import React, { useState, useEffect } from 'react';
-import { TouchableOpacity, StyleSheet, FlatList } from 'react-native';
-import Toggle from './shared/Toggle';
-import Modal from './shared/Modal';
-import Filter from './Filter';
+import { TouchableOpacity, Pressable, View, StyleSheet, Text, FlatList, Modal } from 'react-native';
 import AdoptCard from './AdoptCard';
+import Toggle from './shared/Toggle';
+import Filter from './Filter';
 import postAPI from '../api/post';
 
 const PhotoCardList = ({ onPressCard }) => {
+  const [ids, setIds] = useState({});
   const [page, setPage] = useState(1);
   const [posts, setPosts] = useState([]);
   const [isScrollEnd, setIsScrollEnd] = useState(false);
-  const [ids, setIds] = useState({});
 
   const [isFiltered, setIsFiltered] = useState(false);
-  const [filter, setFilter] = useState({});
+  const [isModalVisible, setIsModalVisible] = useState(false);
 
-  const hamsterTypes = ['골든', '드워프', '로보', '그 외'];
+  const hamsterTypes = ['Syrian', 'Jungle', 'Robo', 'others'];
   const [selectedHamsterTypes, setSelectedHamsterTypes] = useState({});
+
+  useEffect(() => {
+    getPosts();
+  }, [isFiltered]);
+
+  function initializeFeeds() {
+    setPage(1);
+    setPosts([]);
+    setIds({});
+  }
+
+  function handleEndReached() {
+    setIsScrollEnd(true);
+    getPosts();
+  }
+
+  function handleIsToggleOn() {
+    setIsFiltered(!isFiltered);
+    initializeFeeds();
+  }
 
   function handleSelectHamsterType(type) {
     const newTypes = { ...selectedHamsterTypes };
@@ -30,19 +49,26 @@ const PhotoCardList = ({ onPressCard }) => {
     }
   }
 
-  useEffect(() => {
-    getPosts();
-  }, []);
+  function useSelectHamsterType() {
+    if (isFiltered) {
+      initializeFeeds();
+    }
+
+    setIsModalVisible(!isModalVisible);
+  }
 
   async function getPosts() {
     try {
-      const response = await postAPI.requestGetPosts(page);
+      const newIds = {};
+      const response = await postAPI.requestGetPosts(
+        page,
+        isFiltered ? Object.keys(selectedHamsterTypes) : []
+      );
 
-      setPage(response.currentPage + 1);
+      setPage(page + 1);
       setPosts(posts.concat(response.posts));
       setIsScrollEnd(false);
 
-      const newIds = {};
       for (let i = 0; i < response.posts.length; i++) {
         const currentId = response.posts[i]._id;
         newIds[currentId] = i;
@@ -55,20 +81,36 @@ const PhotoCardList = ({ onPressCard }) => {
     }
   }
 
-  function handleEndReached() {
-    setIsScrollEnd(true);
-    getPosts();
-  }
-
   return (
     <>
-      <Toggle isOn={isFiltered} setIsOn={setIsFiltered} />
-      <Filter
-        title="햄스터 타입"
-        types={hamsterTypes}
-        selectedTypes={selectedHamsterTypes}
-        onSelectType={handleSelectHamsterType}
-      />
+      <Toggle isOn={isFiltered} onChangeIsOn={handleIsToggleOn} />
+      <Modal
+        animationType="slide"
+        transparent={true}
+        visible={isModalVisible}
+        onRequestClose={() => {
+          setIsModalVisible(!isModalVisible);
+        }}
+      >
+        <View style={styles.centeredView}>
+          <Filter
+            title="햄스터 타입"
+            types={hamsterTypes}
+            selectedTypes={selectedHamsterTypes}
+            onSelectType={handleSelectHamsterType}
+          />
+          <Pressable
+            style={[styles.button, styles.buttonClose]}
+            onPress={useSelectHamsterType}
+          ></Pressable>
+        </View>
+      </Modal>
+      <Pressable
+        onPress={() => {
+          setIsModalVisible(!isModalVisible)
+        }}>
+        <Text>필터 설정</Text>
+      </Pressable>
       <FlatList
         data={posts}
         keyExtractor={(item) => item._id}
@@ -105,6 +147,20 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     justifyContent: 'space-between'
   },
+  centeredView: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    marginTop: 22
+  },
+  button: {
+    borderRadius: 20,
+    padding: 10,
+    elevation: 2
+  },
+  buttonClose: {
+    backgroundColor: "#2196F3",
+  }
 });
 
 export default PhotoCardList;

@@ -2,7 +2,7 @@ import React, { useState, useRef } from 'react';
 import { Animated, View, Text, Pressable, StyleSheet, Easing } from 'react-native';
 import colors from '../../theme/color';
 
-const Toggle = ({ isOn, setIsOn }) => {
+const Toggle = ({ isOn, setIsOn, onChangeIsOn }) => {
   const moveAnim = useRef(new Animated.Value(1)).current;
   const moveToggleWheel = moveAnim.interpolate({
     inputRange: [0, 1],
@@ -23,7 +23,7 @@ const Toggle = ({ isOn, setIsOn }) => {
 
   return (
     <View>
-      <Pressable onPress={() => { setIsOn(!isOn) }}>
+      <Pressable onPress={onChangeIsOn}>
         <View style={styles.toggleContainer}>
           <Animated.View style={
             [styles.toggleWheel,

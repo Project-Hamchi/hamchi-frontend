@@ -1,8 +1,11 @@
 import React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import enumToString from '../constants/mapEnumToString';
 import colors from '../theme/color';
 
 const Filter = ({ title, types, selectedTypes, onSelectType }) => {
+  const mapped = enumToString.hamsterType;
+
   return (
     <View style={styles.container}>
       <Text style={styles.text}>{title}</Text>
@@ -20,7 +23,7 @@ const Filter = ({ title, types, selectedTypes, onSelectType }) => {
               <Text style={[
                 styles.text,
                 { color: selectedTypes[type] ? colors.white : colors.main }
-              ]}>{type}</Text>
+              ]}>{mapped[type]}</Text>
             </TouchableOpacity>
           );
         })}
@@ -31,8 +34,21 @@ const Filter = ({ title, types, selectedTypes, onSelectType }) => {
 
 const styles = StyleSheet.create({
   container: {
+    margin: 20,
+    padding: 35,
+
     flexDirection: "column",
-    alignItems: "center"
+    alignItems: "center",
+    backgroundColor: colors.white,
+
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5
   },
   tagContainer: {
     flexDirection: "row",
