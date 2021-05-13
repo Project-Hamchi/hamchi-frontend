@@ -25,14 +25,17 @@ const Card = ({ image, name, content, selected, onSelect }) => {
               <Text>{item.ownerName}님</Text>
               <View style={styles.submissionContainer}>
                 <View style={styles.checkboxContainer}>
-                  <BouncyCheckbox
-                    size={25}
-                    fillColor={colors.main}
-                    unfillColor="#FFFFFF"
-                    isChecked={selected[item._id] ? true : false}
-                    iconStyle={{ borderColor: colors.main }}
-                    onPress={() => onSelect(item._id)}
-                  />
+                  {item.matched === "false"
+                    ? <BouncyCheckbox
+                      size={25}
+                      fillColor={colors.main}
+                      unfillColor="#FFFFFF"
+                      isChecked={selected[item._id] ? true : false}
+                      iconStyle={{ borderColor: colors.main }}
+                      onPress={() => onSelect(item._id)}
+                    />
+                    : <Text>매칭 완료</Text>
+                  }
                 </View>
                 <Image style={styles.environment} source={{ uri: item.environment }} />
                 <View style={styles.textContainer}>
@@ -58,7 +61,9 @@ const styles = StyleSheet.create({
   },
   checkboxContainer: {
     flexDirection: "row",
+    alignItems: 'center',
     marginBottom: 20,
+    flex: 1,
   },
   checkbox: {
     width: 10,
@@ -75,10 +80,11 @@ const styles = StyleSheet.create({
     width: 160,
     height: 160,
     margin: 3,
-    borderRadius: 10
+    borderRadius: 10,
+    flex: 4
   },
   textContainer: {
-    flex: 1,
+    flex: 4,
     justifyContent: 'flex-start',
     padding: 10,
   },
