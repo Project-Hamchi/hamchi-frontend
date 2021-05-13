@@ -14,8 +14,22 @@ const requestCreateSubmission = async (submissionInput) => {
   return await response.json();
 };
 
+const requestUpdateSubmissionStatus = async (submissionIds) => {
+  const url = `${SERVER_URL}/submissions/status`;
+  const response = await fetch(url, {
+    method: 'PATCH',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({ submissionIds })
+  });
+
+  return await response.json();
+};
+
 const submissionAPI = {
-  requestCreateSubmission
+  requestCreateSubmission,
+  requestUpdateSubmissionStatus
 };
 
 export default submissionAPI;

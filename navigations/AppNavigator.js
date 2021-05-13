@@ -6,7 +6,6 @@ import Signin from '../screens/Signin';
 import Signup from '../screens/Signup';
 import Main from '../screens/Main';
 import DetailNavigator from '../navigations/DetailNavigator';
-import Hamster from '../screens/Hamster';
 
 const AppStack = createStackNavigator();
 

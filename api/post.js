@@ -28,9 +28,35 @@ const requestGetPosts = async (page, type) => {
   return await response.json();
 };
 
+const requestGetMyPosts = async (userId) => {
+  const url = `${SERVER_URL}/posts/${userId}`;
+  const response = await fetch(url, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  });
+
+  return await response.json();
+};
+
+const requestGetPostSubmissions = async (postId) => {
+  const url = `${SERVER_URL}/posts/${postId}/submissions`;
+  const response = await fetch(url, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  });
+
+  return await response.json();
+};
+
 const postAPI = {
   requestCreatePost,
-  requestGetPosts
+  requestGetPosts,
+  requestGetMyPosts,
+  requestGetPostSubmissions
 };
 
 export default postAPI;

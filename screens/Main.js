@@ -1,5 +1,6 @@
 import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import StatusNavigator from '../navigations/StatusNavigator';
 import Feeds from './Feeds';
 import Post from './Post';
 import { Ionicons } from '@expo/vector-icons';
@@ -19,7 +20,7 @@ const Main = () => {
               iconName = 'home-outline'
               break;
             }
-            case '신청서': {
+            case '신청현황': {
               iconName = 'document-outline';
               break;
             }
@@ -37,7 +38,6 @@ const Main = () => {
             }
           }
           return <Ionicons name={iconName} size={size} color={color} />;
-
         }
       })}
       tabBarOptions={{
@@ -46,7 +46,7 @@ const Main = () => {
       }}
     >
       <Tab.Screen name="피드" component={Feeds} />
-      <Tab.Screen name="신청서" component={Feeds} />
+      <Tab.Screen name="신청현황" component={StatusNavigator} />
       <Tab.Screen name="플러스" component={Post} />
       <Tab.Screen name="메시지" component={Feeds} />
       <Tab.Screen name="내정보" component={Feeds} />

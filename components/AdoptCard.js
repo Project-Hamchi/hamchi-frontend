@@ -12,6 +12,7 @@ const AdoptCard = ({ data, onPress }) => {
         type={data.type}
       />
       <Text style={styles.text}>{data.name}</Text>
+      <Text style={styles.username}>{data.ownerName}님</Text>
       <View style={styles.divider} />
     </View>
   );
@@ -24,10 +25,17 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   text: {
-    alignSelf: 'center',
+    // flex: 1,
+    alignSelf: 'flex-start',
     marginTop: 10,
     padding: 20,
-    height: 80,
+    height: 20,
+  },
+  username: {
+    alignSelf: 'flex-start',
+    padding: 20,
+    paddingTop: 6,
+    height: 20,
   },
   divider: {
     alignSelf: 'center',
