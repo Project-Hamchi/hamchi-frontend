@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { TouchableOpacity, Pressable, View, StyleSheet, Text, FlatList, Modal } from 'react-native';
+
 import AdoptCard from './AdoptCard';
 import Toggle from './shared/Toggle';
 import Filter from './Filter';
+
 import postAPI from '../api/post';
 
 const PhotoCardList = ({ onPressCard }) => {
@@ -42,11 +44,11 @@ const PhotoCardList = ({ onPressCard }) => {
 
     if (selectedHamsterTypes[type]) {
       delete newTypes[type];
-      setSelectedHamsterTypes({ ...newTypes });
     } else {
       newTypes[type] = true;
-      setSelectedHamsterTypes({ ...newTypes });
     }
+
+    setSelectedHamsterTypes({ ...newTypes });
   }
 
   function useSelectHamsterType() {
@@ -83,7 +85,6 @@ const PhotoCardList = ({ onPressCard }) => {
 
   return (
     <>
-
       <Modal
         animationType="slide"
         transparent={true}
