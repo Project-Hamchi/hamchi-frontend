@@ -1,6 +1,5 @@
 import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import MyPosts from './MyPosts';
 import StatusNavigator from '../navigations/StatusNavigator';
 import Feeds from './Feeds';
 import Post from './Post';

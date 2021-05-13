@@ -146,7 +146,7 @@ const styles = StyleSheet.create({
   },
   right: {
     width: '50%',
-    height: 120,
+    height: 130,
     alignSelf: 'flex-end',
     flexDirection: 'column',
     justifyContent: 'space-between'

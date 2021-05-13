@@ -72,22 +72,35 @@ const MyPosts = () => {
   return (
     <>
       {isModalVisible
-        && <Modal
-          title="분양 관련 메시지 전송"
-          onConfirm={handleModalConfirm}
-          onClose={() => setIsModalVisible(false)}
-        >
-          {currentPostSubmissions.map(item => {
-            if (selectedSubmissions[item._id]) {
-              return <Text key={item._id}>{item.ownerName}님</Text>
-            }
-          })}
-          <Text>{confirmationMessage}</Text>
-          <Input
-            value={message}
-            onChangeText={setMessage}
-          />
-        </Modal>}
+        &&
+
+        (Object.keys(selectedSubmissions).length
+          ? <Modal
+            title="분양 관련 메시지 전송"
+            onConfirm={handleModalConfirm}
+            onClose={() => setIsModalVisible(false)}
+          >
+            {currentPostSubmissions.map(item => {
+              if (selectedSubmissions[item._id]) {
+                return <Text key={item._id}>{item.ownerName}님</Text>
+              }
+            })}
+            <Text>{confirmationMessage}</Text>
+            <Input
+              value={message}
+              onChangeText={setMessage}
+            />
+          </Modal>
+          :
+          <Modal
+            title="분양 관련 메시지 전송"
+            onConfirm={handleModalConfirm}
+            onClose={() => setIsModalVisible(false)}
+          >
+            <Text>분양 보낼 사용자를 선택해주세요</Text>
+          </Modal>
+
+        )}
       <Header title="신청 현황" />
       <FlatList
         data={myPosts}
