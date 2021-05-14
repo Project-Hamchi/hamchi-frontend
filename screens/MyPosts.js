@@ -38,8 +38,12 @@ const MyPosts = () => {
 
   async function updateSubmissions() {
     try {
-      await submissionAPI
+      const response = await submissionAPI
         .requestUpdateSubmissionStatus(Object.keys(selectedSubmissions));
+      console.log(response.ok);
+      if (response.code === 200) {
+        getMyPosts();
+      }
     } catch (err) {
       console.log(err);
     }

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Image, Text, StyleSheet } from 'react-native';
+import { KeyboardAvoidingView, TouchableWithoutFeedback, Platform, Keyboard, View, Image, Text, StyleSheet } from 'react-native';
 import Input from '../components/shared/Input';
 import Button from '../components/shared/Button';
 import logo from '../assets/png/logo.png';
@@ -30,41 +30,49 @@ const Signup = ({ navigation }) => {
   }
 
   return (
-    <View style={styles.screen}>
-      <Text style={styles.title}>Hamchi</Text>
-      <Image
-        style={styles.logo}
-        source={logo}
-      />
-      <View style={styles.inputContainer}>
-        <Input
-          placeholder="이메일 주소"
-          value={email}
-          onChangeText={setEmail}
-        />
-        <Input
-          placeholder="이름"
-          value={username}
-          onChangeText={setUsername}
-        />
-        <Input
-          placeholder="비밀번호"
-          value={password}
-          onChangeText={setPassword}
-          secureTextEntry
-        />
-        <Input
-          placeholder="비밀번호 확인"
-          value={confirmPassword}
-          onChangeText={setConfirmPassword}
-          secureTextEntry
-        />
-        <Button text="회원가입"
-          type="filled"
-          onPress={handleSubmit}
-        />
-      </View>
-    </View>
+    <KeyboardAvoidingView
+      behavior="padding"
+      style={{ flex: 1 }}
+      enabled
+    >
+      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+        <View style={styles.screen}>
+          <Text style={styles.title}>Hamchi</Text>
+          <Image
+            style={styles.logo}
+            source={logo}
+          />
+          <View style={styles.inputContainer}>
+            <Input
+              placeholder="이메일 주소"
+              value={email}
+              onChangeText={setEmail}
+            />
+            <Input
+              placeholder="이름"
+              value={username}
+              onChangeText={setUsername}
+            />
+            <Input
+              placeholder="비밀번호"
+              value={password}
+              onChangeText={setPassword}
+              secureTextEntry
+            />
+            <Input
+              placeholder="비밀번호 확인"
+              value={confirmPassword}
+              onChangeText={setConfirmPassword}
+              secureTextEntry
+            />
+            <Button text="회원가입"
+              type="filled"
+              onPress={handleSubmit}
+            />
+          </View>
+        </View>
+      </TouchableWithoutFeedback>
+    </KeyboardAvoidingView >
   );
 };
 
