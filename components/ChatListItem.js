@@ -2,9 +2,9 @@ import React, { useEffect } from 'react';
 import { View, Text, TouchableWithoutFeedback, StyleSheet } from 'react-native';
 import colors from '../theme/color';
 
-const ChatRoom = ({ user, lastMessage, date }) => {
+const ChatListItem = ({ date, user, lastMessage, onPress }) => {
   return (
-    <TouchableWithoutFeedback>
+    <TouchableWithoutFeedback onPress={onPress}>
       <View style={styles.container}>
         <View style={styles.leftContainer}>
           <Text style={styles.user}>{user}</Text>
@@ -21,9 +21,15 @@ const ChatRoom = ({ user, lastMessage, date }) => {
 const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
-    width: '100%',
+    width: '95%',
+    height: 70,
     justifyContent: 'space-between',
-    padding: 10
+    padding: 10,
+    borderWidth: 1,
+    borderColor: colors.main,
+    margin: 5,
+    alignSelf: 'center',
+    borderRadius: 5,
   },
   leftContainer: {
     flex: 3,
@@ -37,13 +43,13 @@ const styles = StyleSheet.create({
     fontSize: 16
   },
   message: {
-    fontSize: 16,
+    fontSize: 14,
     color: 'grey',
   },
   time: {
-    fontSize: 16,
+    fontSize: 14,
     color: 'grey'
   }
 });
 
-export default ChatRoom;
+export default ChatListItem;

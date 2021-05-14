@@ -27,9 +27,22 @@ const requestGetChats = async (userId) => {
   return await response.json();
 };
 
+const requestGetMessages = async (messageId) => {
+  const url = `${SERVER_URL}/chats/messages/${messageId}`;
+  const response = await fetch(url, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  });
+
+  return await response.json();
+};
+
 const chatAPI = {
   requestCreateChat,
-  requestGetChats
+  requestGetChats,
+  requestGetMessages
 };
 
 export default chatAPI;

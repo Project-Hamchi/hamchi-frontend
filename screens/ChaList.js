@@ -1,79 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import { View, FlatList } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 import { useSelector } from 'react-redux';
 import ChatListItem from '../components/ChatListItem';
 import chatAPI from '../api/chat';
-import moment from 'moment';
 
 const ChatList = () => {
+  const navigation = useNavigation();
   const userId = useSelector(state => state.user.userId);
   const [chats, setChats] = useState([]);
 
-  const chatList = [
-    {
-      chatId: "chat1",
-      owner: "보라돌이",
-      participant: "뚜비",
-      messages: [
-        {
-          message: "안녕하세요",
-          sender: "보라돌이",
-          date: moment().format("MMM Do YY")
-        }
-      ],
-    },
-    {
-      chatId: "chat1",
-      owner: "보라돌이",
-      participant: "뚜비",
-      messages: [
-        {
-          message: "안녕하세요",
-          sender: "보라돌이",
-          date: moment().format("MMM Do YY")
-        }
-      ],
-    },
-    {
-      chatId: "chat1",
-      owner: "보라돌이",
-      participant: "뚜비",
-      messages: [
-        {
-          message: "안녕하세요",
-          sender: "보라돌이",
-          date: moment().format("MMM Do YY")
-        }
-      ],
-    },
-    {
-      chatId: "chat1",
-      owner: "보라돌이",
-      participant: "뚜비",
-      messages: [
-        {
-          message: "안녕하세요",
-          sender: "보라돌이",
-          date: moment().format("MMM Do YY")
-        }
-      ],
-    },
-    {
-      chatId: "chat1",
-      owner: "보라돌이",
-      participant: "뚜비",
-      messages: [
-        {
-          message: "안녕하세요",
-          sender: "보라돌이",
-          date: moment().format("MMM Do YY")
-        }
-      ],
-    },
-  ];
-
   useEffect(() => {
-    // getMyChats();
+    getMyChats();
   }, []);
 
   async function getMyChats() {
@@ -88,19 +26,35 @@ const ChatList = () => {
     }
   }
 
+  function handleChatListItemPress(messageId, partnerName) {
+    navigation.navigate(
+      'ChatRoom', {
+      name: partnerName,
+      messageId: messageId
+    });
+  }
+
   return (
     <View>
       <FlatList
-        data={chatList}
+        data={chats}
         keyExtractor={item => item.id}
         renderItem={({ item }) => {
-          console.log(item);
-          const lastMessageIndex = item.messages.length - 1;
+          const owner = item.owner;
+          const guest = item.guest;
+          const partnerName = owner.id === userId ? guest.name : owner.name;
+
+          const date = item.lastMessage.time;
+          const messageId = item.messages;
+          const lastMessage = item.lastMessage.message;
+
           return (
             <ChatListItem
-              user={item.owner}
-              lastMessage={item.messages[lastMessageIndex].message}
-              date={item.messages[lastMessageIndex].date}
+              key={item.id}
+              date={date}
+              user={partnerName}
+              lastMessage={lastMessage}
+              onPress={() => handleChatListItemPress(messageId, partnerName)}
             />
           );
         }}
