@@ -10,6 +10,7 @@ import Card from '../components/shared/Card';
 
 import submissionAPI from '../api/submissions';
 import postAPI from '../api/post';
+import chatAPI from '../api/chat';
 
 const MyPosts = () => {
   const myId = useSelector(state => state.user.userId);
@@ -20,7 +21,6 @@ const MyPosts = () => {
   const [selectedSubmissions, setSelectedSubmissions] = useState({});
   const [currentPostSubmissions, setCurrentPostSubmissions] = useState([]);
   const [message, setMessage] = useState("분양 관련 연락드렸습니다 :)");
-
 
   useEffect(() => {
     getMyPosts();
@@ -40,12 +40,23 @@ const MyPosts = () => {
     try {
       const response = await submissionAPI
         .requestUpdateSubmissionStatus(Object.keys(selectedSubmissions));
-      console.log(response.ok);
       if (response.code === 200) {
         getMyPosts();
       }
     } catch (err) {
       console.log(err);
+    }
+  }
+
+  async function createNewChat() {
+    for (let i = 0; i < currentPostSubmissions.length; i++) {
+      const submissionId = currentPostSubmissions[i]._id;
+
+      if (selectedSubmissions[submissionId]) {
+        const guestId = currentPostSubmissions[i].owner;
+
+        await chatAPI.requestCreateChat(myId, guestId, message);
+      }
     }
   }
 
@@ -70,6 +81,7 @@ const MyPosts = () => {
 
   function handleModalConfirm() {
     updateSubmissions();
+    createNewChat();
     setIsModalVisible(false);
   }
 
@@ -77,7 +89,6 @@ const MyPosts = () => {
     <>
       {isModalVisible
         &&
-
         (Object.keys(selectedSubmissions).length
           ? <Modal
             title="분양 관련 메시지 전송"
