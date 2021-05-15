@@ -8,6 +8,7 @@ import Button from '../components/shared/Button';
 
 import io from 'socket.io-client';
 import { SERVER_URL } from '@env';
+import colors from '../theme/color';
 const ENDPOINT = SERVER_URL;
 
 const ChatRoom = () => {
@@ -31,6 +32,10 @@ const ChatRoom = () => {
     socket.on('sendMessage', (message) => {
       setMessages((messages) => [...messages, message]);
     });
+
+    return () => {
+      socket.emit('leaveChatRoom', messageId);
+    }
   }, []);
 
   function handleSubmitMessage() {
@@ -44,16 +49,17 @@ const ChatRoom = () => {
 
   return (
     <View style={styles.container}>
-      <Text>{messageId}</Text>
       <View>
         <FlatList
           data={messages}
           keyExtractor={item => item._id}
           renderItem={({ item }) => {
+            const isCurrentUser = item.user.id === userId ? true : false;
+
             return (
-              <View key={item._id}>
-                <Text>{item.user.name}</Text>
+              <View key={item._id} style={isCurrentUser ? styles.rightMessage : styles.leftMessage}>
                 <Text>{item.message}</Text>
+                <Text>{item.time}</Text>
               </View>
             );
           }}
@@ -82,6 +88,7 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: 'column',
     justifyContent: 'space-between',
+    backgroundColor: colors.white
   },
   chatContainer: {
     flex: 8,
@@ -97,6 +104,22 @@ const styles = StyleSheet.create({
   },
   button: {
     flex: 1
+  },
+  leftMessage: {
+    alignSelf: 'flex-start',
+    borderRadius: 20,
+    borderTopLeftRadius: 0,
+    padding: 12,
+    margin: 10,
+    backgroundColor: colors.message
+  },
+  rightMessage: {
+    alignSelf: 'flex-end',
+    borderRadius: 20,
+    borderTopRightRadius: 0,
+    padding: 12,
+    margin: 10,
+    backgroundColor: colors.message
   }
 });
 

@@ -5,7 +5,8 @@ const colors = {
   white: '#FFFFFF',
   gray: 'gray',
   transparent: 'transparent',
-  black: 'black'
+  black: 'black',
+  message: '#E0F8FF'
 };
 
 export default colors;
