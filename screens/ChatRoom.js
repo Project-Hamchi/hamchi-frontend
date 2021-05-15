@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { useSelector } from 'react-redux';
 import { useRoute } from '@react-navigation/native';
-import { View, Text, TextInput, FlatList, Button, StyleSheet } from 'react-native';
+import { View, Text, TextInput, Button, StyleSheet, ScrollView } from 'react-native';
 
 import io from 'socket.io-client';
 import { SERVER_URL } from '@env';
@@ -14,10 +14,15 @@ const ChatRoom = () => {
   const route = useRoute();
   const userId = useSelector(state => state.user.userId);
   const username = useSelector(state => state.user.username);
+  const listViewRef = useRef(null);
 
   const [message, setMessage] = useState('');
   const [messages, setMessages] = useState([]);
   const [messageId, setMessageId] = useState(route.params.messageId);
+
+  useEffect(() => {
+    listViewRef.current.scrollToEnd({ animated: false });
+  }, [messages]);
 
   useEffect(() => {
     const socket = io(ENDPOINT);
@@ -52,17 +57,16 @@ const ChatRoom = () => {
   return (
     <View style={styles.container}>
       <View style={styles.chatContainer}>
-        <FlatList
-          data={messages}
-          keyExtractor={item => item._id}
-          renderItem={({ item }) => {
+        <ScrollView ref={listViewRef}>
+          {messages.map((item) => {
             const isCurrentUser = item.user.id === userId ? true : false;
             const time = new Date(item.time);
 
             return (
               <View
                 key={item._id}
-                style={isCurrentUser ? styles.rightMessage : styles.leftMessage}>
+                style={isCurrentUser ? styles.rightMessage : styles.leftMessage}
+              >
                 <Text>{item.message}</Text>
                 <View>
                   <Text
@@ -72,14 +76,13 @@ const ChatRoom = () => {
                 </View>
               </View>
             );
-          }}
-        />
+          })}
+        </ScrollView>
       </View>
       <View style={styles.inputContainer}>
         <View style={styles.textInput}>
           <TextInput
             style={styles.input}
-
             value={message}
             onChangeText={setMessage}
           />
