@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { fetchSignin } from '../reducers/userSlice';
-import { View, Image, Text, StyleSheet } from 'react-native';
+import { KeyboardAvoidingView, TouchableWithoutFeedback, Platform, Keyboard, View, Image, Text, StyleSheet } from 'react-native';
 import Input from '../components/shared/Input';
 import Button from '../components/shared/Button';
 import logo from '../assets/png/logo.png';
@@ -22,33 +22,41 @@ const Signin = ({ navigation }) => {
   }
 
   return (
-    <View style={styles.screen}>
-      <Text style={styles.title}>Hamchi</Text>
-      <Image
-        style={styles.logo}
-        source={logo}
-      />
-      <View style={styles.inputContainer}>
-        <Input
-          placeholder="이메일 주소"
-          value={email}
-          onChangeText={setEmail}
-        />
-        <Input
-          placeholder="비밀번호"
-          value={password}
-          onChangeText={setPassword}
-          secureTextEntry
-        />
-        <Button text="로그인"
-          type="filled"
-          onPress={handleSubmit}
-        />
-        <Button text="회원가입"
-          onPress={() => navigation.navigate('Sign up')}
-        />
-      </View>
-    </View>
+    <KeyboardAvoidingView
+      behavior="padding"
+      style={{ flex: 1 }}
+      enabled
+    >
+      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+        <View style={styles.screen}>
+          <Text style={styles.title}>Hamchi</Text>
+          <Image
+            style={styles.logo}
+            source={logo}
+          />
+          <View style={styles.inputContainer}>
+            <Input
+              placeholder="이메일 주소"
+              value={email}
+              onChangeText={setEmail}
+            />
+            <Input
+              placeholder="비밀번호"
+              value={password}
+              onChangeText={setPassword}
+              secureTextEntry
+            />
+            <Button text="로그인"
+              type="filled"
+              onPress={handleSubmit}
+            />
+            <Button text="회원가입"
+              onPress={() => navigation.navigate('Sign up')}
+            />
+          </View>
+        </View>
+      </TouchableWithoutFeedback>
+    </KeyboardAvoidingView>
   );
 };
 

@@ -2,7 +2,6 @@ import { SERVER_URL } from '@env';
 
 const requestCreatePost = async (postInput) => {
   const url = `${SERVER_URL}/posts/new`;
-
   const response = await fetch(url, {
     method: 'POST',
     headers: {

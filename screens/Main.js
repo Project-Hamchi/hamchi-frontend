@@ -3,6 +3,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import StatusNavigator from '../navigations/StatusNavigator';
 import Feeds from './Feeds';
 import Post from './Post';
+import ChatNavigator from '../navigations/ChatNavigator';
 import { Ionicons } from '@expo/vector-icons';
 import colors from '../theme/color';
 
@@ -48,7 +49,7 @@ const Main = () => {
       <Tab.Screen name="피드" component={Feeds} />
       <Tab.Screen name="신청현황" component={StatusNavigator} />
       <Tab.Screen name="플러스" component={Post} />
-      <Tab.Screen name="메시지" component={Feeds} />
+      <Tab.Screen name="메시지" component={ChatNavigator} />
       <Tab.Screen name="내정보" component={Feeds} />
     </Tab.Navigator>
   );

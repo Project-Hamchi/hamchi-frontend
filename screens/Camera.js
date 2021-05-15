@@ -7,7 +7,6 @@ export default function Picture({ route, navigation }) {
   const [hasPermission, setHasPermission] = useState(null);
   const [photo, setPhoto] = useState(null);
   const { redirectTo } = route.params;
-
   const cameraRef = useRef(null);
 
   const takePicture = async () => {

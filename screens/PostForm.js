@@ -4,20 +4,21 @@ import { View, TouchableOpacity, ScrollView, Image, StyleSheet } from 'react-nat
 import postAPI from '../api/post';
 
 const PostForm = ({ route, navigation }) => {
-  let photo;
+  let photo = null;
 
   if (route.params) {
     photo = route.params.photo;
   }
 
   function handlePress() {
-    photo = null;
     navigation.navigate('Camera', { redirectTo: 'PostForm' });
   }
 
   function handleAfterSubmit() {
-    photo = null;
-    navigation.navigate('피드');
+    navigation.reset({
+      index: 0,
+      routes: [{ name: '피드' }]
+    });
   }
 
   return (
