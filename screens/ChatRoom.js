@@ -1,14 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useRoute } from '@react-navigation/native';
-import { View, Text, FlatList, StyleSheet } from 'react-native';
-
-import Input from '../components/shared/Input';
-import Button from '../components/shared/Button';
+import { View, Text, TextInput, FlatList, Button, StyleSheet } from 'react-native';
 
 import io from 'socket.io-client';
 import { SERVER_URL } from '@env';
+import { formatTime } from '../utils';
 import colors from '../theme/color';
+
 const ENDPOINT = SERVER_URL;
 
 const ChatRoom = () => {
@@ -35,6 +34,8 @@ const ChatRoom = () => {
 
     return () => {
       socket.emit('leaveChatRoom', messageId);
+      socket.off('sendChatRoom');
+      socket.off('sendMessage');
     }
   }, []);
 
@@ -45,21 +46,30 @@ const ChatRoom = () => {
       'sendMessage',
       { roomId: messageId, message, userId, username }
     );
+    setMessage('');
   }
 
   return (
     <View style={styles.container}>
-      <View>
+      <View style={styles.chatContainer}>
         <FlatList
           data={messages}
           keyExtractor={item => item._id}
           renderItem={({ item }) => {
             const isCurrentUser = item.user.id === userId ? true : false;
+            const time = new Date(item.time);
 
             return (
-              <View key={item._id} style={isCurrentUser ? styles.rightMessage : styles.leftMessage}>
+              <View
+                key={item._id}
+                style={isCurrentUser ? styles.rightMessage : styles.leftMessage}>
                 <Text>{item.message}</Text>
-                <Text>{item.time}</Text>
+                <View>
+                  <Text
+                    style={isCurrentUser ? styles.rightTime : styles.leftTime}
+                  >{formatTime(time)}
+                  </Text>
+                </View>
               </View>
             );
           }}
@@ -67,16 +77,18 @@ const ChatRoom = () => {
       </View>
       <View style={styles.inputContainer}>
         <View style={styles.textInput}>
-          <Input
+          <TextInput
+            style={styles.input}
+
             value={message}
             onChangeText={setMessage}
           />
         </View>
-        <View style={styles.button}>
+        <View style={styles.buttonContainer}>
           <Button
-            text="전송"
-            type="filled"
+            title="전송"
             onPress={handleSubmitMessage}
+            style={styles.button}
           />
         </View>
       </View>
@@ -88,28 +100,37 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: 'column',
     justifyContent: 'space-between',
-    backgroundColor: colors.white
+    backgroundColor: colors.white,
+    height: '100%'
   },
   chatContainer: {
-    flex: 8,
+    height: '90%',
   },
   inputContainer: {
     flexDirection: 'row',
-    width: 500,
+    height: '10%',
     alignSelf: 'flex-start',
-    width: '95%',
+    borderTopWidth: 1,
+    borderTopColor: colors.outline
   },
   textInput: {
     flex: 3
   },
+  buttonContainer: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
   button: {
-    flex: 1
+    height: 36,
+    width: '5%'
   },
   leftMessage: {
     alignSelf: 'flex-start',
     borderRadius: 20,
     borderTopLeftRadius: 0,
-    padding: 12,
+    padding: 15,
     margin: 10,
     backgroundColor: colors.message
   },
@@ -117,9 +138,24 @@ const styles = StyleSheet.create({
     alignSelf: 'flex-end',
     borderRadius: 20,
     borderTopRightRadius: 0,
-    padding: 12,
+    padding: 15,
     margin: 10,
     backgroundColor: colors.message
+  },
+  leftTime: {
+    alignSelf: 'flex-start'
+  },
+  rightTime: {
+    alignSelf: 'flex-end'
+  },
+  input: {
+    height: 36,
+    margin: 10,
+    padding: 5,
+    borderWidth: 1,
+    textAlign: 'center',
+    borderRadius: 20,
+    borderColor: colors.outline,
   }
 });
 

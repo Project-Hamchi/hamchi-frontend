@@ -17,4 +17,14 @@ export const byIndex = function (array) {
   }
 
   return indexes;
-}
+};
+
+export const formatTime = function (date) {
+  const term = hour >= 12 ? '오후' : '오전';
+  const minute = date.getMinutes();
+  let hour = date.getHours();
+
+  hour = hour > 12 ? hour - 12 : hour;
+
+  return `${term} ${hour}:${('0' + minute).slice(-2)}`;
+};
