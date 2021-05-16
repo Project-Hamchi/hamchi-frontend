@@ -1,6 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import AdoptCardList from '../components/AdoptCardList';
-import Header from '../components/shared/Header';
 
 const Feeds = ({ navigation }) => {
   function handlePressCard(post) {
@@ -8,12 +7,9 @@ const Feeds = ({ navigation }) => {
   }
 
   return (
-    <>
-      <Header title="집을 찾아요" />
-      <AdoptCardList
-        onPressCard={handlePressCard}
-      />
-    </>
+    <AdoptCardList
+      onPressCard={handlePressCard}
+    />
   );
 };
 

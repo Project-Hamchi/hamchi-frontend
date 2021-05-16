@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { fetchSignin } from '../reducers/userSlice';
-import { KeyboardAvoidingView, TouchableWithoutFeedback, Platform, Keyboard, View, Image, Text, StyleSheet } from 'react-native';
+import { KeyboardAvoidingView, TouchableWithoutFeedback, Keyboard, View, Image, Text, StyleSheet } from 'react-native';
 import Input from '../components/shared/Input';
 import Button from '../components/shared/Button';
 import logo from '../assets/png/logo.png';
@@ -11,6 +11,10 @@ const Signin = ({ navigation }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(fetchSignin());
+  }, []);
 
   function handleSubmit() {
     const signinInput = {

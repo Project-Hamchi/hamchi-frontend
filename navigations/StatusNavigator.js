@@ -1,15 +1,16 @@
 import React from 'react';
-import { createStackNavigator } from '@react-navigation/stack';
+import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import MyPosts from '../screens/MyPosts';
+import MySubmissions from '../screens/MySubmissions';
 
-const StatusStack = createStackNavigator();
+const StatusStack = createMaterialTopTabNavigator();
 
 export default function DetailNavigator() {
   return (
-    <StatusStack.Navigator screenOptions={{
-      headerShown: false
-    }}>
+    <StatusStack.Navigator>
       <StatusStack.Screen name="MyPosts" component={MyPosts} />
+      <StatusStack.Screen name="MySubmissions" component={MySubmissions} />
+
     </StatusStack.Navigator>
   );
 }

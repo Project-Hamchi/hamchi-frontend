@@ -36,19 +36,9 @@ const styles = StyleSheet.create({
   container: {
     margin: 20,
     padding: 35,
-
     flexDirection: "column",
     alignItems: "center",
     backgroundColor: colors.white,
-
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 2
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 4,
-    elevation: 5
   },
   tagContainer: {
     flexDirection: "row",
