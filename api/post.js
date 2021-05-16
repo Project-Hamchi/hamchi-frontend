@@ -49,10 +49,27 @@ const requestGetMyPosts = async (userId) => {
   return await response.json();
 };
 
+const requestClosePost = async (postId) => {
+  const url = `${SERVER_URL}/posts/close/${postId}`;
+  const credentials = await readCredentials();
+
+  const response = await fetch(url, {
+    method: 'PATCH',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': credentials.token
+    },
+    body: JSON.stringify({ postId })
+  });
+
+  return await response.json();
+};
+
 const postAPI = {
   requestCreatePost,
   requestGetPosts,
-  requestGetMyPosts
+  requestGetMyPosts,
+  requestClosePost
 };
 
 export default postAPI;

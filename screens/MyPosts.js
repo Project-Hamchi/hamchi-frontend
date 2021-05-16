@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { View, Text, FlatList, StyleSheet } from 'react-native';
-import colors from '../theme/color';
+import { ActionSheetIOS, View, Text, FlatList, StyleSheet } from 'react-native';
 
 import Button from '../components/shared/Button';
 import Input from '../components/shared/Input';
@@ -58,6 +57,29 @@ const MyPosts = () => {
         await chatAPI.requestCreateChat(myId, guestId, message);
       }
     }
+  }
+
+  async function handleClosePost(postId) {
+    try {
+      const respose = await postAPI.requestClosePost(postId);
+    } catch (err) {
+    }
+  }
+
+  async function showOptions(postId) {
+    ActionSheetIOS.showActionSheetWithOptions({
+      options: ['취소', '분양 완료하기'],
+      destructiveButtonIndex: 2,
+      cancelButtonIndex: 0,
+      userInterfaceStyle: 'dark'
+    },
+      buttonIndex => {
+        if (buttonIndex === 0) {
+
+        } else if (buttonIndex === 1) {
+          handleClosePost(postId);
+        }
+      })
   }
 
   function handleSubmissionSelect(submissionId) {
@@ -124,11 +146,10 @@ const MyPosts = () => {
           return (
             <View style={styles.container}>
               <Card
-                image={item.image}
-                name={item.name}
-                content={item.submissions}
+                item={item}
                 selected={selectedSubmissions}
                 onSelect={handleSubmissionSelect}
+                showOptions={showOptions}
               />
               {isSubmissionExist
                 ? <Button
