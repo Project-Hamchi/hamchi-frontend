@@ -1,14 +1,41 @@
 import React from 'react';
-import { View, Image, Text, StyleSheet, FlatList } from 'react-native';
+import { ActionSheetIOS, View, Image, Text, StyleSheet, Pressable, FlatList } from 'react-native';
 import BouncyCheckbox from 'react-native-bouncy-checkbox';
 import enumToString from '../../constants/mapEnumToString';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 import colors from '../../theme/color';
 
 const Card = ({ image, name, content, selected, onSelect }) => {
+  function showOptions() {
+    ActionSheetIOS.showActionSheetWithOptions({
+      options: ['취소', '삭제하기'],
+      destructiveButtonIndex: 2,
+      cancelButtonIndex: 0,
+      userInterfaceStyle: 'dark'
+    },
+      buttonIndex => {
+        if (buttonIndex === 0) {
+          // cancel action
+        } else if (buttonIndex === 1) {
+
+        }
+      })
+  }
+
   const mapped = enumToString.experienceType;
   return (
     <View>
       <View style={styles.postContainer}>
+        <Pressable
+          style={styles.icon}
+          onPress={showOptions}
+        >
+          <MaterialCommunityIcons
+            name="dots-horizontal-circle"
+            size={40}
+            color={colors.main}
+          />
+        </Pressable>
         <Text style={styles.title}>{name}의 입양 신청서 목록</Text>
         <Image style={styles.image} source={{ uri: image }} />
         <Text>신청자 수 {content.length}명</Text>
@@ -54,7 +81,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     height: 170,
-    padding: 12,
+    paddingTop: 12,
   },
   title: {
     fontSize: 16,
@@ -96,9 +123,12 @@ const styles = StyleSheet.create({
   submissionContainer: {
     flexDirection: 'row',
     padding: 10,
-    margin: 12,
-    marginTop: 0,
+    marginBottom: 12,
     backgroundColor: colors.white,
+  },
+  icon: {
+    position: 'absolute',
+    alignSelf: 'flex-end',
   }
 });
 

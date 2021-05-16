@@ -7,7 +7,6 @@ import MyPageNavigator from '../navigations/MyPageNavigator';
 import ChatNavigator from '../navigations/ChatNavigator';
 import { Ionicons } from '@expo/vector-icons';
 import colors from '../theme/color';
-import MyPosts from './MyPosts';
 
 const Tab = createBottomTabNavigator();
 

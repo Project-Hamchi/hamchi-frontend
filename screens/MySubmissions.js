@@ -26,7 +26,8 @@ const MySubmissions = () => {
   }
 
   return (
-    <View>
+    <View style={styles.container}>
+      <Text style={styles.title}>매칭 현황</Text>
       <FlatList
         data={mySubmissions}
         keyExtractor={item => item._id}
@@ -45,7 +46,7 @@ const MySubmissions = () => {
           }
 
           return (
-            <View style={styles.container}>
+            <View style={styles.submissionContainer}>
               <View>
                 <Image
                   style={styles.image}
@@ -54,7 +55,6 @@ const MySubmissions = () => {
                 <Text>{post.name}</Text>
               </View>
               <View>
-                <Text>매칭 현황</Text>
                 <Text>{statusMessage}</Text>
               </View>
             </View>
@@ -67,9 +67,15 @@ const MySubmissions = () => {
 
 const styles = StyleSheet.create({
   container: {
-    flexDirection: 'row',
-    backgroundColor: colors.board,
     margin: 10,
+    paddingTop: 12,
+    paddingBottom: 10,
+  },
+  submissionContainer: {
+    flexDirection: 'row',
+    backgroundColor: colors.white,
+    margin: 10,
+    padding: 10,
   },
   image: {
     flex: 1,
@@ -79,6 +85,11 @@ const styles = StyleSheet.create({
     borderRadius: 56,
     marginLeft: 6,
   },
+  title: {
+    alignSelf: 'center',
+    fontSize: 16,
+    fontWeight: 'bold'
+  }
 });
 
 export default MySubmissions;

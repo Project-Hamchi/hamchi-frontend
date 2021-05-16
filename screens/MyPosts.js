@@ -86,7 +86,7 @@ const MyPosts = () => {
   }
 
   return (
-    <View style={styles.background}>
+    <View>
       {isModalVisible
         &&
         (Object.keys(selectedSubmissions).length
@@ -120,6 +120,7 @@ const MyPosts = () => {
         keyExtractor={(item) => item._id}
         renderItem={({ item, index }) => {
           const isSubmissionExist = item.submissions.length ? true : false;
+
           return (
             <View style={styles.container}>
               <Card
@@ -156,13 +157,9 @@ const MyPosts = () => {
 };
 
 const styles = StyleSheet.create({
-  background: {
-    backgroundColor: colors.white
-  },
   container: {
     margin: 10,
     paddingBottom: 10,
-    backgroundColor: colors.board,
   },
   text: {
     alignSelf: 'center'
