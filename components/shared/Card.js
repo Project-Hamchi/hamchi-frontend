@@ -1,28 +1,24 @@
 import React from 'react';
 import { View, Image, Text, StyleSheet, FlatList } from 'react-native';
-import BouncyCheckbox from "react-native-bouncy-checkbox";
+import BouncyCheckbox from 'react-native-bouncy-checkbox';
 import enumToString from '../../constants/mapEnumToString';
 import colors from '../../theme/color';
 
 const Card = ({ image, name, content, selected, onSelect }) => {
   const mapped = enumToString.experienceType;
   return (
-    <>
+    <View>
       <View style={styles.postContainer}>
+        <Text style={styles.title}>{name}의 입양 신청서 목록</Text>
         <Image style={styles.image} source={{ uri: image }} />
-        <View>
-          <Text>{name}의 분양 현황</Text>
-          <Text>{content.length}명</Text>
-        </View>
+        <Text>신청자 수 {content.length}명</Text>
       </View>
-      <Text>입양 신청서 목록</Text>
       <FlatList
         data={content}
         keyExtractor={(item) => item._id}
         renderItem={({ item, index }) => {
           return (
             <>
-              <Text>{item.ownerName}님</Text>
               <View style={styles.submissionContainer}>
                 <View style={styles.checkboxContainer}>
                   {item.matched === "false"
@@ -39,8 +35,9 @@ const Card = ({ image, name, content, selected, onSelect }) => {
                 </View>
                 <Image style={styles.environment} source={{ uri: item.environment }} />
                 <View style={styles.textContainer}>
+                  <Text>{item.ownerName}님</Text>
                   <Text>사육 경험: {mapped[item.experience]}</Text>
-                  <Text>내용: {item.location}</Text>
+                  <Text>지역: {item.location}</Text>
                   <Text>내용: {item.details}</Text>
                 </View>
               </View>
@@ -48,19 +45,23 @@ const Card = ({ image, name, content, selected, onSelect }) => {
           );
         }}
       />
-    </>
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
   postContainer: {
-    flexDirection: "row",
-    width: '95%',
-    marginBottom: 10,
-    padding: 16,
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    height: 170,
+    padding: 12,
+  },
+  title: {
+    fontSize: 16,
+    fontWeight: 'bold'
   },
   checkboxContainer: {
-    flexDirection: "row",
+    flexDirection: 'row',
     alignItems: 'center',
     marginBottom: 20,
     flex: 1,
@@ -68,17 +69,18 @@ const styles = StyleSheet.create({
   checkbox: {
     width: 10,
     height: 10,
-    alignSelf: "center",
+    alignSelf: 'center',
   },
   image: {
-    width: 60,
-    height: 60,
+    width: '30%',
+    height: undefined,
+    aspectRatio: 1,
     borderRadius: 50,
     marginLeft: 6,
   },
   environment: {
-    width: 160,
-    height: 160,
+    height: undefined,
+    aspectRatio: 1,
     margin: 3,
     borderRadius: 10,
     flex: 4
@@ -93,8 +95,10 @@ const styles = StyleSheet.create({
   },
   submissionContainer: {
     flexDirection: 'row',
-    borderWidth: 1,
-    padding: 10
+    padding: 10,
+    margin: 12,
+    marginTop: 0,
+    backgroundColor: colors.white,
   }
 });
 

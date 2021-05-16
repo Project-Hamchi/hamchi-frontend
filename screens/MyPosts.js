@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { Text, FlatList } from 'react-native';
+import { View, Text, FlatList, StyleSheet } from 'react-native';
+import colors from '../theme/color';
 
-import Header from '../components/shared/Header';
 import Button from '../components/shared/Button';
 import Input from '../components/shared/Input';
 import Modal from '../components/shared/Modal';
@@ -86,7 +86,7 @@ const MyPosts = () => {
   }
 
   return (
-    <>
+    <View style={styles.background}>
       {isModalVisible
         &&
         (Object.keys(selectedSubmissions).length
@@ -119,8 +119,9 @@ const MyPosts = () => {
         data={myPosts}
         keyExtractor={(item) => item._id}
         renderItem={({ item, index }) => {
+          const isSubmissionExist = item.submissions.length ? true : false;
           return (
-            <>
+            <View style={styles.container}>
               <Card
                 image={item.image}
                 name={item.name}
@@ -128,24 +129,44 @@ const MyPosts = () => {
                 selected={selectedSubmissions}
                 onSelect={handleSubmissionSelect}
               />
-              <Button
-                text="메시지 보내기"
-                type="filled"
-                onPress={() => handleSelectedSubmissions(index)}
-                customButtonStyle={{
-                  width: 120,
-                  height: 45,
-                  alignSelf: 'flex-end',
-                  marginTop: 10,
-                  borderRadius: 8
-                }}
-              />
-            </>
+              {isSubmissionExist
+                ? <Button
+                  text="메시지 보내기"
+                  type="filled"
+                  onPress={() => handleSelectedSubmissions(index)}
+                  customButtonStyle={{
+                    width: 120,
+                    height: 45,
+                    alignSelf: 'flex-end',
+                    margin: 12,
+                    marginTop: 0,
+                    borderRadius: 8
+                  }}
+                />
+                : <View>
+                  <Text style={styles.text}>등록된 입양신청서가 없습니다.</Text>
+                </View>
+              }
+            </View>
           );
         }}
       />
-    </>
+    </View>
   );
 };
+
+const styles = StyleSheet.create({
+  background: {
+    backgroundColor: colors.white
+  },
+  container: {
+    margin: 10,
+    paddingBottom: 10,
+    backgroundColor: colors.board,
+  },
+  text: {
+    alignSelf: 'center'
+  }
+});
 
 export default MyPosts;

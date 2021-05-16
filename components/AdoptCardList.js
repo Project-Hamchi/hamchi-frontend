@@ -1,10 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { TouchableOpacity, Pressable, View, StyleSheet, Text, FlatList, Modal } from 'react-native';
-
+import { TouchableOpacity, Button, View, StyleSheet, Text, FlatList, Modal } from 'react-native';
 import AdoptCard from './AdoptCard';
 import Toggle from './shared/Toggle';
 import Filter from './Filter';
-
 import postAPI from '../api/post';
 
 const PhotoCardList = ({ onPressCard }) => {
@@ -84,7 +82,7 @@ const PhotoCardList = ({ onPressCard }) => {
   }
 
   return (
-    <>
+    <View style={styles.container}>
       <Modal
         animationType="slide"
         transparent={true}
@@ -100,49 +98,63 @@ const PhotoCardList = ({ onPressCard }) => {
             selectedTypes={selectedHamsterTypes}
             onSelectType={handleSelectHamsterType}
           />
-          <Pressable
+          <Button
+            title="확인"
             style={[styles.button, styles.buttonClose]}
             onPress={useSelectHamsterType}
-          ></Pressable>
+          ></Button>
         </View>
       </Modal>
-      <View style={styles.config}>
-        <Toggle isOn={isFiltered} onChangeIsOn={handleIsToggleOn} />
-        <Pressable
+      <View style={styles.filter}>
+        <Toggle
+          isOn={isFiltered}
+          onChangeIsOn={handleIsToggleOn}
+        />
+        <Button
+          title="필터 설정"
           onPress={() => {
             setIsModalVisible(!isModalVisible)
           }}>
-          <Text>필터 설정</Text>
-        </Pressable>
+        </Button>
       </View>
-      <FlatList
-        data={posts}
-        keyExtractor={(item) => item._id}
-        renderItem={({ item, index }) => {
-          return (
-            <TouchableOpacity
-              key={item._id}
-              style={index % 2 === 0 ? styles.left : styles.right}
-              onPress={() => { onPressCard(item) }}
-            >
-              <AdoptCard data={item} />
-            </TouchableOpacity>
-          );
-        }}
-        onEndReached={handleEndReached}
-        onEndReachedThreshold={0.8}
-      />
-    </>
+      <View
+        style={styles.listContainer}
+      >
+        <FlatList
+          data={posts}
+          keyExtractor={(item) => item._id}
+          renderItem={({ item, index }) => {
+            return (
+              <>
+                <TouchableOpacity
+                  key={item._id}
+                  style={index % 2 === 0 ? styles.left : styles.right}
+                  onPress={() => { onPressCard(item) }}
+                >
+                  <AdoptCard data={item} />
+                </TouchableOpacity>
+                {index === posts.length - 1 && <View style={{ paddingBottom: 200 }} />}
+              </>
+            );
+          }}
+          onEndReached={handleEndReached}
+          onEndReachedThreshold={0.8}
+        />
+      </View>
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
+  container: {
+    marginTop: 30,
+  },
   left: {
     width: '50%',
-    height: 120,
+    height: 130,
     alignSelf: 'flex-start',
     flexDirection: 'column',
-    justifyContent: 'space-between'
+    justifyContent: 'space-between',
   },
   right: {
     width: '50%',
@@ -150,6 +162,9 @@ const styles = StyleSheet.create({
     alignSelf: 'flex-end',
     flexDirection: 'column',
     justifyContent: 'space-between'
+  },
+  listContainer: {
+    height: '100%',
   },
   centeredView: {
     flex: 1,
@@ -165,12 +180,9 @@ const styles = StyleSheet.create({
   buttonClose: {
     backgroundColor: "#2196F3",
   },
-  config: {
-    position: 'absolute',
-    alignSelf: 'flex-end',
-    paddingRight: 10,
-    paddingTop: 12,
-    zIndex: 1,
+  filter: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
   }
 });
 

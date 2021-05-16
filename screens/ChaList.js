@@ -38,7 +38,7 @@ const ChatList = () => {
     <View>
       <FlatList
         data={chats}
-        keyExtractor={item => item.id}
+        keyExtractor={item => item._id}
         renderItem={({ item }) => {
           const owner = item.owner;
           const guest = item.guest;
@@ -50,7 +50,6 @@ const ChatList = () => {
 
           return (
             <ChatListItem
-              key={item.id}
               date={date}
               user={partnerName}
               lastMessage={lastMessage}

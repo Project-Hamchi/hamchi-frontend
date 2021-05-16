@@ -81,6 +81,7 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     alignItems: "center",
     justifyContent: "center",
+    paddingTop: 50,
   },
   title: {
     fontSize: 60,
