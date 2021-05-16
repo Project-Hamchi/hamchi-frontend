@@ -1,11 +1,15 @@
 import { SERVER_URL } from '@env';
+import { readCredentials } from './secureStore';
 
 const requestCreatePost = async (postInput) => {
   const url = `${SERVER_URL}/posts/new`;
+  const credentials = await readCredentials();
+
   const response = await fetch(url, {
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
+      'Authorization': credentials.token
     },
     body: JSON.stringify(postInput)
   });
@@ -16,10 +20,13 @@ const requestCreatePost = async (postInput) => {
 const requestGetPosts = async (page, type) => {
   const filterType = type.reduce((acc, type) => (acc + '&type=' + type), '').substring(1);
   const url = `${SERVER_URL}/posts/?${encodeURI(filterType)}`;
+  const credentials = await readCredentials();
+
   const response = await fetch(url, {
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
+      'Authorization': credentials.token
     },
     body: JSON.stringify({ page })
   });
@@ -29,22 +36,13 @@ const requestGetPosts = async (page, type) => {
 
 const requestGetMyPosts = async (userId) => {
   const url = `${SERVER_URL}/posts/${userId}`;
+  const credentials = await readCredentials();
+
   const response = await fetch(url, {
     method: 'GET',
     headers: {
-      'Content-Type': 'application/json'
-    }
-  });
-
-  return await response.json();
-};
-
-const requestGetPostSubmissions = async (postId) => {
-  const url = `${SERVER_URL}/posts/${postId}/submissions`;
-  const response = await fetch(url, {
-    method: 'GET',
-    headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
+      'Authorization': credentials.token
     }
   });
 
@@ -54,8 +52,7 @@ const requestGetPostSubmissions = async (postId) => {
 const postAPI = {
   requestCreatePost,
   requestGetPosts,
-  requestGetMyPosts,
-  requestGetPostSubmissions
+  requestGetMyPosts
 };
 
 export default postAPI;

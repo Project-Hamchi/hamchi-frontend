@@ -1,54 +1,26 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import * as SecureStore from 'expo-secure-store';
 import userAPI from '../api/user';
-
-
-const rememberCredentials = async (credentials) => {
-  try {
-    await SecureStore.setItemAsync(
-      'userCredentials',
-      JSON.stringify(credentials)
-    );
-  } catch (err) {
-    console.log(err);
-  }
-};
-
-const readCredentials = async () => {
-  try {
-    const credentials = await SecureStore.getItemAsync('userCredentials');
-
-    if (credentials) {
-      const parsedCredentials = JSON.parse(credentials);
-      return parsedCredentials;
-    }
-  } catch (err) {
-    console.log(err);
-  }
-};
-
-const clearCredentials = async () => {
-  try {
-    await SecureStore.deleteItemAsync('userCredentials');
-  } catch (err) {
-    console.log(err);
-  }
-};
+import {
+  rememberCredentials,
+  readCredentials,
+  clearCredentials
+} from '../api/secureStore';
 
 export const fetchSignin = createAsyncThunk(
   'user/fetchSignin',
   async (loginInput, thunkAPI) => {
-    if (!loginInput) {
-      loginInput = await readCredentials();
-    }
-
     try {
+      if (!loginInput) {
+        loginInput = await readCredentials();
+      }
+
       const response = await userAPI.requestSignin(loginInput);
 
       if (response.code === 200) {
         rememberCredentials({
           email: loginInput.email,
-          password: loginInput.password
+          password: loginInput.password,
+          token: response.data.appIdToken
         });
 
         return response.data;
@@ -62,19 +34,23 @@ export const fetchSignin = createAsyncThunk(
   }
 );
 
+const initialState = {
+  userId: '',
+  username: '',
+  email: '',
+  isFetching: false,
+  isSignedIn: false,
+  isError: false,
+  errorMessage: '',
+};
+
 export const userSlice = createSlice({
   name: 'user',
-  initialState: {
-    userId: '',
-    username: '',
-    email: '',
-    appIdToken: '',
-    isFetching: false,
-    isSignedIn: false,
-    isError: false,
-    errorMessage: '',
-  },
+  initialState,
   reducers: {
+    signOut(state, action) {
+      return initialState;
+    }
   },
   extraReducers: {
     [fetchSignin.fulfilled]: (state, { payload }) => {
@@ -83,7 +59,8 @@ export const userSlice = createSlice({
       state.userId = payload.currentUser._id;
       state.email = payload.currentUser.email;
       state.username = payload.currentUser.username;
-      state.appIdToken = payload.appIdToken;
+      state.isError = false;
+      state.errorMessage = '';
     },
     [fetchSignin.pending]: (state) => {
       state.isFetching = true;
@@ -95,3 +72,9 @@ export const userSlice = createSlice({
     }
   }
 });
+
+const { actions, reducer } = userSlice;
+
+export const { signOut } = actions;
+
+export default reducer;

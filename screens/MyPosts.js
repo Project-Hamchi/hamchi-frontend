@@ -106,8 +106,7 @@ const MyPosts = () => {
               onChangeText={setMessage}
             />
           </Modal>
-          :
-          <Modal
+          : <Modal
             title="분양 관련 메시지 전송"
             onConfirm={handleModalConfirm}
             onClose={() => setIsModalVisible(false)}
@@ -116,7 +115,6 @@ const MyPosts = () => {
           </Modal>
 
         )}
-      <Header title="신청 현황" />
       <FlatList
         data={myPosts}
         keyExtractor={(item) => item._id}

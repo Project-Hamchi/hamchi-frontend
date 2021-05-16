@@ -1,13 +1,15 @@
 import { SERVER_URL } from '@env';
+import { readCredentials } from './secureStore';
 
 const requestCreateChat = async (ownerId, guestId, message) => {
-  console.log(ownerId, guestId, message);
-
   const url = `${SERVER_URL}/chats/new`;
+  const credentials = await readCredentials();
+
   const response = await fetch(url, {
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
+      'Authorization': credentials.token
     },
     body: JSON.stringify({ ownerId, guestId, message })
   });
@@ -17,22 +19,13 @@ const requestCreateChat = async (ownerId, guestId, message) => {
 
 const requestGetChats = async (userId) => {
   const url = `${SERVER_URL}/chats/${userId}`;
+  const credentials = await readCredentials();
+
   const response = await fetch(url, {
     method: 'GET',
     headers: {
-      'Content-Type': 'application/json'
-    }
-  });
-
-  return await response.json();
-};
-
-const requestGetMessages = async (messageId) => {
-  const url = `${SERVER_URL}/chats/messages/${messageId}`;
-  const response = await fetch(url, {
-    method: 'GET',
-    headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
+      'Authorization': credentials.token
     }
   });
 
@@ -41,8 +34,7 @@ const requestGetMessages = async (messageId) => {
 
 const chatAPI = {
   requestCreateChat,
-  requestGetChats,
-  requestGetMessages
+  requestGetChats
 };
 
 export default chatAPI;
