@@ -1,21 +1,30 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchPosts, selectAllPosts } from '../reducers/postSlice';
 
 import { TouchableOpacity, View, StyleSheet, FlatList } from 'react-native';
 import AdoptCard from './AdoptCard';
 
-const PhotoCardList = ({ onPressCard }) => {
+const PhotoCardList = ({ scrollPosition, setScrollPosition, onPressCard }) => {
   const dispatch = useDispatch();
   const page = useSelector(state => state.post.page);
   const posts = useSelector(selectAllPosts);
 
+  const listRef = useRef(null);
+
   useEffect(() => {
+    const offset = scrollPosition;
+    listRef.current.scrollToOffset({ offset, animated: false })
+
     dispatch(fetchPosts(page));
   }, []);
 
   function handleEndReached() {
     dispatch(fetchPosts(page));
+  }
+
+  function handleScroll(e) {
+    setScrollPosition(e.nativeEvent.contentOffset.y);
   }
 
   return (
@@ -24,6 +33,8 @@ const PhotoCardList = ({ onPressCard }) => {
         style={styles.listContainer}
       >
         <FlatList
+          onScroll={handleScroll}
+          ref={listRef}
           data={posts}
           keyExtractor={(item) => item._id}
           renderItem={({ item, index }) => {

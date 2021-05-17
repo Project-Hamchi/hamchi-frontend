@@ -1,22 +1,31 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchFilteredPosts, selectAllFilteredPosts } from '../reducers/filteredPostSlice';
+import { fetchFilteredPosts, selectAllFilteredPosts, saveScrollPosition } from '../reducers/filteredPostSlice';
 
 import { TouchableOpacity, View, StyleSheet, FlatList } from 'react-native';
 import AdoptCard from './AdoptCard';
 
-const FilteredAdoptCardList = ({ onPressCard }) => {
+const FilteredAdoptCardList = ({ scrollPosition, setScrollPosition, onPressCard }) => {
   const dispatch = useDispatch();
   const selectedHamsterTypes = useSelector(state => state.filteredPost.selectedHamsterTypes);
   const page = useSelector(state => state.filteredPost.page);
   const posts = useSelector(selectAllFilteredPosts);
+  const listRef = useRef(null);
 
   useEffect(() => {
+    const offset = scrollPosition;
+    listRef.current.scrollToOffset({ offset, animated: false })
+
     dispatch(fetchFilteredPosts({ page, selectedHamsterTypes }))
+
   }, [selectedHamsterTypes]);
 
   function handleEndReached() {
     dispatch(fetchFilteredPosts({ page, selectedHamsterTypes }));
+  }
+
+  function handleScroll(e) {
+    setScrollPosition(e.nativeEvent.contentOffset.y);
   }
 
   return (
@@ -25,6 +34,8 @@ const FilteredAdoptCardList = ({ onPressCard }) => {
         style={styles.listContainer}
       >
         <FlatList
+          onScroll={handleScroll}
+          ref={listRef}
           data={posts}
           keyExtractor={(item) => item._id}
           renderItem={({ item, index }) => {

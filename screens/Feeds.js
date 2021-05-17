@@ -12,6 +12,9 @@ const Feeds = ({ navigation }) => {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const isFiltered = useSelector(state => state.post.isFiltered);
 
+  const [filteredScrollPosition, setFilteredScrollPosition] = useState(0);
+  const [scrollPosition, setScrollPosition] = useState(0);
+
   function handlePressCard(post) {
     navigation.navigate(
       'Details',
@@ -54,9 +57,13 @@ const Feeds = ({ navigation }) => {
       {
         isFiltered
           ? <FilteredAdoptCardList
+            scrollPosition={filteredScrollPosition}
+            setScrollPosition={setFilteredScrollPosition}
             onPressCard={handlePressCard}
           />
           : <AdoptCardList
+            scrollPosition={scrollPosition}
+            setScrollPosition={setScrollPosition}
             onPressCard={handlePressCard}
           />
       }
