@@ -1,34 +1,22 @@
 import React from 'react';
-import { ActionSheetIOS, View, Image, Text, StyleSheet, Pressable, FlatList } from 'react-native';
+import { View, Image, Text, StyleSheet, Pressable, FlatList } from 'react-native';
 import BouncyCheckbox from 'react-native-bouncy-checkbox';
+
 import enumToString from '../../constants/mapEnumToString';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import colors from '../../theme/color';
 
-const Card = ({ image, name, content, selected, onSelect }) => {
-  function showOptions() {
-    ActionSheetIOS.showActionSheetWithOptions({
-      options: ['취소', '삭제하기'],
-      destructiveButtonIndex: 2,
-      cancelButtonIndex: 0,
-      userInterfaceStyle: 'dark'
-    },
-      buttonIndex => {
-        if (buttonIndex === 0) {
-          // cancel action
-        } else if (buttonIndex === 1) {
-
-        }
-      })
-  }
+const Card = ({ item, selected, onSelect, showOptions }) => {
+  const { _id, image, name, submissions } = item;
 
   const mapped = enumToString.experienceType;
+
   return (
     <View>
       <View style={styles.postContainer}>
         <Pressable
           style={styles.icon}
-          onPress={showOptions}
+          onPress={() => showOptions(_id)}
         >
           <MaterialCommunityIcons
             name="dots-horizontal-circle"
@@ -38,10 +26,10 @@ const Card = ({ image, name, content, selected, onSelect }) => {
         </Pressable>
         <Text style={styles.title}>{name}의 입양 신청서 목록</Text>
         <Image style={styles.image} source={{ uri: image }} />
-        <Text>신청자 수 {content.length}명</Text>
+        <Text>신청자 수 {submissions.length}명</Text>
       </View>
       <FlatList
-        data={content}
+        data={submissions}
         keyExtractor={(item) => item._id}
         renderItem={({ item, index }) => {
           return (

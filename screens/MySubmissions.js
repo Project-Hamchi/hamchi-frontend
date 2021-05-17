@@ -1,8 +1,10 @@
 import React, { useState, useCallback } from 'react';
 import { useFocusEffect } from '@react-navigation/native';
+
 import { useSelector } from 'react-redux';
 import { View, Text, Image, FlatList, StyleSheet } from 'react-native';
 import submissionAPI from '../api/submissions';
+import { formatDate } from '../utils/index';
 
 import colors from '../theme/color';
 
@@ -35,6 +37,7 @@ const MySubmissions = () => {
           const post = item.postId;
           const matched = item.matched;
           const postStatus = post.status;
+          const date = new Date(item.createdAt);
           let statusMessage;
 
           if (matched === 'true') {
@@ -54,9 +57,8 @@ const MySubmissions = () => {
                 />
                 <Text>{post.name}</Text>
               </View>
-              <View>
-                <Text>{statusMessage}</Text>
-              </View>
+              <Text>{statusMessage}</Text>
+              <Text>{formatDate(date)}</Text>
             </View>
           );
         }}
@@ -74,7 +76,7 @@ const styles = StyleSheet.create({
   submissionContainer: {
     flexDirection: 'row',
     backgroundColor: colors.white,
-    margin: 10,
+    marginTop: 10,
     padding: 10,
   },
   image: {
@@ -89,6 +91,9 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     fontSize: 16,
     fontWeight: 'bold'
+  },
+  icon: {
+    alignSelf: 'center'
   }
 });
 
