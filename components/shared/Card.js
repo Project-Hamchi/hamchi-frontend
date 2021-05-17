@@ -2,7 +2,6 @@ import React from 'react';
 import { View, Image, Text, StyleSheet, Pressable, FlatList } from 'react-native';
 import BouncyCheckbox from 'react-native-bouncy-checkbox';
 
-
 import enumToString from '../../constants/mapEnumToString';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import colors from '../../theme/color';

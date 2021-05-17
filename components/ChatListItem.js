@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { View, Text, TouchableWithoutFeedback, StyleSheet } from 'react-native';
+import { formatDate } from '../utils';
 import colors from '../theme/color';
 
 const ChatListItem = ({ date, user, lastMessage, onPress }) => {
@@ -11,7 +12,7 @@ const ChatListItem = ({ date, user, lastMessage, onPress }) => {
           <Text style={styles.message}>{lastMessage}</Text>
         </View>
         <View style={styles.rightContainer}>
-          <Text style={styles.time}>{date}</Text>
+          <Text style={styles.time}>{formatDate(new Date(date))}</Text>
         </View>
       </View>
     </TouchableWithoutFeedback>
@@ -25,14 +26,12 @@ const styles = StyleSheet.create({
     height: 70,
     justifyContent: 'space-between',
     padding: 10,
-    borderWidth: 1,
-    borderColor: colors.main,
-    margin: 5,
+    backgroundColor: colors.white,
+    marginTop: 10,
     alignSelf: 'center',
-    borderRadius: 5,
   },
   leftContainer: {
-    flex: 3,
+    flex: 5,
     justifyContent: 'space-around'
   },
   rightContainer: {

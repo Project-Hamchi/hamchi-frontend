@@ -135,7 +135,7 @@ const styles = StyleSheet.create({
     borderTopLeftRadius: 0,
     padding: 15,
     margin: 10,
-    backgroundColor: colors.message
+    backgroundColor: colors.sub
   },
   rightMessage: {
     alignSelf: 'flex-end',
@@ -143,7 +143,7 @@ const styles = StyleSheet.create({
     borderTopRightRadius: 0,
     padding: 15,
     margin: 10,
-    backgroundColor: colors.message
+    backgroundColor: '#efefef'
   },
   leftTime: {
     alignSelf: 'flex-start'

@@ -9,7 +9,13 @@ export default function ChatNavigator() {
   return (
     <>
       <ChatStack.Navigator>
-        <ChatStack.Screen name="ChatList" component={ChatList} />
+        <ChatStack.Screen
+          name="ChatList"
+          component={ChatList}
+          options={{
+            title: "메시지"
+          }}
+        />
         <ChatStack.Screen
           name="ChatRoom"
           component={ChatRoom}
