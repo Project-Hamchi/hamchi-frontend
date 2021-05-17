@@ -3,18 +3,18 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Animated, View, Text, Pressable, StyleSheet, Easing } from 'react-native';
 import colors from '../../theme/color';
 
-import { toggleFilter } from '../../reducers/postSlice';
-//  <Toggle
-//           isOn={isFiltered}
-//           onChangeIsOn={handleIsToggleOn}
-//         />
+import {
+  toggleFilter,
+  fetchPosts,
+  fetchFilteredPosts
+} from '../../reducers/postSlice';
 
-const Toggle = (
-  // { isOn, onChangeIsOn }
-) => {
+const Toggle = () => {
   const dispatch = useDispatch();
-  const isOn = useSelector(state => state.post.isFiltered);
-  console.log(isOn);
+  const isFiltered = useSelector(state => state.post.isFiltered);
+  const selectedHamsterTypes = useSelector(state => state.post.selectedHamsterTypes);
+  const page = useSelector(state => state.post.page);
+
   const moveAnim = useRef(new Animated.Value(1)).current;
   const moveToggleWheel = moveAnim.interpolate({
     inputRange: [0, 1],
@@ -27,18 +27,22 @@ const Toggle = (
   });
 
   Animated.timing(moveAnim, {
-    toValue: isOn ? 1 : 0,
+    toValue: isFiltered ? 1 : 0,
     duration: 120,
     easing: Easing.linear,
     useNativeDriver: true
   }).start();
 
+  function handleSwitchToggle() {
+    dispatch(toggleFilter(!isFiltered));
+  }
+
   return (
     <View>
       <Pressable onPress={
         // onChangeIsOn
-        () => dispatch(toggleFilter(!isOn))
-      }>
+        handleSwitchToggle}
+      >
         <View style={styles.toggleContainer}>
           <Animated.View style={
             [styles.toggleWheel,
@@ -47,10 +51,10 @@ const Toggle = (
           </Animated.View>
           <View style={styles.options} >
             <View style={styles.all}>
-              <Text style={[styles.text, { color: isOn ? colors.black : colors.main }]}>전체</Text>
+              <Text style={[styles.text, { color: isFiltered ? colors.black : colors.main }]}>전체</Text>
             </View>
             <View style={styles.tag}>
-              <Text style={[styles.text, { color: isOn ? colors.main : colors.black }]}>관심태그</Text>
+              <Text style={[styles.text, { color: isFiltered ? colors.main : colors.black }]}>관심태그</Text>
             </View>
           </View>
         </View>

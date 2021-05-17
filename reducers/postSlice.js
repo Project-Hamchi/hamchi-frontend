@@ -7,12 +7,13 @@ import postAPI from '../api/post';
 
 export const fetchPosts = createAsyncThunk(
   'post/fetchPosts',
-  async (page, selectedHamsterTypes, isFiltered) => {
+  async (page, thunkAPI) => {
     try {
-      const response = await postAPI.requestGetPosts(
-        page,
-        isFiltered ? Object.keys(selectedHamsterTypes) : []
-      );
+      const response = await postAPI.requestGetPosts(page, []);
+
+      if (response.data.posts.length === 0) {
+        return thunkAPI.rejectWithValue();
+      }
 
       return response.data.posts;
     } catch (err) {
@@ -29,13 +30,11 @@ const initialState = postsAdapter.getInitialState({
   page: 1,
   isScrollEnd: false,
   isFiltered: false,
-  isModalVisible: false,
-  selectedHamsterTypes: {},
+  // selectedHamsterTypes: {},
   isLoading: true,
   isError: false,
-  errorMessage: '',
+  errorMessage: ''
 });
-
 
 export const postSlice = createSlice({
   name: 'post',
@@ -45,10 +44,14 @@ export const postSlice = createSlice({
       return initialState
     },
     toggleFilter(state, action) {
-      return { ...state, isFiltered: action.payload };
+      state.isFiltered = action.payload;
     },
-    selectFilter(state, action) {
-    }
+    // addType(state, action) {
+    //   state.selectedHamsterTypes[action.payload] = true;
+    // },
+    // deleteType(state, action) {
+    //   delete state.selectedHamsterTypes[action.payload];
+    // }
   },
   extraReducers: builder => {
     builder.addCase(fetchPosts.fulfilled, (state, action) => {

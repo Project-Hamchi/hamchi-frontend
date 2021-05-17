@@ -1,22 +1,24 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { TouchableOpacity, Button, View, StyleSheet, FlatList, Modal } from 'react-native';
+import { TouchableOpacity, View, StyleSheet, FlatList, Modal } from 'react-native';
 import AdoptCard from './AdoptCard';
 
-import { fetchPosts, selectAllPosts } from '../reducers/postSlice';
+import { fetchFilteredPosts, selectAllFilteredPosts } from '../reducers/filteredPostSlice';
 
-const PhotoCardList = ({ onPressCard }) => {
+const FilteredAdoptCardList = ({ onPressCard }) => {
   const dispatch = useDispatch();
 
-  const page = useSelector(state => state.post.page);
-  const posts = useSelector(selectAllPosts);
+  const selectedHamsterTypes = useSelector(state => state.filteredPost.selectedHamsterTypes);
+  const page = useSelector(state => state.filteredPost.page);
+  const posts = useSelector(selectAllFilteredPosts);
 
   useEffect(() => {
-    dispatch(fetchPosts(page));
+    console.log(page, selectedHamsterTypes);
+    dispatch(fetchFilteredPosts({ page, selectedHamsterTypes }));
   }, []);
 
   function handleEndReached() {
-    dispatch(fetchPosts(page));
+    dispatch(fetchFilteredPosts({ page, selectedHamsterTypes }));
   }
 
   return (
@@ -72,4 +74,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default PhotoCardList;
+export default FilteredAdoptCardList;
