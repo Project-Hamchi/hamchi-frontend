@@ -1,24 +1,22 @@
 import React, { useState } from 'react';
-import AdoptCardList from '../components/AdoptCardList';
-import FilteredAdoptCardList from '../components/FilteredAdoptCardList';
-
-/////
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { Button, View, StyleSheet, Modal } from 'react-native';
 
+import AdoptCardList from '../components/AdoptCardList';
+import FilteredAdoptCardList from '../components/FilteredAdoptCardList';
 import Toggle from '../components/shared/Toggle';
 import Filter from '../components/Filter';
 
-/////
 
 const Feeds = ({ navigation }) => {
-  const dispatch = useDispatch();
-
   const [isModalVisible, setIsModalVisible] = useState(false);
   const isFiltered = useSelector(state => state.post.isFiltered);
 
   function handlePressCard(post) {
-    navigation.navigate('Details', { screen: 'Hamster', params: { post: post } });
+    navigation.navigate(
+      'Details',
+      { screen: 'Hamster', params: { post: post } }
+    );
   }
 
   function useSelectHamsterType() {

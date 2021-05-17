@@ -1,13 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { TouchableOpacity, Button, View, StyleSheet, FlatList, Modal } from 'react-native';
-import AdoptCard from './AdoptCard';
-
 import { fetchPosts, selectAllPosts } from '../reducers/postSlice';
+
+import { TouchableOpacity, View, StyleSheet, FlatList } from 'react-native';
+import AdoptCard from './AdoptCard';
 
 const PhotoCardList = ({ onPressCard }) => {
   const dispatch = useDispatch();
-
   const page = useSelector(state => state.post.page);
   const posts = useSelector(selectAllPosts);
 
@@ -37,12 +36,14 @@ const PhotoCardList = ({ onPressCard }) => {
                 >
                   <AdoptCard data={item} />
                 </TouchableOpacity>
-                {index === posts.length - 1 && <View style={{ paddingBottom: 200 }} />}
+                {index === posts.length - 1
+                  && <View style={{ paddingBottom: 200 }} />
+                }
               </>
             );
           }}
           onEndReached={handleEndReached}
-          onEndReachedThreshold={0.8}
+          onEndReachedThreshold={0.3}
         />
       </View>
     </View>

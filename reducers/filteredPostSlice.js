@@ -18,12 +18,13 @@ export const fetchFilteredPosts = createAsyncThunk(
         return thunkAPI.rejectWithValue();
       }
 
-      return response.data.posts;
+      return response.data;
     } catch (err) {
       return thunkAPI.rejectWithValue(response);
     }
   }
 );
+
 export const filteredPostsAdapter = createEntityAdapter({
   selectId: (posts) => posts._id
 });
@@ -41,8 +42,9 @@ export const filteredPostSlice = createSlice({
   name: 'filteredPost',
   initialState,
   reducers: {
-    initilizeFeeds(state, action) {
-      return initialState
+    initFeeds(state, action) {
+      state.page = 1;
+      filteredPostsAdapter.removeAll(state);
     },
     toggleFilter(state, action) {
       state.isFiltered = action.payload;
@@ -57,8 +59,8 @@ export const filteredPostSlice = createSlice({
   extraReducers: builder => {
     builder.addCase(fetchFilteredPosts.fulfilled, (state, action) => {
       state.isLoading = false;
-      state.page = state.page + 1;
-      filteredPostsAdapter.upsertMany(state, action.payload);
+      state.page = action.payload.page + 1;
+      filteredPostsAdapter.upsertMany(state, action.payload.posts);
     });
     builder.addCase(fetchFilteredPosts.pending, (state, action) => {
       state.isLoading = true;
@@ -70,7 +72,7 @@ export const filteredPostSlice = createSlice({
 });
 
 const { actions, reducer } = filteredPostSlice;
-export const { initilizeFeeds, addType, deleteType, toggleFilter } = actions;
+export const { initFeeds, addType, deleteType, toggleFilter } = actions;
 export default reducer;
 
 export const {

@@ -30,7 +30,6 @@ const initialState = postsAdapter.getInitialState({
   page: 1,
   isScrollEnd: false,
   isFiltered: false,
-  // selectedHamsterTypes: {},
   isLoading: true,
   isError: false,
   errorMessage: ''
@@ -46,12 +45,6 @@ export const postSlice = createSlice({
     toggleFilter(state, action) {
       state.isFiltered = action.payload;
     },
-    // addType(state, action) {
-    //   state.selectedHamsterTypes[action.payload] = true;
-    // },
-    // deleteType(state, action) {
-    //   delete state.selectedHamsterTypes[action.payload];
-    // }
   },
   extraReducers: builder => {
     builder.addCase(fetchPosts.fulfilled, (state, action) => {

@@ -1,21 +1,19 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { TouchableOpacity, View, StyleSheet, FlatList, Modal } from 'react-native';
-import AdoptCard from './AdoptCard';
-
 import { fetchFilteredPosts, selectAllFilteredPosts } from '../reducers/filteredPostSlice';
+
+import { TouchableOpacity, View, StyleSheet, FlatList } from 'react-native';
+import AdoptCard from './AdoptCard';
 
 const FilteredAdoptCardList = ({ onPressCard }) => {
   const dispatch = useDispatch();
-
   const selectedHamsterTypes = useSelector(state => state.filteredPost.selectedHamsterTypes);
   const page = useSelector(state => state.filteredPost.page);
   const posts = useSelector(selectAllFilteredPosts);
 
   useEffect(() => {
-    console.log(page, selectedHamsterTypes);
-    dispatch(fetchFilteredPosts({ page, selectedHamsterTypes }));
-  }, []);
+    dispatch(fetchFilteredPosts({ page, selectedHamsterTypes }))
+  }, [selectedHamsterTypes]);
 
   function handleEndReached() {
     dispatch(fetchFilteredPosts({ page, selectedHamsterTypes }));
@@ -44,7 +42,7 @@ const FilteredAdoptCardList = ({ onPressCard }) => {
             );
           }}
           onEndReached={handleEndReached}
-          onEndReachedThreshold={0.8}
+          onEndReachedThreshold={0.1}
         />
       </View>
     </View>
