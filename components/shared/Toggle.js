@@ -1,8 +1,20 @@
 import React, { useState, useRef } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Animated, View, Text, Pressable, StyleSheet, Easing } from 'react-native';
 import colors from '../../theme/color';
 
-const Toggle = ({ isOn, onChangeIsOn }) => {
+import { toggleFilter } from '../../reducers/postSlice';
+//  <Toggle
+//           isOn={isFiltered}
+//           onChangeIsOn={handleIsToggleOn}
+//         />
+
+const Toggle = (
+  // { isOn, onChangeIsOn }
+) => {
+  const dispatch = useDispatch();
+  const isOn = useSelector(state => state.post.isFiltered);
+  console.log(isOn);
   const moveAnim = useRef(new Animated.Value(1)).current;
   const moveToggleWheel = moveAnim.interpolate({
     inputRange: [0, 1],
@@ -23,7 +35,10 @@ const Toggle = ({ isOn, onChangeIsOn }) => {
 
   return (
     <View>
-      <Pressable onPress={onChangeIsOn}>
+      <Pressable onPress={
+        // onChangeIsOn
+        () => dispatch(toggleFilter(!isOn))
+      }>
         <View style={styles.toggleContainer}>
           <Animated.View style={
             [styles.toggleWheel,

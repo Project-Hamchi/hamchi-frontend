@@ -1,25 +1,48 @@
 import React, { useState, useEffect } from 'react';
-import { TouchableOpacity, Button, View, StyleSheet, Text, FlatList, Modal } from 'react-native';
+import { useDispatch, useSelector } from 'react-redux';
+import { TouchableOpacity, Button, View, StyleSheet, FlatList, Modal } from 'react-native';
 import AdoptCard from './AdoptCard';
 import Toggle from './shared/Toggle';
 import Filter from './Filter';
-import postAPI from '../api/post';
+// import postAPI from '../api/post';
+import { fetchPosts } from '../reducers/postSlice';
+import {
+  selectPostById,
+  selectPostIds,
+  selectPostEntities,
+  selectAllPosts,
+  selectTotalPosts
+} from '../reducers/postSlice';
 
 const PhotoCardList = ({ onPressCard }) => {
-  const [ids, setIds] = useState({});
-  const [page, setPage] = useState(1);
-  const [posts, setPosts] = useState([]);
-  const [isScrollEnd, setIsScrollEnd] = useState(false);
+  // const [ids, setIds] = useState({});
+  // const [page, setPage] = useState(1);
+  // const [posts, setPosts] = useState([]);
+  // const [isScrollEnd, setIsScrollEnd] = useState(false);
 
-  const [isFiltered, setIsFiltered] = useState(false);
-  const [isModalVisible, setIsModalVisible] = useState(false);
+  // const [isFiltered, setIsFiltered] = useState(false);
+  // const [isModalVisible, setIsModalVisible] = useState(false);
 
   const hamsterTypes = ['Syrian', 'Jungle', 'Robo', 'others'];
-  const [selectedHamsterTypes, setSelectedHamsterTypes] = useState({});
+  // const [selectedHamsterTypes, setSelectedHamsterTypes] = useState({});
+
+  const dispatch = useDispatch();
+  const page = useSelector(state => state.post.page);
+  const isFiltered = useSelector(state => state.post.isFiltered);
+  const posts = useSelector(selectAllPosts);
+  const isScrollEnd = useSelector(state => state.post.isScrollEnd);
+
+  const isModalVisible = useSelector(state => state.post.isModalVisible);
+
+  const selectedHamsterTypes = useSelector(state => state.post.selectedHamsterTypes);
+
+  // useEffect(() => {
+  //   getPosts();
+  // }, [isFiltered]);
 
   useEffect(() => {
-    getPosts();
-  }, [isFiltered]);
+    dispatch(fetchPosts(page, selectedHamsterTypes, isFiltered));
+  }, []);
 
   function initializeFeeds() {
     setPage(1);
@@ -57,29 +80,29 @@ const PhotoCardList = ({ onPressCard }) => {
     setIsModalVisible(!isModalVisible);
   }
 
-  async function getPosts() {
-    try {
-      const newIds = {};
-      const response = await postAPI.requestGetPosts(
-        page,
-        isFiltered ? Object.keys(selectedHamsterTypes) : []
-      );
+  // async function getPosts() {
+  //   try {
+  //     const newIds = {};
+  //     const response = await postAPI.requestGetPosts(
+  //       page,
+  //       isFiltered ? Object.keys(selectedHamsterTypes) : []
+  //     );
 
-      setPage(page + 1);
-      setPosts(posts.concat(response.posts));
-      setIsScrollEnd(false);
+  //     setPage(page + 1);
+  //     setPosts(posts.concat(response.posts));
+  //     setIsScrollEnd(false);
 
-      for (let i = 0; i < response.posts.length; i++) {
-        const currentId = response.posts[i]._id;
-        newIds[currentId] = i;
-      }
+  //     for (let i = 0; i < response.posts.length; i++) {
+  //       const currentId = response.posts[i]._id;
+  //       newIds[currentId] = i;
+  //     }
 
-      setIds({ ...ids, ...newIds });
+  //     setIds({ ...ids, ...newIds });
 
-    } catch (err) {
-      console.log("err", err);
-    }
-  }
+  //   } catch (err) {
+  //     console.log("err", err);
+  //   }
+  // }
 
   return (
     <View style={styles.container}>
