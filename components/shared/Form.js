@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
-import { View, Text, Button, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
 import Input from './Input';
+import Button from './Button';
 import RadioButton from './RadioButton';
 
 const getInitialState = (fieldKeys) => {
@@ -61,7 +62,12 @@ const Form = ({ additionalParams, fields, action, afterSubmit }) => {
           </View>
         );
       })}
-      <Button onPress={submit} title="저장" />
+      <Button
+        text="저장"
+        type="filled"
+        onPress={submit}
+        customButtonStyle={style.button}
+      />
     </>
   );
 };
@@ -71,6 +77,11 @@ const style = StyleSheet.create({
     fontWeight: 'bold',
     textAlign: 'center',
     marginTop: 8,
+  },
+  button: {
+    width: '30%',
+    alignSelf: 'center',
+    margin: 30
   }
 });
 

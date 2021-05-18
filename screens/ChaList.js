@@ -1,4 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState, useCallback } from 'react';
+import { useFocusEffect } from '@react-navigation/native';
+
 import { View, FlatList } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { useSelector } from 'react-redux';
@@ -10,9 +12,11 @@ const ChatList = () => {
   const userId = useSelector(state => state.user.userId);
   const [chats, setChats] = useState([]);
 
-  useEffect(() => {
-    getMyChats();
-  }, []);
+  useFocusEffect(
+    useCallback(() => {
+      getMyChats();
+    }, [])
+  );
 
   async function getMyChats() {
     try {

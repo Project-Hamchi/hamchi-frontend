@@ -63,7 +63,7 @@ const PostForm = ({ route, navigation }) => {
               map: mapEnumToString.hamsterGender
             },
             type: {
-              label: '종',
+              label: '햄스터 종류',
               inputType: 'radio',
               options: ['Robo', 'Jungle', 'Syrian', 'other'],
               map: mapEnumToString.hamsterType
@@ -85,6 +85,7 @@ const PostForm = ({ route, navigation }) => {
               inputProps: {
                 placeholder: '최소 환경 조건 및 세부사항을 입력하세요',
                 multiline: true,
+                customInputStyle: { height: 100 }
               }
             }
           }}

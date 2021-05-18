@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux';
 import { ScrollView, Image, View, Text, StyleSheet } from 'react-native';
 import Button from '../components/shared/Button';
 import { formatFullDate } from '../utils/index';
+import mapEnumToString from '../constants/mapEnumToString';
 import colors from '../theme/color';
 
 const Hamster = ({ route, navigation }) => {
@@ -27,18 +28,18 @@ const Hamster = ({ route, navigation }) => {
         </View>
         <View style={styles.divider} />
         <View style={styles.field}>
-          <Text style={styles.key}>개체수</Text>
-          <Text style={styles.text}>{post.number}</Text>
-        </View>
-        <View style={styles.divider} />
-        <View style={styles.field}>
           <Text style={styles.key}>지역</Text>
           <Text style={styles.text}>{post.location}</Text>
         </View>
         <View style={styles.divider} />
         <View style={styles.field}>
-          <Text style={styles.key}>햄스터 종류</Text>
-          <Text style={styles.text}>{post.type}</Text>
+          <Text style={styles.key}>종류</Text>
+          <Text style={styles.text}>{mapEnumToString.hamsterType[post.type]}햄스터</Text>
+        </View>
+        <View style={styles.divider} />
+        <View style={styles.field}>
+          <Text style={styles.key}>개체수</Text>
+          <Text style={styles.text}>{post.number}</Text>
         </View>
         <View style={styles.divider} />
         <View style={[styles.field, { flexDirection: 'column' }]}>

@@ -17,10 +17,16 @@ export default function DetailNavigator() {
           name="Hamster"
           component={Hamster}
           options={{
-            title: "햄스터 정보"
+            title: "분양 정보"
           }}
         />
-        <DetailStack.Screen name="SubmissionForm" component={SubmissionForm} />
+        <DetailStack.Screen
+          name="SubmissionForm"
+          component={SubmissionForm}
+          options={{
+            title: "입양 신청서"
+          }}
+        />
         <DetailStack.Screen name="Camera" component={Camera} />
         <DetailStack.Screen name="Preview" component={Preview} />
       </DetailStack.Navigator>

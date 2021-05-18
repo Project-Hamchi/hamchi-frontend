@@ -50,10 +50,21 @@ const Card = ({ item, selected, onSelect, showOptions }) => {
                 </View>
                 <Image style={styles.environment} source={{ uri: item.environment }} />
                 <View style={styles.textContainer}>
-                  <Text>{item.ownerName}님</Text>
-                  <Text>사육 경험: {mapped[item.experience]}</Text>
-                  <Text>지역: {item.location}</Text>
-                  <Text>내용: {item.details}</Text>
+                  <View style={{ alignSelf: 'center', marginBottom: 8 }}>
+                    <Text>{item.ownerName}님의 신청서</Text>
+                  </View>
+                  <View style={styles.field}>
+                    <Text>사육 경험</Text>
+                    <Text>{mapped[item.experience]}</Text>
+                  </View>
+                  <View style={styles.field}>
+                    <Text>지역</Text>
+                    <Text>{item.location}</Text>
+                  </View>
+                  <View style={[styles.field, { flexDirection: 'column' }]}>
+                    <Text>내용</Text>
+                    <Text>{item.details}</Text>
+                  </View>
                 </View>
               </View>
             </>
@@ -70,6 +81,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     height: 170,
     paddingTop: 12,
+    marginBottom: 10,
   },
   title: {
     fontSize: 16,
@@ -87,7 +99,7 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
   },
   image: {
-    width: '30%',
+    width: '28%',
     height: undefined,
     aspectRatio: 1,
     borderRadius: 50,
@@ -111,12 +123,21 @@ const styles = StyleSheet.create({
   submissionContainer: {
     flexDirection: 'row',
     padding: 10,
+    width: '93%',
+    alignSelf: 'center',
     marginBottom: 12,
     backgroundColor: colors.white,
+    borderWidth: 1,
+    borderColor: colors.outline
   },
   icon: {
     position: 'absolute',
-    alignSelf: 'flex-end',
+    right: 0,
+    margin: 5,
+  },
+  field: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
   }
 });
 

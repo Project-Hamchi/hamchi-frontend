@@ -6,8 +6,8 @@ const hamsterType = {
 };
 
 const hamsterGender = {
-  male: '남아',
-  female: '여아',
+  male: '수컷',
+  female: '암컷',
   other: '알 수 없음'
 };
 
