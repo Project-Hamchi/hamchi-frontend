@@ -7,7 +7,6 @@ import FilteredAdoptCardList from '../components/FilteredAdoptCardList';
 import Toggle from '../components/shared/Toggle';
 import Filter from '../components/Filter';
 
-
 const Feeds = ({ navigation }) => {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const isFiltered = useSelector(state => state.post.isFiltered);

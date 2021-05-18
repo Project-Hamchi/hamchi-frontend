@@ -50,6 +50,7 @@ const ChatList = () => {
 
           return (
             <ChatListItem
+              key={item._id}
               date={date}
               user={partnerName}
               lastMessage={lastMessage}

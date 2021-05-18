@@ -19,7 +19,7 @@ const SubmissionForm = ({ route, navigation }) => {
 
   function handleAfterSubmit() {
     photo = null;
-    navigation.navigate('신청현황', { screen: 'MySubmissions' });
+    navigation.navigate('신청현황', { screen: '내 신청서' });
   }
   return (
     <>

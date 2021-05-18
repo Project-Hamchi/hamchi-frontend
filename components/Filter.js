@@ -1,6 +1,6 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { initFeeds, addType, deleteType } from '../reducers/filteredPostSlice';
+import { addType, deleteType, initFeeds } from '../reducers/filteredPostSlice';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 
 import enumToString from '../constants/mapEnumToString';
@@ -13,7 +13,7 @@ const Filter = ({ title }) => {
   const mapped = enumToString.hamsterType;
 
   function handleSelectType(type) {
-    dispatch(initFeeds());
+    dispatch(initFeeds(handleSelectType));
 
     if (selectedHamsterTypes[type]) {
       dispatch(deleteType(type));

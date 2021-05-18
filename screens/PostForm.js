@@ -15,10 +15,8 @@ const PostForm = ({ route, navigation }) => {
   }
 
   function handleAfterSubmit() {
-    navigation.reset({
-      index: 0,
-      routes: [{ name: '피드' }]
-    });
+    photo = null;
+    navigation.navigate('신청현황', { screen: '내 분양글' });
   }
 
   return (

@@ -22,6 +22,23 @@ export const fetchPosts = createAsyncThunk(
   }
 );
 
+export const initPosts = createAsyncThunk(
+  'post/initPosts',
+  async (page, thunkAPI) => {
+    try {
+      const response = await postAPI.requestGetPosts(1, []);
+
+      if (response.data.posts.length === 0) {
+        return thunkAPI.rejectWithValue();
+      }
+
+      return response.data.posts;
+    } catch (err) {
+      return thunkAPI.rejectWithValue(response);
+    }
+  }
+);
+
 export const postsAdapter = createEntityAdapter({
   selectId: (post) => post._id
 });
@@ -39,12 +56,12 @@ export const postSlice = createSlice({
   name: 'post',
   initialState,
   reducers: {
-    initilizeFeeds(state, action) {
-      return initialState
-    },
     toggleFilter(state, action) {
       state.isFiltered = action.payload;
     },
+    initializePosts(state, action) {
+      postsAdapter.removeAll(state)
+    }
   },
   extraReducers: builder => {
     builder.addCase(fetchPosts.fulfilled, (state, action) => {
@@ -58,11 +75,20 @@ export const postSlice = createSlice({
     builder.addCase(fetchPosts.rejected, (state, action) => {
       state.isError = true;
     });
+
+    builder.addCase(initPosts.fulfilled, (state, action) => {
+      state.isLoading = false;
+      state.page = 2;
+      postsAdapter.setAll(state, action.payload);
+    });
+    builder.addCase(initPosts.pending, (state, action) => {
+      state.isLoading = true;
+    });
   }
 });
 
 const { actions, reducer } = postSlice;
-export const { toggleFilter } = actions;
+export const { toggleFilter, initializePosts } = actions;
 export default reducer;
 
 export const {
