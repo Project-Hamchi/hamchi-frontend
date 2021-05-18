@@ -1,28 +1,44 @@
 import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { initFeeds, addType, deleteType } from '../reducers/filteredPostSlice';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+
 import enumToString from '../constants/mapEnumToString';
 import colors from '../theme/color';
 
-const Filter = ({ title, types, selectedTypes, onSelectType }) => {
+const Filter = ({ title }) => {
+  const dispatch = useDispatch();
+  const hamsterTypes = ['Syrian', 'Jungle', 'Robo', 'others'];
+  const selectedHamsterTypes = useSelector(state => state.filteredPost.selectedHamsterTypes);
   const mapped = enumToString.hamsterType;
+
+  function handleSelectType(type) {
+    dispatch(initFeeds());
+
+    if (selectedHamsterTypes[type]) {
+      dispatch(deleteType(type));
+    } else {
+      dispatch(addType(type));
+    }
+  }
 
   return (
     <View style={styles.container}>
       <Text style={styles.text}>{title}</Text>
       <View style={styles.tagContainer}>
-        {types.map(type => {
+        {hamsterTypes.map(type => {
           return (
             <TouchableOpacity
               style={[
                 styles.tag,
-                { backgroundColor: selectedTypes[type] ? colors.main : colors.white }
+                { backgroundColor: selectedHamsterTypes[type] ? colors.main : colors.white }
               ]}
               key={type}
-              onPress={() => onSelectType(type)}
+              onPress={() => handleSelectType(type)}
             >
               <Text style={[
                 styles.text,
-                { color: selectedTypes[type] ? colors.white : colors.main }
+                { color: selectedHamsterTypes[type] ? colors.white : colors.main }
               ]}>{mapped[type]}</Text>
             </TouchableOpacity>
           );

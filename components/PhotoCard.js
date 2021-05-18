@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, StyleSheet, Image, Text } from 'react-native';
+import { View, StyleSheet, Image } from 'react-native';
 import jungle from '../assets/tape/jungle1.png';
 import robo from '../assets/tape/robo1.png';
 import syrian from '../assets/tape/syrian1.png';

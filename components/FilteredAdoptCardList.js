@@ -1,26 +1,27 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchPosts, selectAllPosts } from '../reducers/postSlice';
+import { fetchFilteredPosts, selectAllFilteredPosts, saveScrollPosition } from '../reducers/filteredPostSlice';
 
 import { TouchableOpacity, View, StyleSheet, FlatList } from 'react-native';
 import AdoptCard from './AdoptCard';
 
-const PhotoCardList = ({ scrollPosition, setScrollPosition, onPressCard }) => {
+const FilteredAdoptCardList = ({ scrollPosition, setScrollPosition, onPressCard }) => {
   const dispatch = useDispatch();
-  const page = useSelector(state => state.post.page);
-  const posts = useSelector(selectAllPosts);
-
+  const selectedHamsterTypes = useSelector(state => state.filteredPost.selectedHamsterTypes);
+  const page = useSelector(state => state.filteredPost.page);
+  const posts = useSelector(selectAllFilteredPosts);
   const listRef = useRef(null);
 
   useEffect(() => {
     const offset = scrollPosition;
     listRef.current.scrollToOffset({ offset, animated: false })
 
-    dispatch(fetchPosts(page));
-  }, []);
+    dispatch(fetchFilteredPosts({ page, selectedHamsterTypes }))
+
+  }, [selectedHamsterTypes]);
 
   function handleEndReached() {
-    dispatch(fetchPosts(page));
+    dispatch(fetchFilteredPosts({ page, selectedHamsterTypes }));
   }
 
   function handleScroll(e) {
@@ -47,14 +48,12 @@ const PhotoCardList = ({ scrollPosition, setScrollPosition, onPressCard }) => {
                 >
                   <AdoptCard data={item} />
                 </TouchableOpacity>
-                {index === posts.length - 1
-                  && <View style={{ paddingBottom: 200 }} />
-                }
+                {index === posts.length - 1 && <View style={{ paddingBottom: 200 }} />}
               </>
             );
           }}
           onEndReached={handleEndReached}
-          onEndReachedThreshold={0.3}
+          onEndReachedThreshold={0.1}
         />
       </View>
     </View>
@@ -84,4 +83,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default PhotoCardList;
+export default FilteredAdoptCardList;
