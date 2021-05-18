@@ -22,6 +22,7 @@
     "react-native": "https://github.com/expo/react-native/archive/sdk-41.0.0.tar.gz",
     "react-native-bouncy-checkbox": "^2.1.0",
     "react-native-camera": "git+https://git@github.com/react-native-community/react-native-camera.git",
+    "react-native-keyboard-aware-scroll-view": "^0.9.4",
     "react-native-tab-view": "^2.16.0",
     "react-native-web": "~0.13.12",
     "react-redux": "^7.2.4",

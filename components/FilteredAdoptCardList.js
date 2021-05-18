@@ -1,15 +1,17 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchFilteredPosts, selectAllFilteredPosts, saveScrollPosition } from '../reducers/filteredPostSlice';
+import { fetchFilteredPosts, selectAllFilteredPosts, initPosts } from '../reducers/filteredPostSlice';
 
 import { TouchableOpacity, View, StyleSheet, FlatList } from 'react-native';
 import AdoptCard from './AdoptCard';
 
 const FilteredAdoptCardList = ({ scrollPosition, setScrollPosition, onPressCard }) => {
   const dispatch = useDispatch();
-  const selectedHamsterTypes = useSelector(state => state.filteredPost.selectedHamsterTypes);
   const page = useSelector(state => state.filteredPost.page);
   const posts = useSelector(selectAllFilteredPosts);
+  const selectedHamsterTypes = useSelector(state => state.filteredPost.selectedHamsterTypes);
+
+  const [isRefreshing, setIsRefreshing] = useState(false);
   const listRef = useRef(null);
 
   useEffect(() => {
@@ -27,6 +29,15 @@ const FilteredAdoptCardList = ({ scrollPosition, setScrollPosition, onPressCard 
   function handleScroll(e) {
     setScrollPosition(e.nativeEvent.contentOffset.y);
   }
+
+  async function init() {
+    dispatch(initPosts(selectedHamsterTypes));
+  }
+
+  const handleRefresh = useCallback(() => {
+    setIsRefreshing(true);
+    init().then(() => setIsRefreshing(false));
+  }, []);
 
   return (
     <View style={styles.container}>
@@ -54,6 +65,8 @@ const FilteredAdoptCardList = ({ scrollPosition, setScrollPosition, onPressCard 
           }}
           onEndReached={handleEndReached}
           onEndReachedThreshold={0.1}
+          refreshing={isRefreshing}
+          onRefresh={handleRefresh}
         />
       </View>
     </View>
@@ -62,7 +75,7 @@ const FilteredAdoptCardList = ({ scrollPosition, setScrollPosition, onPressCard 
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: 30,
+    marginTop: 10,
   },
   left: {
     width: '50%',

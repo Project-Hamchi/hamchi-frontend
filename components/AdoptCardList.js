@@ -1,7 +1,6 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchPosts, selectAllPosts } from '../reducers/postSlice';
-
+import { fetchPosts, selectAllPosts, initPosts } from '../reducers/postSlice';
 import { TouchableOpacity, View, StyleSheet, FlatList } from 'react-native';
 import AdoptCard from './AdoptCard';
 
@@ -10,6 +9,7 @@ const PhotoCardList = ({ scrollPosition, setScrollPosition, onPressCard }) => {
   const page = useSelector(state => state.post.page);
   const posts = useSelector(selectAllPosts);
 
+  const [isRefreshing, setIsRefreshing] = useState(false);
   const listRef = useRef(null);
 
   useEffect(() => {
@@ -19,13 +19,22 @@ const PhotoCardList = ({ scrollPosition, setScrollPosition, onPressCard }) => {
     dispatch(fetchPosts(page));
   }, []);
 
+  function handleScroll(e) {
+    setScrollPosition(e.nativeEvent.contentOffset.y);
+  }
+
   function handleEndReached() {
     dispatch(fetchPosts(page));
   }
 
-  function handleScroll(e) {
-    setScrollPosition(e.nativeEvent.contentOffset.y);
+  async function init() {
+    dispatch(initPosts());
   }
+
+  const handleRefresh = useCallback(() => {
+    setIsRefreshing(true);
+    init().then(() => setIsRefreshing(false));
+  }, []);
 
   return (
     <View style={styles.container}>
@@ -55,6 +64,8 @@ const PhotoCardList = ({ scrollPosition, setScrollPosition, onPressCard }) => {
           }}
           onEndReached={handleEndReached}
           onEndReachedThreshold={0.3}
+          refreshing={isRefreshing}
+          onRefresh={handleRefresh}
         />
       </View>
     </View>
@@ -63,7 +74,7 @@ const PhotoCardList = ({ scrollPosition, setScrollPosition, onPressCard }) => {
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: 30,
+    marginTop: 10,
   },
   left: {
     width: '50%',

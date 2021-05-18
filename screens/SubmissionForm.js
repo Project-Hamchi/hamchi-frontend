@@ -3,6 +3,7 @@ import React from 'react';
 import { View, Text, TouchableOpacity, ScrollView, Image, StyleSheet } from 'react-native';
 import Form from '../components/shared/Form';
 import submissionAPI from '../api/submissions';
+import mapEnumToString from '../constants/mapEnumToString';
 
 const SubmissionForm = ({ route, navigation }) => {
   let photo;
@@ -19,7 +20,7 @@ const SubmissionForm = ({ route, navigation }) => {
 
   function handleAfterSubmit() {
     photo = null;
-    navigation.navigate('신청현황', { screen: 'MySubmissions' });
+    navigation.navigate('신청현황', { screen: '내 신청서' });
   }
   return (
     <>
@@ -45,7 +46,8 @@ const SubmissionForm = ({ route, navigation }) => {
             experience: {
               label: '햄스터 사육 경험',
               inputType: 'radio',
-              options: ['none', 'one', 'many']
+              options: ['none', 'one', 'many'],
+              map: mapEnumToString.experienceType
             },
             location: {
               label: '지역',
@@ -56,7 +58,9 @@ const SubmissionForm = ({ route, navigation }) => {
             details: {
               label: '기타',
               inputProps: {
-                placeholder: '기타 참고사항을 입력해주세요'
+                placeholder: '기타 참고사항을 입력해주세요',
+                multiline: true,
+                customInputStyle: { height: 100 }
               }
             },
           }}

@@ -1,12 +1,11 @@
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
-import { Button, View, StyleSheet, Modal } from 'react-native';
+import { Text, Button, TouchableWithoutFeedback, View, StyleSheet, Modal } from 'react-native';
 
 import AdoptCardList from '../components/AdoptCardList';
 import FilteredAdoptCardList from '../components/FilteredAdoptCardList';
 import Toggle from '../components/shared/Toggle';
 import Filter from '../components/Filter';
-
 
 const Feeds = ({ navigation }) => {
   const [isModalVisible, setIsModalVisible] = useState(false);
@@ -46,13 +45,13 @@ const Feeds = ({ navigation }) => {
         </View>
       </Modal>
       <View style={styles.filter}>
-        <Toggle />
-        <Button
-          title="필터 설정"
+        <TouchableWithoutFeedback
           onPress={() => {
             setIsModalVisible(!isModalVisible)
-          }}>
-        </Button>
+          }}
+        ><Text style={styles.filterText}>필터 설정</Text>
+        </TouchableWithoutFeedback>
+        <Toggle />
       </View>
       {
         isFiltered
@@ -89,6 +88,14 @@ const styles = StyleSheet.create({
   filter: {
     flexDirection: 'row',
     justifyContent: 'space-between',
+    padding: 10,
+    paddingTop: 30,
+    paddingBottom: 0,
+  },
+  filterText: {
+    alignSelf: 'center',
+    fontSize: 15,
+    fontWeight: 'bold'
   }
 });
 

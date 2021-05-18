@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import { useSelector } from 'react-redux';
 import { ActionSheetIOS, View, Text, FlatList, StyleSheet } from 'react-native';
 
@@ -10,6 +10,8 @@ import Card from '../components/shared/Card';
 import submissionAPI from '../api/submissions';
 import postAPI from '../api/post';
 import chatAPI from '../api/chat';
+import { useFocusEffect } from '@react-navigation/native';
+import colors from '../theme/color';
 
 const MyPosts = () => {
   const myId = useSelector(state => state.user.userId);
@@ -21,9 +23,11 @@ const MyPosts = () => {
   const [currentPostSubmissions, setCurrentPostSubmissions] = useState([]);
   const [message, setMessage] = useState("분양 관련 연락드렸습니다 :)");
 
-  useEffect(() => {
-    getMyPosts();
-  }, []);
+  useFocusEffect(
+    useCallback(() => {
+      getMyPosts();
+    }, [])
+  );
 
   async function getMyPosts() {
     try {
@@ -144,32 +148,34 @@ const MyPosts = () => {
           const isSubmissionExist = item.submissions.length ? true : false;
 
           return (
-            <View style={styles.container}>
-              <Card
-                item={item}
-                selected={selectedSubmissions}
-                onSelect={handleSubmissionSelect}
-                showOptions={showOptions}
-              />
-              {isSubmissionExist
-                ? <Button
-                  text="메시지 보내기"
-                  type="filled"
-                  onPress={() => handleSelectedSubmissions(index)}
-                  customButtonStyle={{
-                    width: 120,
-                    height: 45,
-                    alignSelf: 'flex-end',
-                    margin: 12,
-                    marginTop: 0,
-                    borderRadius: 8
-                  }}
+            <>
+              <View style={styles.container}>
+                <Card
+                  item={item}
+                  selected={selectedSubmissions}
+                  onSelect={handleSubmissionSelect}
+                  showOptions={showOptions}
                 />
-                : <View>
-                  <Text style={styles.text}>등록된 입양신청서가 없습니다.</Text>
-                </View>
-              }
-            </View>
+                {isSubmissionExist
+                  ? <Button
+                    text="메시지 보내기"
+                    type="filled"
+                    onPress={() => handleSelectedSubmissions(index)}
+                    customButtonStyle={{
+                      width: 120,
+                      height: 45,
+                      alignSelf: 'flex-end',
+                      margin: 12,
+                      marginTop: 0,
+                      borderRadius: 8
+                    }}
+                  />
+                  : <View>
+                    <Text style={styles.text}>등록된 입양신청서가 없습니다.</Text>
+                  </View>
+                }
+              </View>
+            </>
           );
         }}
       />
@@ -181,10 +187,11 @@ const styles = StyleSheet.create({
   container: {
     margin: 10,
     paddingBottom: 10,
+    backgroundColor: colors.white
   },
   text: {
     alignSelf: 'center'
-  }
+  },
 });
 
 export default MyPosts;

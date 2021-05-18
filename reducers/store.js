@@ -5,7 +5,7 @@ import { postSlice } from './postSlice';
 import { filteredPostSlice } from './filteredPostSlice';
 import { createLogger } from 'redux-logger';
 
-const middleware = [ReduxThunk, createLogger()];
+const middleware = [ReduxThunk];
 
 const store = configureStore({
   reducer:
