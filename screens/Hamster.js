@@ -44,15 +44,9 @@ const Hamster = ({ route, navigation }) => {
         <View style={[styles.field, { flexDirection: 'column' }]}>
           <Text style={styles.key}>세부 사항</Text>
           <View style={styles.descriptionContainer}>
-            <Text style={[styles.text, { alignSelf: 'flex-start' }]}>{post.details}</Text>
+            <Text style={[styles.text]}>{post.details}</Text>
           </View>
         </View>
-        {/* <View style={styles.details}>
-          <View style={styles.descriptionContainer}>
-            <Text style={[styles.key, { alignSelf: 'center' }]}>세부 사항</Text>
-            <Text style={styles.description}>{post.details}</Text>
-          </View>
-        </View> */}
         {userId !== post.owner && <Button
           type="filled"
           text="입양 신청서 쓰기"

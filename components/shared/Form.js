@@ -49,6 +49,7 @@ const Form = ({ additionalParams, fields, action, afterSubmit }) => {
             {field.inputType === 'radio' ?
               <RadioButton
                 options={field.options}
+                map={field.map}
                 onChangeOption={(option) => onChangeValue(key, option)}
               />
               : <Input

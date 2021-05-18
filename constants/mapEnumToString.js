@@ -5,6 +5,12 @@ const hamsterType = {
   other: '그 외'
 };
 
+const hamsterGender = {
+  male: '남아',
+  female: '여아',
+  other: '알 수 없음'
+};
+
 const experienceType = {
   none: '없음',
   one: '한번',
@@ -13,6 +19,7 @@ const experienceType = {
 
 const enumToString = {
   hamsterType,
+  hamsterGender,
   experienceType
 };
 

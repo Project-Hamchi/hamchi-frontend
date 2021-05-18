@@ -1,7 +1,9 @@
 import React from 'react';
 import Form from '../components/shared/Form';
-import { View, TouchableOpacity, ScrollView, Image, StyleSheet } from 'react-native';
+import { View, KeyboardAvoidingView, TouchableOpacity, Image, StyleSheet } from 'react-native';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import postAPI from '../api/post';
+import mapEnumToString from '../constants/mapEnumToString';
 
 const PostForm = ({ route, navigation }) => {
   let photo = null;
@@ -20,8 +22,12 @@ const PostForm = ({ route, navigation }) => {
   }
 
   return (
-    <>
-      <ScrollView>
+    <KeyboardAvoidingView
+      behavior={Platform.OS === "ios" ? "padding" : "height"}
+      style={styles.screen}
+      enabled
+    >
+      <KeyboardAwareScrollView>
         <View style={styles.container}>
           {photo ?
             <View>
@@ -53,12 +59,14 @@ const PostForm = ({ route, navigation }) => {
             gender: {
               label: '성별',
               inputType: 'radio',
-              options: ['남', '여', '미확인']
+              options: ['male', 'female', 'other'],
+              map: mapEnumToString.hamsterGender
             },
             type: {
               label: '종',
               inputType: 'radio',
-              options: ['Robo', 'Jungle', 'Syrian', 'other']
+              options: ['Robo', 'Jungle', 'Syrian', 'other'],
+              map: mapEnumToString.hamsterType
             },
             location: {
               label: '지역',
@@ -75,19 +83,23 @@ const PostForm = ({ route, navigation }) => {
             details: {
               label: '세부사항',
               inputProps: {
-                placeholder: '최소 환경 조건 및 세부사항을 입력하세요'
+                placeholder: '최소 환경 조건 및 세부사항을 입력하세요',
+                multiline: true,
               }
             }
           }}
           action={postAPI.requestCreatePost}
           afterSubmit={handleAfterSubmit}
         />
-      </ScrollView>
-    </>
+      </KeyboardAwareScrollView>
+    </KeyboardAvoidingView>
   );
 };
 
 const styles = StyleSheet.create({
+  screen: {
+    flex: 1
+  },
   container: {
     backgroundColor: 'gray',
     width: 400,

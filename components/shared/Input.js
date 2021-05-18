@@ -2,7 +2,7 @@ import React from 'react';
 import { TextInput, StyleSheet } from 'react-native';
 import colors from '../../theme/color';
 
-const Input = ({ placeholder, value, onChangeText, secureTextEntry }) => {
+const Input = ({ multiline, placeholder, value, onChangeText, secureTextEntry }) => {
   return (
     <TextInput
       style={styles.input}
@@ -10,6 +10,7 @@ const Input = ({ placeholder, value, onChangeText, secureTextEntry }) => {
       value={value}
       onChangeText={onChangeText}
       secureTextEntry={secureTextEntry}
+      multiline={multiline}
     />
   );
 };
