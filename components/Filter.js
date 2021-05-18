@@ -8,7 +8,7 @@ import colors from '../theme/color';
 
 const Filter = ({ title }) => {
   const dispatch = useDispatch();
-  const hamsterTypes = ['Syrian', 'Jungle', 'Robo', 'others'];
+  const hamsterTypes = ['Syrian', 'Jungle', 'Robo', 'other'];
   const selectedHamsterTypes = useSelector(state => state.filteredPost.selectedHamsterTypes);
   const mapped = enumToString.hamsterType;
 

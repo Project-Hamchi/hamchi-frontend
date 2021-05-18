@@ -74,7 +74,7 @@ const PhotoCardList = ({ scrollPosition, setScrollPosition, onPressCard }) => {
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: 30,
+    marginTop: 10,
   },
   left: {
     width: '50%',

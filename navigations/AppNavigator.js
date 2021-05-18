@@ -20,7 +20,13 @@ export default function AppNavigator() {
       }} >
         {isSignedIn ?
           <>
-            <AppStack.Screen name="Main" component={Main} />
+            <AppStack.Screen
+              name="Main"
+              component={Main}
+              options={{
+                title: "홈"
+              }}
+            />
             <AppStack.Screen name="Details" component={DetailNavigator} />
           </>
           :

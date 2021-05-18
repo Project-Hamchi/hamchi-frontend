@@ -10,12 +10,6 @@ import Preview from '../screens/Preview';
 const DetailStack = createStackNavigator();
 
 export default function DetailNavigator() {
-  const navigation = useNavigation();
-
-  function handlePress() {
-    navigation.navigate('피드');
-  }
-
   return (
     <>
       <DetailStack.Navigator>
@@ -23,12 +17,7 @@ export default function DetailNavigator() {
           name="Hamster"
           component={Hamster}
           options={{
-            headerRight: () => (
-              <Button
-                title="확인"
-                onPress={handlePress}
-              />
-            )
+            title: "햄스터 정보"
           }}
         />
         <DetailStack.Screen name="SubmissionForm" component={SubmissionForm} />
