@@ -18,7 +18,7 @@ const ChatRoom = () => {
 
   const [message, setMessage] = useState('');
   const [messages, setMessages] = useState([]);
-  const [messageId, setMessageId] = useState(route.params.messageId);
+  const { chatId, messageId } = route.params;
 
   useEffect(() => {
     listViewRef.current.scrollToEnd({ animated: false });
@@ -38,7 +38,10 @@ const ChatRoom = () => {
     });
 
     return () => {
-      socket.emit('leaveChatRoom', messageId);
+      socket.emit(
+        'leaveChatRoom',
+        { chatId, roomId: messageId }
+      );
       socket.off('sendChatRoom');
       socket.off('sendMessage');
     }

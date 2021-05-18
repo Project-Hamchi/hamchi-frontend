@@ -30,10 +30,11 @@ const ChatList = () => {
     }
   }
 
-  function handleChatListItemPress(messageId, partnerName) {
+  function handleChatListItemPress(chatId, messageId, partnerName) {
     navigation.navigate(
       'ChatRoom', {
       name: partnerName,
+      chatId: chatId,
       messageId: messageId
     });
   }
@@ -58,7 +59,7 @@ const ChatList = () => {
               date={date}
               user={partnerName}
               lastMessage={lastMessage}
-              onPress={() => handleChatListItemPress(messageId, partnerName)}
+              onPress={() => handleChatListItemPress(item._id, messageId, partnerName)}
             />
           );
         }}
