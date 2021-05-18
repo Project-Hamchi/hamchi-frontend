@@ -1,7 +1,9 @@
 import React, { useEffect, useState, useRef } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { useRoute } from '@react-navigation/native';
 import { View, Text, TextInput, Button, StyleSheet, ScrollView } from 'react-native';
+
+import { enterChat, leaveChat } from '../reducers/chatSlice';
 
 import io from 'socket.io-client';
 import { SERVER_URL } from '@env';
@@ -12,6 +14,7 @@ const ENDPOINT = SERVER_URL;
 
 const ChatRoom = () => {
   const route = useRoute();
+  const dispatch = useDispatch();
   const userId = useSelector(state => state.user.userId);
   const username = useSelector(state => state.user.username);
   const listViewRef = useRef(null);
@@ -25,6 +28,7 @@ const ChatRoom = () => {
   }, [messages]);
 
   useEffect(() => {
+    dispatch(enterChat());
     const socket = io(ENDPOINT);
 
     socket.emit('join', messageId);
@@ -40,7 +44,10 @@ const ChatRoom = () => {
     return () => {
       socket.emit(
         'leaveChatRoom',
-        { chatId, roomId: messageId }
+        { chatId, roomId: messageId },
+        () => {
+          dispatch(leaveChat());
+        }
       );
       socket.off('sendChatRoom');
       socket.off('sendMessage');

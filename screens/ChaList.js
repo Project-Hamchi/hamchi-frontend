@@ -1,9 +1,9 @@
 import React, { useState, useCallback } from 'react';
+import { useSelector } from 'react-redux';
 import { useFocusEffect } from '@react-navigation/native';
 
 import { View, FlatList } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import { useSelector } from 'react-redux';
 import ChatListItem from '../components/ChatListItem';
 import chatAPI from '../api/chat';
 
@@ -12,10 +12,12 @@ const ChatList = () => {
   const userId = useSelector(state => state.user.userId);
   const [chats, setChats] = useState([]);
 
+  const isEntered = useSelector(state => state.chat.isEntered);
+
   useFocusEffect(
     useCallback(() => {
       getMyChats();
-    }, [])
+    }, [isEntered])
   );
 
   async function getMyChats() {
