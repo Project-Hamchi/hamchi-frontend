@@ -17,10 +17,16 @@ const experienceType = {
   many: '두번 이상'
 };
 
+const status = {
+  opened: '분양 진행중',
+  closed: '분양 완료'
+};
+
 const enumToString = {
   hamsterType,
   hamsterGender,
-  experienceType
+  experienceType,
+  status
 };
 
 export default enumToString;

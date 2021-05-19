@@ -37,6 +37,9 @@ export const formatDate = function (currentDate) {
 }
 
 export const formatFullDate = function (currentDate) {
+  if (!currentDate) {
+    return '';
+  }
   const year = currentDate.getFullYear();
   const month = currentDate.getMonth() + 1;
   const date = currentDate.getDate();

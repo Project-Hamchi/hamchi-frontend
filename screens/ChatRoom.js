@@ -74,7 +74,7 @@ const ChatRoom = () => {
 
             return (
               <View
-                key={item._id}
+                key={`${item.time}`}
                 style={isCurrentUser ? styles.rightMessage : styles.leftMessage}
               >
                 <Text>{item.message}</Text>

@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { ActionSheetIOS, View, Text, FlatList, StyleSheet } from 'react-native';
 
@@ -6,6 +6,8 @@ import Button from '../components/shared/Button';
 import Input from '../components/shared/Input';
 import Modal from '../components/shared/Modal';
 import Card from '../components/shared/Card';
+
+import enumToString from '../constants/mapEnumToString';
 
 import submissionAPI from '../api/submissions';
 import postAPI from '../api/post';
@@ -22,6 +24,7 @@ const MyPosts = () => {
   const [selectedSubmissions, setSelectedSubmissions] = useState({});
   const [currentPostSubmissions, setCurrentPostSubmissions] = useState([]);
   const [message, setMessage] = useState("분양 관련 연락드렸습니다 :)");
+  const [openedPostsNumber, setOpenedPostsNumber] = useState(0);
 
   useFocusEffect(
     useCallback(() => {
@@ -29,11 +32,38 @@ const MyPosts = () => {
     }, [])
   );
 
+  function getOpenedPostsNumber() {
+    let count = 0;
+    for (count = 0; count < myPosts.length; count++) {
+      if (myPosts[count].status === 'closed') {
+        break;
+      }
+    }
+
+    return count;
+  }
+
+  function compareDateAndStatus(post1, post2) {
+    if (post1.status === post2.status) {
+      const time1 = new Date(post1.createdAt).getTime();
+      const time2 = new Date(post2.createdAt).getTime();
+
+      return time2 - time1;
+    } else {
+      return post1.status === 'opened' ? -1 : 1;
+    }
+  }
+
+  function sortPosts(posts) {
+    setOpenedPostsNumber(getOpenedPostsNumber(posts));
+    return posts.sort(compareDateAndStatus);
+  }
+
   async function getMyPosts() {
     try {
       const response = await postAPI.requestGetMyPosts(myId);
 
-      setMyPosts(response.data.posts);
+      setMyPosts(sortPosts(response.data.posts));
     } catch (err) {
       console.log(err);
     }
@@ -111,8 +141,12 @@ const MyPosts = () => {
     setIsModalVisible(false);
   }
 
+  if (!myPosts.length) {
+    return (<View></View>)
+  }
+
   return (
-    <View>
+    <View style={styles.listContainer}>
       {isModalVisible
         &&
         (Object.keys(selectedSubmissions).length
@@ -148,7 +182,9 @@ const MyPosts = () => {
           const isSubmissionExist = item.submissions.length ? true : false;
 
           return (
-            <>
+            <View>
+              {(index === 0 || index === openedPostsNumber)
+                && <Text style={styles.title}>{enumToString.status[item.status]}</Text>}
               <View style={styles.container}>
                 <Card
                   item={item}
@@ -161,21 +197,14 @@ const MyPosts = () => {
                     text="메시지 보내기"
                     type="filled"
                     onPress={() => handleSelectedSubmissions(index)}
-                    customButtonStyle={{
-                      width: 120,
-                      height: 45,
-                      alignSelf: 'flex-end',
-                      margin: 12,
-                      marginTop: 0,
-                      borderRadius: 8
-                    }}
+                    customButtonStyle={styles.button}
                   />
                   : <View>
                     <Text style={styles.text}>등록된 입양신청서가 없습니다.</Text>
                   </View>
                 }
               </View>
-            </>
+            </View>
           );
         }}
       />
@@ -184,14 +213,35 @@ const MyPosts = () => {
 };
 
 const styles = StyleSheet.create({
+  listContainer: {
+    // margin: 10,
+    // paddingTop: 12,
+    paddingBottom: 10,
+  },
   container: {
     margin: 10,
     paddingBottom: 10,
-    backgroundColor: colors.white
+    backgroundColor: colors.white,
+    borderRadius: 14,
+  },
+  title: {
+    alignSelf: 'center',
+    fontSize: 16,
+    fontWeight: 'bold',
+    paddingTop: 24,
+    paddingBottom: 5,
   },
   text: {
     alignSelf: 'center'
   },
+  button: {
+    width: 120,
+    height: 45,
+    alignSelf: 'flex-end',
+    margin: 12,
+    marginTop: 0,
+    borderRadius: 8
+  }
 });
 
 export default MyPosts;

@@ -27,6 +27,10 @@ const MySubmissions = () => {
     }
   }
 
+  if (!mySubmissions.length) {
+    return (<View></View>)
+  }
+
   return (
     <View style={styles.container}>
       <Text style={styles.title}>매칭 현황</Text>
@@ -78,6 +82,7 @@ const styles = StyleSheet.create({
     backgroundColor: colors.white,
     marginTop: 10,
     padding: 10,
+    borderRadius: 14,
   },
   image: {
     flex: 1,
@@ -90,7 +95,8 @@ const styles = StyleSheet.create({
   title: {
     alignSelf: 'center',
     fontSize: 16,
-    fontWeight: 'bold'
+    fontWeight: 'bold',
+    marginBottom: 10,
   },
   icon: {
     alignSelf: 'center'
