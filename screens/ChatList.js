@@ -20,12 +20,25 @@ const ChatList = () => {
     }, [isEntered])
   );
 
+  function compareDate(chat1, chat2) {
+    const time1 = new Date(chat1.lastMessage.time).getTime();
+    const time2 = new Date(chat2.lastMessage.time).getTime();
+
+    return time2 - time1;
+  }
+
+  function sortChats(chats) {
+    return chats.sort(compareDate);
+  }
+
   async function getMyChats() {
     try {
       const response = await chatAPI.requestGetChats(userId);
 
       if (response.code === 200) {
-        setChats(response.data.chats);
+        setChats(sortChats(response.data.chats));
+
+
       }
     } catch (err) {
       console.log(err);

@@ -7,14 +7,26 @@ import Button from '../components/shared/Button';
 import logo from '../assets/png/logo.png';
 import colors from '../theme/color';
 
+import {
+  readCredentials
+} from '../api/secureStore';
+
 const Signin = ({ navigation }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(fetchSignin());
+    checkCredentialsAndFetch();
   }, []);
+
+  async function checkCredentialsAndFetch() {
+    const credentials = await readCredentials();
+
+    if (credentials) {
+      dispatch(fetchSignin());
+    }
+  }
 
   function handleSubmit() {
     const signinInput = {

@@ -1,5 +1,7 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { initError } from '../reducers/userSlice';
+import { View, StyleSheet, Button, Alert } from "react-native";
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import Signin from '../screens/Signin';
@@ -10,8 +12,18 @@ import DetailNavigator from '../navigations/DetailNavigator';
 const AppStack = createStackNavigator();
 
 export default function AppNavigator() {
+  const dispatch = useDispatch();
   const user = useSelector(state => state.user);
   const isSignedIn = user.isSignedIn;
+
+  const isError = useSelector(state => state.user.isError);
+  const errorMessage = useSelector(state => state.user.errorMessage);
+
+
+  if (isError) {
+    Alert.alert(errorMessage);
+    dispatch(initError());
+  }
 
   return (
     <NavigationContainer>

@@ -1,9 +1,11 @@
 import React from 'react';
 import Form from '../components/shared/Form';
-import { View, KeyboardAvoidingView, TouchableOpacity, Image, StyleSheet } from 'react-native';
+import { View, Text, KeyboardAvoidingView, TouchableOpacity, Image, StyleSheet } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import postAPI from '../api/post';
 import mapEnumToString from '../constants/mapEnumToString';
+import { Feather } from '@expo/vector-icons';
+import colors from '../theme/color';
 
 const PostForm = ({ route, navigation }) => {
   let photo = null;
@@ -38,7 +40,10 @@ const PostForm = ({ route, navigation }) => {
             : <TouchableOpacity
               style={styles.container}
               onPress={handlePress}
-            />
+            >
+              <Feather name="camera" size={160} color="black" />
+              <Text style={styles.text}>햄스터 사진 촬영하기</Text>
+            </TouchableOpacity>
           }
         </View>
         <Form
@@ -102,14 +107,24 @@ const styles = StyleSheet.create({
     flex: 1
   },
   container: {
-    backgroundColor: 'gray',
+    backgroundColor: colors.outline,
+    alignItems: 'center',
+    justifyContent: 'center',
     width: 400,
     height: 300,
     marginBottom: 30,
   },
+  text: {
+    fontSize: 16,
+  },
   stretch: {
     width: '100%',
     height: 300
+  },
+  default: {
+    width: '30%',
+    height: '30%',
+    alignSelf: 'center',
   }
 });
 

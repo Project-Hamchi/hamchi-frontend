@@ -4,6 +4,8 @@ import { View, Text, TouchableOpacity, ScrollView, Image, StyleSheet } from 'rea
 import Form from '../components/shared/Form';
 import submissionAPI from '../api/submissions';
 import mapEnumToString from '../constants/mapEnumToString';
+import { Feather } from '@expo/vector-icons';
+import colors from '../theme/color';
 
 const SubmissionForm = ({ route, navigation }) => {
   let photo;
@@ -36,7 +38,8 @@ const SubmissionForm = ({ route, navigation }) => {
               style={styles.container}
               onPress={handlePress}
             >
-              <Text>미리 준비해두신 햄스터 사육 환경이 있다면 촬영해주세요!</Text>
+              <Feather name="camera" size={160} color="black" />
+              <Text style={styles.text}>미리 준비해두신 햄스터 사육 환경을 촬영해주세요!</Text>
             </TouchableOpacity>
           }
         </View>
@@ -74,7 +77,9 @@ const SubmissionForm = ({ route, navigation }) => {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: 'gray',
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: colors.outline,
     width: 400,
     height: 300,
     marginBottom: 30,
@@ -82,7 +87,11 @@ const styles = StyleSheet.create({
   stretch: {
     width: '100%',
     height: 300
-  }
+  },
+  text: {
+    fontSize: 16,
+    alignSelf: 'center'
+  },
 });
 
 export default SubmissionForm;
