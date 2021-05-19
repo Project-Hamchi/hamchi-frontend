@@ -4,6 +4,7 @@ import BouncyCheckbox from 'react-native-bouncy-checkbox';
 
 import enumToString from '../../constants/mapEnumToString';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
+
 import { formatFullDate } from '../../utils';
 import colors from '../../theme/color';
 
@@ -15,20 +16,21 @@ const Card = ({ item, selected, onSelect, showOptions }) => {
   return (
     <View>
       <View style={styles.postContainer}>
-        <Pressable
-          style={styles.icon}
-          onPress={() => showOptions(_id)}
-        >
-          <MaterialCommunityIcons
-            name="dots-horizontal-circle"
-            size={40}
-            color={colors.main}
-          />
-        </Pressable>
+        {status === 'opened'
+
+          && <Pressable
+            style={styles.icon}
+            onPress={() => showOptions(_id)}
+          >
+            <MaterialCommunityIcons
+              name="dots-horizontal-circle"
+              size={32}
+              color={colors.main}
+            />
+          </Pressable>}
         <Text style={styles.title}>{name}의 입양 신청서 목록</Text>
         <Image style={styles.image} source={{ uri: image }} />
         <Text>{formatFullDate(new Date(createdAt))}</Text>
-        {/* <Text>{enumToString.status[status]}</Text> */}
         <Text>신청자 수 {submissions.length}명</Text>
       </View>
       <FlatList
@@ -131,13 +133,14 @@ const styles = StyleSheet.create({
     marginBottom: 12,
     backgroundColor: colors.white,
     borderWidth: 1,
+    // borderColor: colors.outline,
     borderColor: colors.outline,
     borderRadius: 14,
   },
   icon: {
     position: 'absolute',
     right: 0,
-    margin: 5,
+    margin: 10,
   },
   field: {
     flexDirection: 'row',

@@ -34,7 +34,12 @@ const Hamster = ({ route, navigation }) => {
         <View style={styles.divider} />
         <View style={styles.field}>
           <Text style={styles.key}>종류</Text>
-          <Text style={styles.text}>{mapEnumToString.hamsterType[post.type]}햄스터</Text>
+          <Text style={styles.text}>{mapEnumToString.hamsterType[post.type]}</Text>
+        </View>
+        <View style={styles.divider} />
+        <View style={styles.field}>
+          <Text style={styles.key}>성별</Text>
+          <Text style={styles.text}>{mapEnumToString.hamsterGender[post.gender]}</Text>
         </View>
         <View style={styles.divider} />
         <View style={styles.field}>

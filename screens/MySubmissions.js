@@ -11,6 +11,8 @@ import colors from '../theme/color';
 const MySubmissions = () => {
   const myId = useSelector(state => state.user.userId);
   const [mySubmissions, setMySubmissions] = useState([]);
+  const [isRefreshing, setIsRefreshing] = useState(false);
+
 
   useFocusEffect(
     useCallback(() => {
@@ -26,6 +28,15 @@ const MySubmissions = () => {
       console.log(err);
     }
   }
+
+  async function init() {
+    getMySubmissions();
+  }
+
+  const handleRefresh = useCallback(() => {
+    setIsRefreshing(true);
+    init().then(() => setIsRefreshing(false));
+  }, []);
 
   if (!mySubmissions.length) {
     return (<View></View>)
@@ -45,7 +56,7 @@ const MySubmissions = () => {
           let statusMessage;
 
           if (matched === 'true') {
-            statusMessage = '매칭되었습니다. 메시지함을 확인해주세요';
+            statusMessage = `매칭되었습니다! \n메시지함을 확인해주세요`;
           } else {
             statusMessage = postStatus === 'opened'
               ? '분양 진행중입니다.'
@@ -54,18 +65,24 @@ const MySubmissions = () => {
 
           return (
             <View style={styles.submissionContainer}>
-              <View>
+              <View style={styles.leftContainer}>
                 <Image
                   style={styles.image}
                   source={{ uri: post.image }}
                 />
-                <Text>{post.name}</Text>
+                <View style={styles.messageContainer}>
+                  <Text style={styles.name}>{post.name}</Text>
+                  <Text style={styles.message}>{statusMessage}</Text>
+                </View>
               </View>
-              <Text>{statusMessage}</Text>
-              <Text>{formatDate(date)}</Text>
+              <View style={styles.rightContainer}>
+                <Text>{formatDate(date)}</Text>
+              </View>
             </View>
           );
         }}
+        refreshing={isRefreshing}
+        onRefresh={handleRefresh}
       />
     </View>
   );
@@ -77,6 +94,12 @@ const styles = StyleSheet.create({
     paddingTop: 12,
     paddingBottom: 10,
   },
+  title: {
+    alignSelf: 'center',
+    fontSize: 16,
+    fontWeight: 'bold',
+    marginBottom: 10,
+  },
   submissionContainer: {
     flexDirection: 'row',
     backgroundColor: colors.white,
@@ -84,19 +107,32 @@ const styles = StyleSheet.create({
     padding: 10,
     borderRadius: 14,
   },
+  leftContainer: {
+    flexDirection: 'row',
+    flex: 5,
+    justifyContent: 'space-around'
+  },
+  rightContainer: {
+    flex: 1,
+  },
   image: {
     flex: 1,
-    width: '28%',
+    width: '10%',
     height: undefined,
     aspectRatio: 1,
     borderRadius: 56,
     marginLeft: 6,
   },
-  title: {
-    alignSelf: 'center',
-    fontSize: 16,
+  messageContainer: {
+    flex: 4,
+    marginLeft: 10,
+  },
+  name: {
     fontWeight: 'bold',
-    marginBottom: 10,
+    fontSize: 16
+  },
+  message: {
+    fontSize: 14
   },
   icon: {
     alignSelf: 'center'

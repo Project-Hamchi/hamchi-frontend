@@ -18,6 +18,7 @@ import colors from '../theme/color';
 const MyPosts = () => {
   const myId = useSelector(state => state.user.userId);
   const confirmationMessage = "에게 분양 수락 메시지를 전송합니다";
+  const [isRefreshing, setIsRefreshing] = useState(false);
 
   const [myPosts, setMyPosts] = useState([]);
   const [isModalVisible, setIsModalVisible] = useState(false);
@@ -32,8 +33,13 @@ const MyPosts = () => {
     }, [])
   );
 
+  useEffect(() => {
+    setOpenedPostsNumber(getOpenedPostsNumber(myPosts));
+  }, [myPosts]);
+
   function getOpenedPostsNumber() {
     let count = 0;
+
     for (count = 0; count < myPosts.length; count++) {
       if (myPosts[count].status === 'closed') {
         break;
@@ -55,7 +61,6 @@ const MyPosts = () => {
   }
 
   function sortPosts(posts) {
-    setOpenedPostsNumber(getOpenedPostsNumber(posts));
     return posts.sort(compareDateAndStatus);
   }
 
@@ -95,7 +100,19 @@ const MyPosts = () => {
 
   async function handleClosePost(postId) {
     try {
-      const respose = await postAPI.requestClosePost(postId);
+      await postAPI.requestClosePost(postId);
+
+      let index;
+      for (index = 0; index < myPosts.length; index++) {
+        if (myPosts[index]._id === postId) {
+          break;
+        }
+      }
+
+      const newMyPosts = [...myPosts];
+      newMyPosts[index].status = 'closed';
+
+      setMyPosts(sortPosts(newMyPosts));
     } catch (err) {
     }
   }
@@ -141,6 +158,15 @@ const MyPosts = () => {
     setIsModalVisible(false);
   }
 
+  async function init() {
+    getMyPosts();
+  }
+
+  const handleRefresh = useCallback(() => {
+    setIsRefreshing(true);
+    init().then(() => setIsRefreshing(false));
+  }, []);
+
   if (!myPosts.length) {
     return (<View></View>)
   }
@@ -180,7 +206,7 @@ const MyPosts = () => {
         keyExtractor={(item) => item._id}
         renderItem={({ item, index }) => {
           const isSubmissionExist = item.submissions.length ? true : false;
-
+          const isClosed = index >= openedPostsNumber;
           return (
             <View>
               {(index === 0 || index === openedPostsNumber)
@@ -193,12 +219,13 @@ const MyPosts = () => {
                   showOptions={showOptions}
                 />
                 {isSubmissionExist
-                  ? <Button
-                    text="메시지 보내기"
-                    type="filled"
-                    onPress={() => handleSelectedSubmissions(index)}
-                    customButtonStyle={styles.button}
-                  />
+                  ? (!isClosed
+                    && <Button
+                      text="메시지 보내기"
+                      type="filled"
+                      onPress={() => handleSelectedSubmissions(index)}
+                      customButtonStyle={styles.button}
+                    />)
                   : <View>
                     <Text style={styles.text}>등록된 입양신청서가 없습니다.</Text>
                   </View>
@@ -207,6 +234,8 @@ const MyPosts = () => {
             </View>
           );
         }}
+        refreshing={isRefreshing}
+        onRefresh={handleRefresh}
       />
     </View>
   );
@@ -214,8 +243,6 @@ const MyPosts = () => {
 
 const styles = StyleSheet.create({
   listContainer: {
-    // margin: 10,
-    // paddingTop: 12,
     paddingBottom: 10,
   },
   container: {

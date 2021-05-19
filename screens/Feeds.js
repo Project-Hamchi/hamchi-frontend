@@ -6,6 +6,7 @@ import AdoptCardList from '../components/AdoptCardList';
 import FilteredAdoptCardList from '../components/FilteredAdoptCardList';
 import Toggle from '../components/shared/Toggle';
 import Filter from '../components/Filter';
+import colors from '../theme/color';
 
 const Feeds = ({ navigation }) => {
   const [isModalVisible, setIsModalVisible] = useState(false);
@@ -36,12 +37,13 @@ const Feeds = ({ navigation }) => {
         }}
       >
         <View style={styles.centeredView}>
-          <Filter title="햄스터 타입" />
-          <Button
-            title="확인"
-            style={[styles.button, styles.buttonClose]}
-            onPress={useSelectHamsterType}
-          ></Button>
+          <View style={styles.modalView}>
+            <Filter title="햄스터 타입" />
+            <TouchableWithoutFeedback
+              onPress={useSelectHamsterType}
+            ><View style={styles.buttonClose}><Text>확인</Text></View>
+            </TouchableWithoutFeedback>
+          </View>
         </View>
       </Modal>
       <View style={styles.filter}>
@@ -77,13 +79,20 @@ const styles = StyleSheet.create({
     alignItems: "center",
     marginTop: 22
   },
-  button: {
-    borderRadius: 20,
-    padding: 10,
-    elevation: 2
+  modalView: {
+    justifyContent: 'space-around',
+    backgroundColor: colors.white,
+    width: '75%',
+    height: '26%',
+    borderRadius: 14,
   },
   buttonClose: {
-    backgroundColor: "#2196F3",
+    width: '20%',
+    alignItems: 'center',
+    backgroundColor: colors.outline,
+    alignSelf: 'center',
+    padding: 8,
+    borderRadius: 10,
   },
   filter: {
     flexDirection: 'row',
