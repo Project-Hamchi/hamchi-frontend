@@ -2,6 +2,7 @@ import React from 'react';
 import { View, Text, Modal, StyleSheet, Pressable } from 'react-native';
 import Button from '../shared/Button';
 import colors from '../../theme/color';
+import { FontAwesome } from '@expo/vector-icons';
 
 const alertModal = ({ title, onConfirm, onClose, children }) => {
   return (
@@ -13,9 +14,9 @@ const alertModal = ({ title, onConfirm, onClose, children }) => {
     >
       <View style={styles.centeredView}>
         <View style={styles.modalContainer}>
-          <View style={styles.closeContainer}>
+          <View style={styles.close}>
             <Pressable onPress={onClose}>
-              <Text style={styles.close}>X</Text>
+              <FontAwesome name="close" size={16} color={colors.black} />
             </Pressable>
           </View>
           <View style={styles.childrenContainer}>
@@ -25,7 +26,7 @@ const alertModal = ({ title, onConfirm, onClose, children }) => {
             text="확인"
             type="filled"
             onPress={onConfirm}
-            customButtonStyle={{ margin: 0 }}
+            customButtonStyle={styles.confirm}
           ></Button>
         </View>
       </View>
@@ -47,9 +48,9 @@ const styles = StyleSheet.create({
   },
   modalContainer: {
     margin: 20,
-    padding: 32,
+    padding: 20,
 
-    flexDirection: "column",
+    justifyContent: 'space-between',
     alignItems: "center",
     backgroundColor: colors.white,
 
@@ -60,16 +61,22 @@ const styles = StyleSheet.create({
     },
     shadowOpacity: 0.25,
     shadowRadius: 4,
-    elevation: 5
+
+    borderRadius: 14,
   },
   closeContainer: {
     alignItems: 'flex-start',
   },
   close: {
-
+    alignSelf: 'flex-end',
+  },
+  confirm: {
+    width: 80,
+    marginTop: 0,
   },
   childrenContainer: {
-    margin: 20,
+    margin: 30,
+    alignSelf: 'center'
   }
 });
 

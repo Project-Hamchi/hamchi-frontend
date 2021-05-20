@@ -1,5 +1,6 @@
 import React, { useState, useCallback, useEffect } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { createError } from '../reducers/userSlice';
 import { ActionSheetIOS, View, Text, FlatList, StyleSheet } from 'react-native';
 
 import Button from '../components/shared/Button';
@@ -8,6 +9,7 @@ import Modal from '../components/shared/Modal';
 import Card from '../components/shared/Card';
 
 import enumToString from '../constants/mapEnumToString';
+import errorMessage from '../constants/errorMessage';
 
 import submissionAPI from '../api/submissions';
 import postAPI from '../api/post';
@@ -16,6 +18,7 @@ import { useFocusEffect } from '@react-navigation/native';
 import colors from '../theme/color';
 
 const MyPosts = () => {
+  const dispatch = useDispatch();
   const myId = useSelector(state => state.user.userId);
   const confirmationMessage = "에게 분양 수락 메시지를 전송합니다";
   const [isRefreshing, setIsRefreshing] = useState(false);
@@ -26,6 +29,7 @@ const MyPosts = () => {
   const [currentPostSubmissions, setCurrentPostSubmissions] = useState([]);
   const [message, setMessage] = useState("분양 관련 연락드렸습니다 :)");
   const [openedPostsNumber, setOpenedPostsNumber] = useState(0);
+
 
   useFocusEffect(
     useCallback(() => {
@@ -68,9 +72,13 @@ const MyPosts = () => {
     try {
       const response = await postAPI.requestGetMyPosts(myId);
 
-      setMyPosts(sortPosts(response.data.posts));
+      if (response.code === 200) {
+        setMyPosts(sortPosts(response.data.posts));
+      } else {
+        dispatch(createError(errorMessage.FETCH_ERROR));
+      }
     } catch (err) {
-      console.log(err);
+      dispatch(createError(errorMessage.INTERNAL_ERROR));
     }
   }
 
@@ -82,7 +90,7 @@ const MyPosts = () => {
         getMyPosts();
       }
     } catch (err) {
-      console.log(err);
+      dispatch(createError(errorMessage.INTERNAL_ERROR));
     }
   }
 
@@ -114,6 +122,7 @@ const MyPosts = () => {
 
       setMyPosts(sortPosts(newMyPosts));
     } catch (err) {
+      dispatch(createError(errorMessage.INTERNAL_ERROR));
     }
   }
 
@@ -155,6 +164,7 @@ const MyPosts = () => {
   function handleModalConfirm() {
     updateSubmissions();
     createNewChat();
+    setSelectedSubmissions({});
     setIsModalVisible(false);
   }
 

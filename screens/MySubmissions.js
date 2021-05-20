@@ -1,18 +1,19 @@
 import React, { useState, useCallback } from 'react';
 import { useFocusEffect } from '@react-navigation/native';
+import { useSelector, useDispatch } from 'react-redux';
+import { createError } from '../reducers/userSlice';
+import errorMessage from '../constants/errorMessage';
 
-import { useSelector } from 'react-redux';
 import { View, Text, Image, FlatList, StyleSheet } from 'react-native';
 import submissionAPI from '../api/submissions';
 import { formatDate } from '../utils/index';
-
 import colors from '../theme/color';
 
 const MySubmissions = () => {
+  const dispatch = useDispatch();
   const myId = useSelector(state => state.user.userId);
   const [mySubmissions, setMySubmissions] = useState([]);
   const [isRefreshing, setIsRefreshing] = useState(false);
-
 
   useFocusEffect(
     useCallback(() => {
@@ -20,12 +21,28 @@ const MySubmissions = () => {
     }, [])
   );
 
+  function compareDate(post1, post2) {
+    const time1 = new Date(post1.createdAt).getTime();
+    const time2 = new Date(post2.createdAt).getTime();
+
+    return time2 - time1;
+  }
+
+  function sortSubmissions(submissions) {
+    return submissions.sort(compareDate);
+  }
+
   async function getMySubmissions() {
     try {
       const response = await submissionAPI.requestGetMySubmissions(myId);
-      setMySubmissions(response.data.submissions);
+
+      if (response.code === 200) {
+        setMySubmissions(sortSubmissions(response.data.submissions));
+      } else {
+        dispatch(createError(response.message));
+      }
     } catch (err) {
-      console.log(err);
+      dispatch(createError(errorMessage.INTERNAL_ERROR));
     }
   }
 
@@ -56,7 +73,7 @@ const MySubmissions = () => {
           let statusMessage;
 
           if (matched === 'true') {
-            statusMessage = `매칭되었습니다! \n메시지함을 확인해주세요`;
+            statusMessage = `매칭되었습니다! \n메시지함을 확인해주세요.`;
           } else {
             statusMessage = postStatus === 'opened'
               ? '분양 진행중입니다.'

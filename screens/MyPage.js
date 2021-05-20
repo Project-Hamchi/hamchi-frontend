@@ -18,13 +18,15 @@ const MyPage = () => {
 
   return (
     <View style={styles.container}>
-      <Text>{username}</Text>
-      <Text>{email}</Text>
+      <View style={styles.info}>
+        <Text>이름:{username}</Text>
+        <Text>이메일:{email}</Text>
+      </View>
       <Button
         text="로그아웃"
         type="filled"
         onPress={handleSignoutButtonClick}
-        customButtonStyle={{ width: '60%', alignSelf: 'center' }}
+        customButtonStyle={styles.button}
       />
     </View>
   );
@@ -32,7 +34,17 @@ const MyPage = () => {
 
 const styles = StyleSheet.create({
   container: {
+    flex: 1,
+    alignItems: "center"
   },
+  info: {
+    width: '60%',
+    marginTop: 42
+  },
+  button: {
+    width: '60%',
+    alignSelf: 'center'
+  }
 });
 
 export default MyPage;

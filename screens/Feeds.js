@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
-import { Text, Button, TouchableWithoutFeedback, View, StyleSheet, Modal } from 'react-native';
+import { Text, TouchableWithoutFeedback, View, StyleSheet, Modal } from 'react-native';
 
 import AdoptCardList from '../components/AdoptCardList';
 import FilteredAdoptCardList from '../components/FilteredAdoptCardList';
@@ -85,6 +85,14 @@ const styles = StyleSheet.create({
     width: '75%',
     height: '26%',
     borderRadius: 14,
+
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
   },
   buttonClose: {
     width: '20%',

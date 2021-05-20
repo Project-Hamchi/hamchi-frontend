@@ -1,8 +1,20 @@
 import React, { useState } from 'react';
-import { KeyboardAvoidingView, TouchableWithoutFeedback, Platform, Keyboard, View, Image, Text, StyleSheet } from 'react-native';
+import { useDispatch } from 'react-redux';
+import { createError } from '../reducers/userSlice';
+import {
+  KeyboardAvoidingView,
+  TouchableWithoutFeedback,
+  Keyboard,
+  View,
+  Image,
+  Text,
+  StyleSheet
+} from 'react-native';
+
 import Input from '../components/shared/Input';
 import Button from '../components/shared/Button';
 import logo from '../assets/png/logo.png';
+import errorMessage from '../constants/errorMessage';
 import userAPI from '../api/user';
 
 const Signup = ({ navigation }) => {
@@ -10,6 +22,8 @@ const Signup = ({ navigation }) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+
+  const dispatch = useDispatch();
 
   async function handleSubmit() {
     try {
@@ -19,13 +33,15 @@ const Signup = ({ navigation }) => {
         password,
         confirmPassword
       };
-
       const response = await userAPI.requestSignup(signupInput);
+
       if (response.code === 200) {
         navigation.navigate('Sign in');
+      } else {
+        dispatch(createError(response.message));
       }
-
     } catch (err) {
+      dispatch(createError('작업 도중 에러가 발생했습니다'));
     }
   }
 
@@ -78,7 +94,7 @@ const Signup = ({ navigation }) => {
 
 const styles = StyleSheet.create({
   screen: {
-    flexDirection: "column",
+    flex: 1,
     alignItems: "center",
     justifyContent: "center",
     paddingTop: 50,

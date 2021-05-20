@@ -15,12 +15,17 @@ const PostForm = ({ route, navigation }) => {
   }
 
   function handlePress() {
+    photo = null;
     navigation.navigate('Camera', { redirectTo: 'PostForm' });
   }
 
   function handleAfterSubmit() {
-    photo = null;
-    navigation.navigate('신청현황', { screen: '내 분양글' });
+    // photo = null;
+    // navigation.navigate('신청현황', { screen: '내 분양글' });
+    navigation.reset({
+      index: 0,
+      routes: [{ name: '피드' }],
+    });
   }
 
   return (
@@ -30,7 +35,7 @@ const PostForm = ({ route, navigation }) => {
       enabled
     >
       <KeyboardAwareScrollView>
-        <View style={styles.container}>
+        <View>
           {photo ?
             <View>
               <Image
@@ -41,7 +46,7 @@ const PostForm = ({ route, navigation }) => {
               style={styles.container}
               onPress={handlePress}
             >
-              <Feather name="camera" size={160} color="black" />
+              <Feather name="camera" size={160} color={colors.bold} />
               <Text style={styles.text}>햄스터 사진 촬영하기</Text>
             </TouchableOpacity>
           }
@@ -110,16 +115,19 @@ const styles = StyleSheet.create({
     backgroundColor: colors.outline,
     alignItems: 'center',
     justifyContent: 'center',
-    width: 400,
+    width: '100%',
     height: 300,
     marginBottom: 30,
   },
   text: {
     fontSize: 16,
+    color: colors.bold
   },
   stretch: {
     width: '100%',
-    height: 300
+    height: undefined,
+    aspectRatio: 1,
+    marginBottom: 20
   },
   default: {
     width: '30%',

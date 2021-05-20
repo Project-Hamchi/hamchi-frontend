@@ -1,5 +1,6 @@
 import React, { useState, useCallback } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { createError } from '../reducers/userSlice';
 import { useFocusEffect } from '@react-navigation/native';
 
 import { View, FlatList } from 'react-native';
@@ -8,6 +9,7 @@ import ChatListItem from '../components/ChatListItem';
 import chatAPI from '../api/chat';
 
 const ChatList = () => {
+  const dispatch = useDispatch();
   const navigation = useNavigation();
   const userId = useSelector(state => state.user.userId);
   const [chats, setChats] = useState([]);
@@ -37,11 +39,11 @@ const ChatList = () => {
 
       if (response.code === 200) {
         setChats(sortChats(response.data.chats));
-
+      } else {
 
       }
     } catch (err) {
-      console.log(err);
+      dispatch(createError(errorMessage.INTERNAL_ERROR));
     }
   }
 
