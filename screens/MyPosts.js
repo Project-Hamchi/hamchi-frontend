@@ -7,6 +7,7 @@ import Button from '../components/shared/Button';
 import Input from '../components/shared/Input';
 import Modal from '../components/shared/Modal';
 import Card from '../components/shared/Card';
+import Empty from '../components/shared/Empty';
 
 import enumToString from '../constants/mapEnumToString';
 import errorMessage from '../constants/errorMessage';
@@ -23,7 +24,7 @@ const MyPosts = () => {
   const confirmationMessage = "에게 분양 수락 메시지를 전송합니다";
   const [isRefreshing, setIsRefreshing] = useState(false);
 
-  const [myPosts, setMyPosts] = useState([]);
+  const [myPosts, setMyPosts] = useState(null);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [selectedSubmissions, setSelectedSubmissions] = useState({});
   const [currentPostSubmissions, setCurrentPostSubmissions] = useState([]);
@@ -43,6 +44,10 @@ const MyPosts = () => {
 
   function getOpenedPostsNumber() {
     let count = 0;
+
+    if (myPosts === null) {
+      return;
+    }
 
     for (count = 0; count < myPosts.length; count++) {
       if (myPosts[count].status === 'closed') {
@@ -177,8 +182,12 @@ const MyPosts = () => {
     init().then(() => setIsRefreshing(false));
   }, []);
 
-  if (!myPosts.length) {
-    return (<View></View>)
+  if (myPosts !== null && myPosts.length === 0) {
+    return (
+      <Empty
+        title="분양글 리스트가 존재하지 않습니다"
+      />
+    );
   }
 
   return (

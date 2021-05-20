@@ -1,4 +1,6 @@
 import React from 'react';
+import { Button } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import PostForm from '../screens/PostForm';
 import Camera from '../screens/Camera';
@@ -7,6 +9,15 @@ import Preview from '../screens/Preview';
 const PostStack = createStackNavigator();
 
 export default function PostNavigator() {
+  const navigation = useNavigation();
+
+  function handlePressCancelButton() {
+    navigation.reset({
+      index: 0,
+      routes: [{ name: '피드' }],
+    });
+  }
+
   return (
     <>
       <PostStack.Navigator>
@@ -14,7 +25,13 @@ export default function PostNavigator() {
           name="PostForm"
           component={PostForm}
           options={{
-            title: "분양글 작성"
+            title: "분양글 작성",
+            headerRight: () => (
+              <Button
+                title="취소"
+                onPress={handlePressCancelButton}
+              />
+            )
           }}
         />
         <PostStack.Screen

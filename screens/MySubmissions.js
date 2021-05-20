@@ -5,6 +5,8 @@ import { createError } from '../reducers/userSlice';
 import errorMessage from '../constants/errorMessage';
 
 import { View, Text, Image, FlatList, StyleSheet } from 'react-native';
+import Empty from '../components/shared/Empty';
+
 import submissionAPI from '../api/submissions';
 import { formatDate } from '../utils/index';
 import colors from '../theme/color';
@@ -12,7 +14,7 @@ import colors from '../theme/color';
 const MySubmissions = () => {
   const dispatch = useDispatch();
   const myId = useSelector(state => state.user.userId);
-  const [mySubmissions, setMySubmissions] = useState([]);
+  const [mySubmissions, setMySubmissions] = useState(null);
   const [isRefreshing, setIsRefreshing] = useState(false);
 
   useFocusEffect(
@@ -55,8 +57,12 @@ const MySubmissions = () => {
     init().then(() => setIsRefreshing(false));
   }, []);
 
-  if (!mySubmissions.length) {
-    return (<View></View>)
+  if (mySubmissions !== null && mySubmissions.length === 0) {
+    return (
+      <Empty
+        title="내 신청서 리스트가 존재하지 않습니다"
+      />
+    );
   }
 
   return (

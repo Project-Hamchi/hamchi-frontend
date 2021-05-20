@@ -1,6 +1,4 @@
 import React from 'react';
-import { Button } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import Hamster from '../screens/Hamster';
 import SubmissionForm from '../screens/SubmissionForm';
@@ -27,8 +25,20 @@ export default function DetailNavigator() {
             title: "입양 신청서"
           }}
         />
-        <DetailStack.Screen name="Camera" component={Camera} />
-        <DetailStack.Screen name="Preview" component={Preview} />
+        <DetailStack.Screen
+          name="Camera"
+          component={Camera}
+          options={{
+            title: "카메라"
+          }}
+        />
+        <DetailStack.Screen
+          name="Preview"
+          component={Preview}
+          options={{
+            title: "미리보기"
+          }}
+        />
       </DetailStack.Navigator>
     </>
   );

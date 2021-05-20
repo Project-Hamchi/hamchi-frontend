@@ -6,13 +6,14 @@ import { useFocusEffect } from '@react-navigation/native';
 import { View, FlatList } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import ChatListItem from '../components/ChatListItem';
+import Empty from '../components/shared/Empty';
 import chatAPI from '../api/chat';
 
 const ChatList = () => {
   const dispatch = useDispatch();
   const navigation = useNavigation();
   const userId = useSelector(state => state.user.userId);
-  const [chats, setChats] = useState([]);
+  const [chats, setChats] = useState(null);
 
   const isEntered = useSelector(state => state.chat.isEntered);
 
@@ -54,6 +55,14 @@ const ChatList = () => {
       chatId: chatId,
       messageId: messageId
     });
+  }
+
+  if (chats !== null && chats.length === 0) {
+    return (
+      <Empty
+        title="채팅리스트가 존재하지 않습니다"
+      />
+    );
   }
 
   return (
