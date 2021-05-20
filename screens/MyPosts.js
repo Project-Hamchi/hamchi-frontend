@@ -1,11 +1,16 @@
-import React, { useState, useCallback } from 'react';
-import { useSelector } from 'react-redux';
+import React, { useState, useCallback, useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { createError } from '../reducers/userSlice';
 import { ActionSheetIOS, View, Text, FlatList, StyleSheet } from 'react-native';
 
 import Button from '../components/shared/Button';
 import Input from '../components/shared/Input';
 import Modal from '../components/shared/Modal';
 import Card from '../components/shared/Card';
+import Empty from '../components/shared/Empty';
+
+import enumToString from '../constants/mapEnumToString';
+import errorMessage from '../constants/errorMessage';
 
 import submissionAPI from '../api/submissions';
 import postAPI from '../api/post';
@@ -14,14 +19,18 @@ import { useFocusEffect } from '@react-navigation/native';
 import colors from '../theme/color';
 
 const MyPosts = () => {
+  const dispatch = useDispatch();
   const myId = useSelector(state => state.user.userId);
   const confirmationMessage = "에게 분양 수락 메시지를 전송합니다";
+  const [isRefreshing, setIsRefreshing] = useState(false);
 
-  const [myPosts, setMyPosts] = useState([]);
+  const [myPosts, setMyPosts] = useState(null);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [selectedSubmissions, setSelectedSubmissions] = useState({});
   const [currentPostSubmissions, setCurrentPostSubmissions] = useState([]);
   const [message, setMessage] = useState("분양 관련 연락드렸습니다 :)");
+  const [openedPostsNumber, setOpenedPostsNumber] = useState(0);
+
 
   useFocusEffect(
     useCallback(() => {
@@ -29,13 +38,52 @@ const MyPosts = () => {
     }, [])
   );
 
+  useEffect(() => {
+    setOpenedPostsNumber(getOpenedPostsNumber(myPosts));
+  }, [myPosts]);
+
+  function getOpenedPostsNumber() {
+    let count = 0;
+
+    if (myPosts === null) {
+      return;
+    }
+
+    for (count = 0; count < myPosts.length; count++) {
+      if (myPosts[count].status === 'closed') {
+        break;
+      }
+    }
+
+    return count;
+  }
+
+  function compareDateAndStatus(post1, post2) {
+    if (post1.status === post2.status) {
+      const time1 = new Date(post1.createdAt).getTime();
+      const time2 = new Date(post2.createdAt).getTime();
+
+      return time2 - time1;
+    } else {
+      return post1.status === 'opened' ? -1 : 1;
+    }
+  }
+
+  function sortPosts(posts) {
+    return posts.sort(compareDateAndStatus);
+  }
+
   async function getMyPosts() {
     try {
       const response = await postAPI.requestGetMyPosts(myId);
 
-      setMyPosts(response.data.posts);
+      if (response.code === 200) {
+        setMyPosts(sortPosts(response.data.posts));
+      } else {
+        dispatch(createError(errorMessage.FETCH_ERROR));
+      }
     } catch (err) {
-      console.log(err);
+      dispatch(createError(errorMessage.INTERNAL_ERROR));
     }
   }
 
@@ -47,7 +95,7 @@ const MyPosts = () => {
         getMyPosts();
       }
     } catch (err) {
-      console.log(err);
+      dispatch(createError(errorMessage.INTERNAL_ERROR));
     }
   }
 
@@ -65,8 +113,21 @@ const MyPosts = () => {
 
   async function handleClosePost(postId) {
     try {
-      const respose = await postAPI.requestClosePost(postId);
+      await postAPI.requestClosePost(postId);
+
+      let index;
+      for (index = 0; index < myPosts.length; index++) {
+        if (myPosts[index]._id === postId) {
+          break;
+        }
+      }
+
+      const newMyPosts = [...myPosts];
+      newMyPosts[index].status = 'closed';
+
+      setMyPosts(sortPosts(newMyPosts));
     } catch (err) {
+      dispatch(createError(errorMessage.INTERNAL_ERROR));
     }
   }
 
@@ -108,11 +169,29 @@ const MyPosts = () => {
   function handleModalConfirm() {
     updateSubmissions();
     createNewChat();
+    setSelectedSubmissions({});
     setIsModalVisible(false);
   }
 
+  async function init() {
+    getMyPosts();
+  }
+
+  const handleRefresh = useCallback(() => {
+    setIsRefreshing(true);
+    init().then(() => setIsRefreshing(false));
+  }, []);
+
+  if (myPosts !== null && myPosts.length === 0) {
+    return (
+      <Empty
+        title="분양글 리스트가 존재하지 않습니다"
+      />
+    );
+  }
+
   return (
-    <View>
+    <View style={styles.listContainer}>
       {isModalVisible
         &&
         (Object.keys(selectedSubmissions).length
@@ -146,9 +225,11 @@ const MyPosts = () => {
         keyExtractor={(item) => item._id}
         renderItem={({ item, index }) => {
           const isSubmissionExist = item.submissions.length ? true : false;
-
+          const isClosed = index >= openedPostsNumber;
           return (
-            <>
+            <View>
+              {(index === 0 || index === openedPostsNumber)
+                && <Text style={styles.title}>{enumToString.status[item.status]}</Text>}
               <View style={styles.container}>
                 <Card
                   item={item}
@@ -157,41 +238,56 @@ const MyPosts = () => {
                   showOptions={showOptions}
                 />
                 {isSubmissionExist
-                  ? <Button
-                    text="메시지 보내기"
-                    type="filled"
-                    onPress={() => handleSelectedSubmissions(index)}
-                    customButtonStyle={{
-                      width: 120,
-                      height: 45,
-                      alignSelf: 'flex-end',
-                      margin: 12,
-                      marginTop: 0,
-                      borderRadius: 8
-                    }}
-                  />
+                  ? (!isClosed
+                    && <Button
+                      text="메시지 보내기"
+                      type="filled"
+                      onPress={() => handleSelectedSubmissions(index)}
+                      customButtonStyle={styles.button}
+                    />)
                   : <View>
                     <Text style={styles.text}>등록된 입양신청서가 없습니다.</Text>
                   </View>
                 }
               </View>
-            </>
+            </View>
           );
         }}
+        refreshing={isRefreshing}
+        onRefresh={handleRefresh}
       />
     </View>
   );
 };
 
 const styles = StyleSheet.create({
+  listContainer: {
+    paddingBottom: 10,
+  },
   container: {
     margin: 10,
     paddingBottom: 10,
-    backgroundColor: colors.white
+    backgroundColor: colors.white,
+    borderRadius: 14,
+  },
+  title: {
+    alignSelf: 'center',
+    fontSize: 16,
+    fontWeight: 'bold',
+    paddingTop: 24,
+    paddingBottom: 5,
   },
   text: {
     alignSelf: 'center'
   },
+  button: {
+    width: 120,
+    height: 45,
+    alignSelf: 'flex-end',
+    margin: 12,
+    marginTop: 0,
+    borderRadius: 8
+  }
 });
 
 export default MyPosts;

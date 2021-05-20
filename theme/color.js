@@ -7,7 +7,8 @@ const colors = {
   gray: 'gray',
   transparent: 'transparent',
   black: 'black',
-  message: '#E0F8FF'
+  message: '#E0F8FF',
+  bold: '#5D5D5D'
 };
 
 export default colors;

@@ -20,9 +20,9 @@ export const byIndex = function (array) {
 };
 
 export const formatTime = function (currentDate) {
-  const term = hour >= 12 ? '오후' : '오전';
   const minute = currentDate.getMinutes();
   let hour = currentDate.getHours();
+  const term = hour >= 12 ? '오후' : '오전';
 
   hour = hour > 12 ? hour - 12 : hour;
 
@@ -37,6 +37,9 @@ export const formatDate = function (currentDate) {
 }
 
 export const formatFullDate = function (currentDate) {
+  if (!currentDate) {
+    return '';
+  }
   const year = currentDate.getFullYear();
   const month = currentDate.getMonth() + 1;
   const date = currentDate.getDate();

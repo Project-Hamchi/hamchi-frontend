@@ -3,18 +3,21 @@ import { View, StyleSheet, Image } from 'react-native';
 import jungle from '../assets/tape/jungle1.png';
 import robo from '../assets/tape/robo1.png';
 import syrian from '../assets/tape/syrian1.png';
+import other from '../assets/tape/robo.png';
 import colors from '../theme/color';
 
 const PhotoCard = ({ uri, type }) => {
-  const labelByTypes = [robo, jungle, syrian];
+  const labelByTypes = [robo, jungle, syrian, other];
 
   let typeIndex;
   if (type === 'Robo') {
     typeIndex = 0;
   } else if (type === 'Jungle') {
     typeIndex = 1;
-  } else {
+  } else if (type === 'Syrian') {
     typeIndex = 2;
+  } else {
+    typeIndex = 3;
   }
 
   return (

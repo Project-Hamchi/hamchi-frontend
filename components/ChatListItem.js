@@ -29,6 +29,7 @@ const styles = StyleSheet.create({
     backgroundColor: colors.white,
     marginTop: 10,
     alignSelf: 'center',
+    borderRadius: 14,
   },
   leftContainer: {
     flex: 5,

@@ -1,12 +1,16 @@
 import React, { useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { createError } from '../../reducers/userSlice';
+import errorMessage from '../../constants/errorMessage';
+
 import { View, Text, StyleSheet } from 'react-native';
-import Input from './Input';
-import Button from './Button';
 import RadioButton from './RadioButton';
+import Button from './Button';
+import Input from './Input';
 
 const getInitialState = (fieldKeys) => {
   const state = {};
+
   fieldKeys.forEach((key) => {
     state[key] = '';
   });
@@ -15,27 +19,35 @@ const getInitialState = (fieldKeys) => {
 };
 
 const Form = ({ additionalParams, fields, action, afterSubmit }) => {
-  const fieldsKeys = Object.keys(fields);
-  const [values, setValues] = useState(getInitialState(fieldsKeys));
-
+  const dispatch = useDispatch();
   const userId = useSelector(state => state.user.userId);
   const username = useSelector(state => state.user.username);
+
+  const fieldsKeys = Object.keys(fields);
+  const [values, setValues] = useState(getInitialState(fieldsKeys));
 
   const onChangeValue = (key, value) => {
     const newState = { ...values, [key]: value };
     setValues(newState);
   };
 
-  const getValues = () => {
-    return fieldsKeys.sort().map((key) => values[key]);
-  };
-
   const submit = async () => {
     try {
-      const result = await action({ ...values, userId, username, ...additionalParams });
-      afterSubmit();
+      const response = await action({
+        ...values,
+        userId,
+        username,
+        ...additionalParams
+      });
+
+      if (response.code === 200) {
+        afterSubmit();
+      } else {
+        dispatch(createError(response.message));
+      }
+
     } catch (err) {
-      console.log(err);
+      dispatch(createError(errorMessage.INTERNAL_ERROR));
     }
   };
 

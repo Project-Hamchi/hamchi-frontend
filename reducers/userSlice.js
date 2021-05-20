@@ -50,6 +50,14 @@ export const userSlice = createSlice({
   reducers: {
     signOut(state, action) {
       return initialState;
+    },
+    createError(state, action) {
+      state.isError = true;
+      state.errorMessage = action.payload;
+    },
+    initError(state, action) {
+      state.isError = false;
+      state.errorMessage = '';
     }
   },
   extraReducers: {
@@ -75,6 +83,6 @@ export const userSlice = createSlice({
 
 const { actions, reducer } = userSlice;
 
-export const { signOut } = actions;
+export const { signOut, createError, initError } = actions;
 
 export default reducer;

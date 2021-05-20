@@ -4,28 +4,33 @@ import BouncyCheckbox from 'react-native-bouncy-checkbox';
 
 import enumToString from '../../constants/mapEnumToString';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
+
+import { formatFullDate } from '../../utils';
 import colors from '../../theme/color';
 
 const Card = ({ item, selected, onSelect, showOptions }) => {
-  const { _id, image, name, submissions } = item;
+  const { _id, image, name, submissions, createdAt, status } = item;
 
   const mapped = enumToString.experienceType;
 
   return (
     <View>
       <View style={styles.postContainer}>
-        <Pressable
-          style={styles.icon}
-          onPress={() => showOptions(_id)}
-        >
-          <MaterialCommunityIcons
-            name="dots-horizontal-circle"
-            size={40}
-            color={colors.main}
-          />
-        </Pressable>
+        {status === 'opened'
+
+          && <Pressable
+            style={styles.icon}
+            onPress={() => showOptions(_id)}
+          >
+            <MaterialCommunityIcons
+              name="dots-horizontal-circle"
+              size={32}
+              color={colors.main}
+            />
+          </Pressable>}
         <Text style={styles.title}>{name}의 입양 신청서 목록</Text>
         <Image style={styles.image} source={{ uri: image }} />
+        <Text>{formatFullDate(new Date(createdAt))}</Text>
         <Text>신청자 수 {submissions.length}명</Text>
       </View>
       <FlatList
@@ -81,7 +86,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     height: 170,
     paddingTop: 12,
-    marginBottom: 10,
+    marginBottom: 10
   },
   title: {
     fontSize: 16,
@@ -91,19 +96,19 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     marginBottom: 20,
-    flex: 1,
+    flex: 1
   },
   checkbox: {
     width: 10,
     height: 10,
-    alignSelf: 'center',
+    alignSelf: 'center'
   },
   image: {
     width: '28%',
     height: undefined,
     aspectRatio: 1,
-    borderRadius: 50,
-    marginLeft: 6,
+    borderRadius: 60,
+    marginLeft: 6
   },
   environment: {
     height: undefined,
@@ -115,10 +120,10 @@ const styles = StyleSheet.create({
   textContainer: {
     flex: 4,
     justifyContent: 'flex-start',
-    padding: 10,
+    padding: 10
   },
   text: {
-    fontSize: 16,
+    fontSize: 16
   },
   submissionContainer: {
     flexDirection: 'row',
@@ -128,16 +133,17 @@ const styles = StyleSheet.create({
     marginBottom: 12,
     backgroundColor: colors.white,
     borderWidth: 1,
-    borderColor: colors.outline
+    borderColor: colors.outline,
+    borderRadius: 14
   },
   icon: {
     position: 'absolute',
     right: 0,
-    margin: 5,
+    margin: 10
   },
   field: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
+    justifyContent: 'space-between'
   }
 });
 

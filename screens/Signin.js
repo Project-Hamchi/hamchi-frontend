@@ -1,11 +1,23 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { fetchSignin } from '../reducers/userSlice';
-import { KeyboardAvoidingView, TouchableWithoutFeedback, Keyboard, View, Image, Text, StyleSheet } from 'react-native';
+import {
+  KeyboardAvoidingView,
+  TouchableWithoutFeedback,
+  Keyboard,
+  View,
+  Image,
+  Text,
+  StyleSheet
+} from 'react-native';
 import Input from '../components/shared/Input';
 import Button from '../components/shared/Button';
 import logo from '../assets/png/logo.png';
 import colors from '../theme/color';
+
+import {
+  readCredentials
+} from '../api/secureStore';
 
 const Signin = ({ navigation }) => {
   const [email, setEmail] = useState('');
@@ -13,8 +25,16 @@ const Signin = ({ navigation }) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(fetchSignin());
+    checkCredentialsAndFetch();
   }, []);
+
+  async function checkCredentialsAndFetch() {
+    const credentials = await readCredentials();
+
+    if (credentials) {
+      dispatch(fetchSignin());
+    }
+  }
 
   function handleSubmit() {
     const signinInput = {
@@ -66,7 +86,9 @@ const Signin = ({ navigation }) => {
 
 const styles = StyleSheet.create({
   screen: {
+    flex: 1,
     alignItems: 'center',
+    justifyContent: 'center',
     padding: 50,
   },
   title: {

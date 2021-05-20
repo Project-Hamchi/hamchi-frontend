@@ -1,32 +1,50 @@
 import React, { useState, useCallback } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { createError } from '../reducers/userSlice';
 import { useFocusEffect } from '@react-navigation/native';
 
 import { View, FlatList } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import { useSelector } from 'react-redux';
 import ChatListItem from '../components/ChatListItem';
+import Empty from '../components/shared/Empty';
 import chatAPI from '../api/chat';
 
 const ChatList = () => {
+  const dispatch = useDispatch();
   const navigation = useNavigation();
   const userId = useSelector(state => state.user.userId);
-  const [chats, setChats] = useState([]);
+  const [chats, setChats] = useState(null);
+
+  const isEntered = useSelector(state => state.chat.isEntered);
 
   useFocusEffect(
     useCallback(() => {
       getMyChats();
-    }, [])
+    }, [isEntered])
   );
+
+  function compareDate(chat1, chat2) {
+    const time1 = new Date(chat1.lastMessage.time).getTime();
+    const time2 = new Date(chat2.lastMessage.time).getTime();
+
+    return time2 - time1;
+  }
+
+  function sortChats(chats) {
+    return chats.sort(compareDate);
+  }
 
   async function getMyChats() {
     try {
       const response = await chatAPI.requestGetChats(userId);
 
       if (response.code === 200) {
-        setChats(response.data.chats);
+        setChats(sortChats(response.data.chats));
+      } else {
+
       }
     } catch (err) {
-      console.log(err);
+      dispatch(createError(errorMessage.INTERNAL_ERROR));
     }
   }
 
@@ -37,6 +55,14 @@ const ChatList = () => {
       chatId: chatId,
       messageId: messageId
     });
+  }
+
+  if (chats !== null && chats.length === 0) {
+    return (
+      <Empty
+        title="채팅리스트가 존재하지 않습니다"
+      />
+    );
   }
 
   return (

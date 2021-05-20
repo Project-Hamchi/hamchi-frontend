@@ -59,7 +59,7 @@ const FilteredAdoptCardList = ({ scrollPosition, setScrollPosition, onPressCard 
                 >
                   <AdoptCard data={item} />
                 </TouchableOpacity>
-                {index === posts.length - 1 && <View style={{ paddingBottom: 200 }} />}
+                {index === posts.length - 1 && <View style={{ height: 200 }} />}
               </>
             );
           }}
