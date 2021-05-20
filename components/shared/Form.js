@@ -23,8 +23,8 @@ const Form = ({ additionalParams, fields, action, afterSubmit }) => {
   const userId = useSelector(state => state.user.userId);
   const username = useSelector(state => state.user.username);
 
-  const [values, setValues] = useState(getInitialState(fieldsKeys));
   const fieldsKeys = Object.keys(fields);
+  const [values, setValues] = useState(getInitialState(fieldsKeys));
 
   const onChangeValue = (key, value) => {
     const newState = { ...values, [key]: value };

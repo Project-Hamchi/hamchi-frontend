@@ -1,9 +1,17 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { useRoute } from '@react-navigation/native';
-import { View, Text, TextInput, Button, StyleSheet, ScrollView } from 'react-native';
-
 import { enterChat, leaveChat } from '../reducers/chatSlice';
+import { useRoute } from '@react-navigation/native';
+
+import {
+  KeyboardAvoidingView,
+  View,
+  Text,
+  TextInput,
+  Button,
+  ScrollView,
+  StyleSheet
+} from 'react-native';
 
 import io from 'socket.io-client';
 import { SERVER_URL } from '@env';
@@ -14,14 +22,16 @@ const ENDPOINT = SERVER_URL;
 
 const ChatRoom = () => {
   const route = useRoute();
+  const { chatId, messageId } = route.params;
+
   const dispatch = useDispatch();
   const userId = useSelector(state => state.user.userId);
   const username = useSelector(state => state.user.username);
-  const listViewRef = useRef(null);
 
+  const listViewRef = useRef(null);
   const [message, setMessage] = useState('');
   const [messages, setMessages] = useState([]);
-  const { chatId, messageId } = route.params;
+
 
   useEffect(() => {
     listViewRef.current.scrollToEnd({ animated: false });
@@ -65,61 +75,70 @@ const ChatRoom = () => {
   }
 
   return (
-    <View style={styles.container}>
-      <View style={styles.chatContainer}>
-        <ScrollView ref={listViewRef}>
-          {messages.map((item) => {
-            const isCurrentUser = item.user.id === userId ? true : false;
-            const time = new Date(item.time);
+    <KeyboardAvoidingView
+      keyboardVerticalOffset={80}
+      behavior="padding"
+      style={{
+        flex: 1,
+      }}
+      enabled
+    >
+      <View style={styles.container}>
+        <View style={styles.chatContainer}>
+          <ScrollView
+            ref={listViewRef}>
+            {messages.map((item) => {
+              const isCurrentUser = item.user.id === userId ? true : false;
+              const time = new Date(item.time);
 
-            return (
-              <View
-                key={`${item.time}`}
-                style={isCurrentUser ? styles.rightMessage : styles.leftMessage}
-              >
-                <Text>{item.message}</Text>
-                <View>
-                  <Text
-                    style={isCurrentUser ? styles.rightTime : styles.leftTime}
-                  >{formatTime(time)}
-                  </Text>
+              return (
+                <View
+                  key={`${item.time}`}
+                  style={isCurrentUser ? styles.rightMessage : styles.leftMessage}
+                >
+                  <Text>{item.message}</Text>
+                  <View>
+                    <Text
+                      style={isCurrentUser ? styles.rightTime : styles.leftTime}
+                    >{formatTime(time)}
+                    </Text>
+                  </View>
                 </View>
-              </View>
-            );
-          })}
-        </ScrollView>
-      </View>
-      <View style={styles.inputContainer}>
-        <View style={styles.textInput}>
-          <TextInput
-            style={styles.input}
-            value={message}
-            onChangeText={setMessage}
-          />
+              );
+            })}
+          </ScrollView>
         </View>
-        <View style={styles.buttonContainer}>
-          <Button
-            title="전송"
-            onPress={handleSubmitMessage}
-            style={styles.button}
-          />
+        <View style={styles.inputContainer}>
+          <View style={styles.textInput}>
+            <TextInput
+              style={styles.input}
+              value={message}
+              onChangeText={setMessage}
+            />
+          </View>
+          <View style={styles.buttonContainer}>
+            <Button
+              title="전송"
+              onPress={handleSubmitMessage}
+              style={styles.button}
+            />
+          </View>
         </View>
       </View>
-    </View>
+    </KeyboardAvoidingView >
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    flexDirection: 'column',
-    justifyContent: 'space-between',
     backgroundColor: colors.white,
-    height: '100%'
+    flex: 1
   },
   chatContainer: {
-    height: '90%',
+    flex: 9
   },
   inputContainer: {
+    flex: 1,
     flexDirection: 'row',
     height: '10%',
     alignSelf: 'flex-start',
@@ -168,7 +187,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     textAlign: 'center',
     borderRadius: 20,
-    borderColor: colors.outline,
+    borderColor: colors.outline
   }
 });
 
