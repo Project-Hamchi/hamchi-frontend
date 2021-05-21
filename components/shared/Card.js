@@ -16,9 +16,8 @@ const Card = ({ item, selected, onSelect, showOptions }) => {
   return (
     <View>
       <View style={styles.postContainer}>
-        {status === 'opened'
-
-          && <Pressable
+        {status === 'opened' &&
+          <Pressable
             style={styles.icon}
             onPress={() => showOptions(_id)}
           >

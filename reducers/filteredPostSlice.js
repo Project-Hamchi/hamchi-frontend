@@ -27,7 +27,7 @@ export const fetchFilteredPosts = createAsyncThunk(
 
 export const initPosts = createAsyncThunk(
   'filteredPosts/initPosts',
-  async (selectedHamsterTypes, thunkAPI) => {
+  async ({ selectedHamsterTypes }, thunkAPI) => {
     try {
       const response = await postAPI.requestGetPosts(
         1,
