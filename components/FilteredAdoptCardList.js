@@ -16,9 +16,9 @@ const FilteredAdoptCardList = ({ scrollPosition, setScrollPosition, onPressCard 
 
   useEffect(() => {
     const offset = scrollPosition;
-    listRef.current.scrollToOffset({ offset, animated: false })
+    listRef.current.scrollToOffset({ offset, animated: false });
 
-    dispatch(fetchFilteredPosts({ page, selectedHamsterTypes }))
+    dispatch(fetchFilteredPosts({ page, selectedHamsterTypes }));
 
   }, [selectedHamsterTypes]);
 
@@ -31,7 +31,7 @@ const FilteredAdoptCardList = ({ scrollPosition, setScrollPosition, onPressCard 
   }
 
   async function init() {
-    dispatch(initPosts(selectedHamsterTypes));
+    dispatch(initPosts({ selectedHamsterTypes }));
   }
 
   const handleRefresh = useCallback(() => {

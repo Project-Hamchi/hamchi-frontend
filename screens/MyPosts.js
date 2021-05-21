@@ -144,7 +144,7 @@ const MyPosts = () => {
         } else if (buttonIndex === 1) {
           handleClosePost(postId);
         }
-      })
+      });
   }
 
   function handleSubmissionSelect(submissionId) {
@@ -226,6 +226,7 @@ const MyPosts = () => {
         renderItem={({ item, index }) => {
           const isSubmissionExist = item.submissions.length ? true : false;
           const isClosed = index >= openedPostsNumber;
+
           return (
             <View>
               {(index === 0 || index === openedPostsNumber)

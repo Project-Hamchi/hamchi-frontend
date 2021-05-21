@@ -73,6 +73,7 @@ export const postSlice = createSlice({
       state.isLoading = true;
     });
     builder.addCase(fetchPosts.rejected, (state, action) => {
+      state.isLoading = false;
       state.isError = true;
     });
 
@@ -83,6 +84,9 @@ export const postSlice = createSlice({
     });
     builder.addCase(initPosts.pending, (state, action) => {
       state.isLoading = true;
+    });
+    builder.addCase(initPosts.rejected, (state, action) => {
+      state.isLoading = false;
     });
   }
 });
