@@ -4,19 +4,26 @@ import { Camera } from 'expo-camera';
 import colors from '../theme/color';
 
 export default function Picture({ route, navigation }) {
-  const [hasPermission, setHasPermission] = useState(null);
-  const [photo, setPhoto] = useState(null);
-  const { redirectTo } = route.params;
   const cameraRef = useRef(null);
+  const { redirectTo } = route.params;
+
+  const [photo, setPhoto] = useState(null);
+  const [hasPermission, setHasPermission] = useState(null);
 
   const takePicture = async () => {
     const photo = await cameraRef.current.takePictureAsync({
       quality: 0.3,
       base64: true
     });
+
     setPhoto(photo.base64);
-    navigation.navigate('Preview', { photo: photo, redirectTo: redirectTo });
-  }
+    navigation.navigate(
+      'Preview',
+      {
+        photo: photo,
+        redirectTo: redirectTo
+      });
+  };
 
   useEffect(() => {
     (async () => {
@@ -29,7 +36,7 @@ export default function Picture({ route, navigation }) {
     return <View />;
   }
   if (hasPermission === false) {
-    return <Text>No access to camera</Text>;
+    return <Text>카메라 접근 권한이 없습니다.</Text>;
   }
   return (
     <>
@@ -45,7 +52,8 @@ export default function Picture({ route, navigation }) {
       <View style={styles.buttonContainer}>
         <TouchableOpacity
           style={styles.snap}
-          onPress={takePicture} />
+          onPress={takePicture}
+        />
       </View>
     </>
   );

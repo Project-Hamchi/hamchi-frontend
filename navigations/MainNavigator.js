@@ -1,10 +1,12 @@
 import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import StatusNavigator from '../navigations/StatusNavigator';
-import Feeds from './Feeds';
-import Post from './Post';
-import MyPageNavigator from '../navigations/MyPageNavigator';
-import ChatNavigator from '../navigations/ChatNavigator';
+
+import StatusNavigator from './StatusNavigator';
+import MyPageNavigator from './MyPageNavigator';
+import ChatNavigator from './ChatNavigator';
+import PostNavigator from './PostNavigator';
+import Feeds from '../screens/Feeds';
+
 import { Ionicons } from '@expo/vector-icons';
 import colors from '../theme/color';
 
@@ -14,7 +16,7 @@ const Main = () => {
   return (
     <Tab.Navigator
       screenOptions={({ route }) => ({
-        tabBarIcon: ({ focused, color, size }) => {
+        tabBarIcon: ({ color, size }) => {
           let iconName;
 
           switch (route.name) {
@@ -39,7 +41,13 @@ const Main = () => {
               break;
             }
           }
-          return <Ionicons name={iconName} size={size} color={color} />;
+          return (
+            <Ionicons
+              name={iconName}
+              size={size}
+              color={color}
+            />
+          );
         }
       })}
       tabBarOptions={{
@@ -49,7 +57,7 @@ const Main = () => {
     >
       <Tab.Screen name="피드" component={Feeds} />
       <Tab.Screen name="신청현황" component={StatusNavigator} />
-      <Tab.Screen name="플러스" component={Post} />
+      <Tab.Screen name="플러스" component={PostNavigator} />
       <Tab.Screen name="메시지" component={ChatNavigator} />
       <Tab.Screen name="내정보" component={MyPageNavigator} />
     </Tab.Navigator>

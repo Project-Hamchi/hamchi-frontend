@@ -7,7 +7,10 @@ const MyPageStack = createStackNavigator();
 export default function MyPageNavigator() {
   return (
     <MyPageStack.Navigator>
-      <MyPageStack.Screen name="내 정보" component={MyPage} />
+      <MyPageStack.Screen
+        name="내 정보"
+        component={MyPage}
+      />
     </MyPageStack.Navigator>
   );
 }

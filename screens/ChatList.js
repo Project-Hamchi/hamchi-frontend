@@ -12,9 +12,8 @@ import chatAPI from '../api/chat';
 const ChatList = () => {
   const dispatch = useDispatch();
   const navigation = useNavigation();
-  const userId = useSelector(state => state.user.userId);
   const [chats, setChats] = useState(null);
-
+  const userId = useSelector(state => state.user.userId);
   const isEntered = useSelector(state => state.chat.isEntered);
 
   useFocusEffect(

@@ -1,5 +1,11 @@
-import React, { useEffect } from 'react';
-import { View, Text, TouchableWithoutFeedback, StyleSheet } from 'react-native';
+import React from 'react';
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableWithoutFeedback
+} from 'react-native';
+
 import { formatDate } from '../utils';
 import colors from '../theme/color';
 

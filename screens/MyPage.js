@@ -1,10 +1,10 @@
 import React from 'react';
-import { StyleSheet, View, Text } from 'react-native';
-import Button from '../components/shared/Button';
-
 import { useDispatch, useSelector } from 'react-redux';
 import { clearCredentials } from '../api/secureStore';
 import { signOut } from '../reducers/userSlice';
+
+import { StyleSheet, View, Text } from 'react-native';
+import Button from '../components/shared/Button';
 
 const MyPage = () => {
   const dispatch = useDispatch();

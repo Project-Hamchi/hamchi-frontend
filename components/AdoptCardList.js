@@ -1,13 +1,14 @@
 import React, { useEffect, useRef, useState, useCallback } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import { fetchPosts, selectAllPosts, initPosts } from '../reducers/postSlice';
+import { useDispatch, useSelector } from 'react-redux';
+
 import { TouchableOpacity, View, StyleSheet, FlatList } from 'react-native';
 import AdoptCard from './AdoptCard';
 
 const PhotoCardList = ({ scrollPosition, setScrollPosition, onPressCard }) => {
   const dispatch = useDispatch();
-  const page = useSelector(state => state.post.page);
   const posts = useSelector(selectAllPosts);
+  const page = useSelector(state => state.post.page);
 
   const [isRefreshing, setIsRefreshing] = useState(false);
   const listRef = useRef(null);
