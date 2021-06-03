@@ -1,8 +1,15 @@
 import React, { useState, useCallback, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { createError } from '../reducers/userSlice';
-import { ActionSheetIOS, View, Text, FlatList, StyleSheet } from 'react-native';
 
+import {
+  ActionSheetIOS,
+  View,
+  Text,
+  FlatList,
+  StyleSheet
+} from 'react-native';
+import { useFocusEffect } from '@react-navigation/native';
 import Button from '../components/shared/Button';
 import Input from '../components/shared/Input';
 import Modal from '../components/shared/Modal';
@@ -15,22 +22,21 @@ import errorMessage from '../constants/errorMessage';
 import submissionAPI from '../api/submissions';
 import postAPI from '../api/post';
 import chatAPI from '../api/chat';
-import { useFocusEffect } from '@react-navigation/native';
 import colors from '../theme/color';
 
 const MyPosts = () => {
   const dispatch = useDispatch();
   const myId = useSelector(state => state.user.userId);
-  const confirmationMessage = "에게 분양 수락 메시지를 전송합니다";
-  const [isRefreshing, setIsRefreshing] = useState(false);
 
   const [myPosts, setMyPosts] = useState(null);
+  const [isRefreshing, setIsRefreshing] = useState(false);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [selectedSubmissions, setSelectedSubmissions] = useState({});
   const [currentPostSubmissions, setCurrentPostSubmissions] = useState([]);
-  const [message, setMessage] = useState("분양 관련 연락드렸습니다 :)");
   const [openedPostsNumber, setOpenedPostsNumber] = useState(0);
 
+  const [message, setMessage] = useState("분양 관련 연락드렸습니다 :)");
+  const confirmationMessage = "에게 분양 수락 메시지를 전송합니다";
 
   useFocusEffect(
     useCallback(() => {
@@ -123,8 +129,8 @@ const MyPosts = () => {
       }
 
       const newMyPosts = [...myPosts];
-      newMyPosts[index].status = 'closed';
 
+      newMyPosts[index].status = 'closed';
       setMyPosts(sortPosts(newMyPosts));
     } catch (err) {
       dispatch(createError(errorMessage.INTERNAL_ERROR));
@@ -191,7 +197,7 @@ const MyPosts = () => {
   }
 
   return (
-    <View style={styles.listContainer}>
+    <View>
       {isModalVisible
         &&
         (Object.keys(selectedSubmissions).length
@@ -262,9 +268,6 @@ const MyPosts = () => {
 };
 
 const styles = StyleSheet.create({
-  listContainer: {
-    paddingBottom: 10,
-  },
   container: {
     margin: 10,
     paddingBottom: 10,

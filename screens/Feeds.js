@@ -1,9 +1,15 @@
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
-import { Text, TouchableWithoutFeedback, View, StyleSheet, Modal } from 'react-native';
+import {
+  Text,
+  View,
+  Modal,
+  StyleSheet,
+  TouchableWithoutFeedback
+} from 'react-native';
 
-import AdoptCardList from '../components/AdoptCardList';
 import FilteredAdoptCardList from '../components/FilteredAdoptCardList';
+import AdoptCardList from '../components/AdoptCardList';
 import Toggle from '../components/shared/Toggle';
 import Filter from '../components/Filter';
 import colors from '../theme/color';
@@ -41,7 +47,10 @@ const Feeds = ({ navigation }) => {
             <Filter title="햄스터 타입" />
             <TouchableWithoutFeedback
               onPress={useSelectHamsterType}
-            ><View style={styles.buttonClose}><Text>확인</Text></View>
+            >
+              <View style={styles.buttonClose}>
+                <Text>확인</Text>
+              </View>
             </TouchableWithoutFeedback>
           </View>
         </View>

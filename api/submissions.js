@@ -1,22 +1,6 @@
 import { SERVER_URL } from '@env';
 import { readCredentials } from './secureStore';
 
-const requestCreateSubmission = async (submissionInput) => {
-  const url = `${SERVER_URL}/submissions/new`;
-  const credentials = await readCredentials();
-
-  const response = await fetch(url, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'Authorization': credentials.token
-    },
-    body: JSON.stringify(submissionInput)
-  });
-
-  return await response.json();
-};
-
 const requestGetMySubmissions = async (userId) => {
   const url = `${SERVER_URL}/submissions/${userId}`;
   const credentials = await readCredentials();
@@ -32,9 +16,27 @@ const requestGetMySubmissions = async (userId) => {
   return await response.json();
 };
 
+const requestCreateSubmission = async (submissionInput) => {
+  const url = `${SERVER_URL}/submissions/new`;
+  const credentials = await readCredentials();
+  const body = JSON.stringify(submissionInput);
+
+  const response = await fetch(url, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': credentials.token
+    },
+    body: body
+  });
+
+  return await response.json();
+};
+
 const requestUpdateSubmissionStatus = async (submissionIds) => {
   const url = `${SERVER_URL}/submissions/status`;
   const credentials = await readCredentials();
+  const body = JSON.stringify({ submissionIds });
 
   const response = await fetch(url, {
     method: 'PATCH',
@@ -42,15 +44,15 @@ const requestUpdateSubmissionStatus = async (submissionIds) => {
       'Content-Type': 'application/json',
       'Authorization': credentials.token
     },
-    body: JSON.stringify({ submissionIds })
+    body: body
   });
 
   return await response.json();
 };
 
 const submissionAPI = {
-  requestCreateSubmission,
   requestGetMySubmissions,
+  requestCreateSubmission,
   requestUpdateSubmissionStatus
 };
 

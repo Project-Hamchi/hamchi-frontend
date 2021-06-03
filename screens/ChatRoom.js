@@ -68,9 +68,12 @@ const ChatRoom = () => {
     const socket = io(ENDPOINT);
 
     socket.emit(
-      'sendMessage',
-      { roomId: messageId, message, userId, username }
-    );
+      'sendMessage', {
+      roomId: messageId,
+      message,
+      userId,
+      username
+    });
     setMessage('');
   }
 

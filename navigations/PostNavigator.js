@@ -2,9 +2,10 @@ import React from 'react';
 import { Button } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import PostForm from '../screens/PostForm';
+
 import Camera from '../screens/Camera';
 import Preview from '../screens/Preview';
+import PostForm from '../screens/PostForm';
 
 const PostStack = createStackNavigator();
 

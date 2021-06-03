@@ -1,9 +1,15 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { ScrollView, Image, View, Text, StyleSheet } from 'react-native';
+import {
+  ScrollView,
+  Image,
+  View,
+  Text,
+  StyleSheet
+} from 'react-native';
 import Button from '../components/shared/Button';
-import { formatFullDate } from '../utils/index';
 import mapEnumToString from '../constants/mapEnumToString';
+import { formatFullDate } from '../utils/index';
 import colors from '../theme/color';
 
 const Hamster = ({ route, navigation }) => {

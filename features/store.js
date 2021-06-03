@@ -3,18 +3,18 @@ import ReduxThunk from 'redux-thunk';
 import { userSlice } from './userSlice';
 import { postSlice } from './postSlice';
 import { chatSlice } from './chatSlice';
-import { myPostSlice } from './myPostSlice';
 import { filteredPostSlice } from './filteredPostSlice';
+import { createLogger } from 'redux-logger';
 
 const middleware = [ReduxThunk];
 
 const store = configureStore({
-  reducer: {
+  reducer:
+  {
     user: userSlice.reducer,
     post: postSlice.reducer,
     chat: chatSlice.reducer,
-    myPost: myPostSlice.reducer,
-    filteredPost: filteredPostSlice.reducer,
+    filteredPost: filteredPostSlice.reducer
   },
   middleware: middleware
 });

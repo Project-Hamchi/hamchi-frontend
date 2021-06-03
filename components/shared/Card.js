@@ -1,16 +1,28 @@
 import React from 'react';
-import { View, Image, Text, StyleSheet, Pressable, FlatList } from 'react-native';
+import {
+  View,
+  Image,
+  Text,
+  FlatList,
+  Pressable,
+  StyleSheet
+} from 'react-native';
 import BouncyCheckbox from 'react-native-bouncy-checkbox';
-
-import enumToString from '../../constants/mapEnumToString';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 
+import enumToString from '../../constants/mapEnumToString';
 import { formatFullDate } from '../../utils';
 import colors from '../../theme/color';
 
 const Card = ({ item, selected, onSelect, showOptions }) => {
-  const { _id, image, name, submissions, createdAt, status } = item;
-
+  const {
+    _id,
+    image,
+    name,
+    submissions,
+    createdAt,
+    status
+  } = item;
   const mapped = enumToString.experienceType;
 
   return (
@@ -28,14 +40,17 @@ const Card = ({ item, selected, onSelect, showOptions }) => {
             />
           </Pressable>}
         <Text style={styles.title}>{name}의 입양 신청서 목록</Text>
-        <Image style={styles.image} source={{ uri: image }} />
+        <Image
+          style={styles.image}
+          source={{ uri: image }}
+        />
         <Text>{formatFullDate(new Date(createdAt))}</Text>
         <Text>신청자 수 {submissions.length}명</Text>
       </View>
       <FlatList
         data={submissions}
         keyExtractor={(item) => item._id}
-        renderItem={({ item, index }) => {
+        renderItem={({ item }) => {
           return (
             <>
               <View style={styles.submissionContainer}>
@@ -52,9 +67,12 @@ const Card = ({ item, selected, onSelect, showOptions }) => {
                     : <Text>매칭 완료</Text>
                   }
                 </View>
-                <Image style={styles.environment} source={{ uri: item.environment }} />
+                <Image
+                  style={styles.environment}
+                  source={{ uri: item.environment }}
+                />
                 <View style={styles.textContainer}>
-                  <View style={{ alignSelf: 'center', marginBottom: 8 }}>
+                  <View style={styles.username}>
                     <Text>{item.ownerName}님의 신청서</Text>
                   </View>
                   <View style={styles.field}>
@@ -65,7 +83,7 @@ const Card = ({ item, selected, onSelect, showOptions }) => {
                     <Text>지역</Text>
                     <Text>{item.location}</Text>
                   </View>
-                  <View style={[styles.field, { flexDirection: 'column' }]}>
+                  <View style={[styles.field, styles.details]}>
                     <Text>내용</Text>
                     <Text>{item.details}</Text>
                   </View>
@@ -135,6 +153,10 @@ const styles = StyleSheet.create({
     borderColor: colors.outline,
     borderRadius: 14
   },
+  username: {
+    alignSelf: 'center',
+    marginBottom: 8
+  },
   icon: {
     position: 'absolute',
     right: 0,
@@ -143,6 +165,9 @@ const styles = StyleSheet.create({
   field: {
     flexDirection: 'row',
     justifyContent: 'space-between'
+  },
+  details: {
+    flexDirection: 'column'
   }
 });
 

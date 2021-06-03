@@ -17,7 +17,7 @@ const RadioButton = ({ options, map, onChangeOption }) => {
           <TouchableOpacity
             key={option}
             style={selectedOption === option ? styles.option : styles.selectedOption}
-            onPress={() => { handleOptionPress(option) }}
+            onPress={() => handleOptionPress(option)}
           >
             <Text
               style={selectedOption === option ? styles.text : styles.selectedText}

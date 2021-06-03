@@ -59,7 +59,7 @@ export const postSlice = createSlice({
     toggleFilter(state, action) {
       state.isFiltered = action.payload;
     },
-    initializePosts(state) {
+    initializePosts(state, action) {
       postsAdapter.removeAll(state)
     }
   },
@@ -69,10 +69,10 @@ export const postSlice = createSlice({
       state.page = state.page + 1;
       postsAdapter.upsertMany(state, action.payload);
     });
-    builder.addCase(fetchPosts.pending, (state) => {
+    builder.addCase(fetchPosts.pending, (state, action) => {
       state.isLoading = true;
     });
-    builder.addCase(fetchPosts.rejected, (state) => {
+    builder.addCase(fetchPosts.rejected, (state, action) => {
       state.isLoading = false;
       state.isError = true;
     });
@@ -82,25 +82,17 @@ export const postSlice = createSlice({
       state.page = 2;
       postsAdapter.setAll(state, action.payload);
     });
-    builder.addCase(initPosts.pending, (state) => {
+    builder.addCase(initPosts.pending, (state, action) => {
       state.isLoading = true;
     });
-    builder.addCase(initPosts.rejected, (state) => {
+    builder.addCase(initPosts.rejected, (state, action) => {
       state.isLoading = false;
     });
   }
 });
 
-const {
-  actions,
-  reducer
-} = postSlice;
-
-export const {
-  toggleFilter,
-  initializePosts
-} = actions;
-
+const { actions, reducer } = postSlice;
+export const { toggleFilter, initializePosts } = actions;
 export default reducer;
 
 export const {

@@ -62,7 +62,7 @@ export const filteredPostSlice = createSlice({
   name: 'filteredPost',
   initialState,
   reducers: {
-    initFeeds(state) {
+    initFeeds(state, action) {
       state.page = 1;
       filteredPostsAdapter.removeAll(state);
     },
@@ -82,10 +82,10 @@ export const filteredPostSlice = createSlice({
       state.page = action.payload.page + 1;
       filteredPostsAdapter.upsertMany(state, action.payload.posts);
     });
-    builder.addCase(fetchFilteredPosts.pending, (state) => {
+    builder.addCase(fetchFilteredPosts.pending, (state, action) => {
       state.isLoading = true;
     });
-    builder.addCase(fetchFilteredPosts.rejected, (state) => {
+    builder.addCase(fetchFilteredPosts.rejected, (state, action) => {
       state.isError = true;
     });
 
@@ -94,24 +94,14 @@ export const filteredPostSlice = createSlice({
       state.page = 2;
       filteredPostsAdapter.setAll(state, action.payload);
     });
-    builder.addCase(initPosts.pending, (state) => {
+    builder.addCase(initPosts.pending, (state, action) => {
       state.isLoading = true;
     });
   }
 });
 
-const {
-  actions,
-  reducer
-} = filteredPostSlice;
-
-export const {
-  initFeeds,
-  addType,
-  deleteType,
-  toggleFilter
-} = actions;
-
+const { actions, reducer } = filteredPostSlice;
+export const { initFeeds, addType, deleteType, toggleFilter } = actions;
 export default reducer;
 
 export const {

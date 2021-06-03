@@ -1,9 +1,8 @@
 import React, { useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { toggleFilter } from '../../reducers/postSlice';
 import { Animated, View, Text, Pressable, StyleSheet, Easing } from 'react-native';
 import colors from '../../theme/color';
-
-import { toggleFilter } from '../../reducers/postSlice';
 
 const Toggle = () => {
   const dispatch = useDispatch();

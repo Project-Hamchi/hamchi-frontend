@@ -4,6 +4,11 @@ import { readCredentials } from './secureStore';
 const requestCreateChat = async (ownerId, guestId, message) => {
   const url = `${SERVER_URL}/chats/new`;
   const credentials = await readCredentials();
+  const body = JSON.stringify({
+    ownerId,
+    guestId,
+    message
+  });
 
   const response = await fetch(url, {
     method: 'POST',
@@ -11,7 +16,7 @@ const requestCreateChat = async (ownerId, guestId, message) => {
       'Content-Type': 'application/json',
       'Authorization': credentials.token
     },
-    body: JSON.stringify({ ownerId, guestId, message })
+    body: body
   });
 
   return await response.json();

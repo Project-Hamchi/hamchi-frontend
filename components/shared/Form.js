@@ -28,6 +28,7 @@ const Form = ({ additionalParams, fields, action, afterSubmit }) => {
 
   const onChangeValue = (key, value) => {
     const newState = { ...values, [key]: value };
+
     setValues(newState);
   };
 

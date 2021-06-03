@@ -1,9 +1,9 @@
 import React from 'react';
 import { View, StyleSheet, Image } from 'react-native';
-import jungle from '../assets/tape/jungle1.png';
-import robo from '../assets/tape/robo1.png';
-import syrian from '../assets/tape/syrian1.png';
-import other from '../assets/tape/robo.png';
+import syrian from '../assets/tape/syrian.png';
+import jungle from '../assets/tape/jungle.png';
+import robo from '../assets/tape/robo.png';
+import other from '../assets/tape/other.png';
 import colors from '../theme/color';
 
 const PhotoCard = ({ uri, type }) => {

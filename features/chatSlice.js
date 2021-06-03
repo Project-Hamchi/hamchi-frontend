@@ -8,10 +8,10 @@ export const chatSlice = createSlice({
   name: 'chat',
   initialState,
   reducers: {
-    enterChat(state) {
+    enterChat(state, action) {
       state.isEntered = true;
     },
-    leaveChat(state) {
+    leaveChat(state, action) {
       state.isEntered = false;
     }
   },
@@ -19,14 +19,8 @@ export const chatSlice = createSlice({
   }
 });
 
-const {
-  actions,
-  reducer
-} = chatSlice;
+const { actions, reducer } = chatSlice;
 
-export const {
-  enterChat,
-  leaveChat
-} = actions;
+export const { enterChat, leaveChat } = actions;
 
 export default reducer;
