@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchFilteredPosts, selectAllFilteredPosts, initPosts } from '../reducers/filteredPostSlice';
+import { fetchFilteredPosts, selectAllFilteredPosts, initPosts } from '../features/filteredPostSlice';
 
 import { TouchableOpacity, View, StyleSheet, FlatList } from 'react-native';
 import AdoptCard from './AdoptCard';

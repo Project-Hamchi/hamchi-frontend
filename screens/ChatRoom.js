@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { enterChat, leaveChat } from '../reducers/chatSlice';
+import { enterChat, leaveChat } from '../features/chatSlice';
 import { useRoute } from '@react-navigation/native';
 
 import {
@@ -68,9 +68,12 @@ const ChatRoom = () => {
     const socket = io(ENDPOINT);
 
     socket.emit(
-      'sendMessage',
-      { roomId: messageId, message, userId, username }
-    );
+      'sendMessage', {
+      roomId: messageId,
+      message,
+      userId,
+      username
+    });
     setMessage('');
   }
 

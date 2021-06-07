@@ -1,8 +1,8 @@
 import React from 'react';
-import { View, Text, Modal, StyleSheet, Pressable } from 'react-native';
+import { View, Modal, StyleSheet, Pressable } from 'react-native';
+import { FontAwesome } from '@expo/vector-icons';
 import Button from '../shared/Button';
 import colors from '../../theme/color';
-import { FontAwesome } from '@expo/vector-icons';
 
 const alertModal = ({ title, onConfirm, onClose, children }) => {
   return (
@@ -16,7 +16,11 @@ const alertModal = ({ title, onConfirm, onClose, children }) => {
         <View style={styles.modalContainer}>
           <View style={styles.close}>
             <Pressable onPress={onClose}>
-              <FontAwesome name="close" size={16} color={colors.black} />
+              <FontAwesome
+                name="close"
+                size={16}
+                color={colors.black}
+              />
             </Pressable>
           </View>
           <View style={styles.childrenContainer}>
@@ -27,7 +31,7 @@ const alertModal = ({ title, onConfirm, onClose, children }) => {
             type="filled"
             onPress={onConfirm}
             customButtonStyle={styles.confirm}
-          ></Button>
+          />
         </View>
       </View>
     </Modal>

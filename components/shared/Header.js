@@ -6,7 +6,9 @@ import colors from '../../theme/color';
 const Header = ({ title, back, submit }) => {
   return (
     <View style={styles.container}>
-      {back && <Ionicons name='arrow-back-outline' size={30} />}
+      {back
+        && <Ionicons name='arrow-back-outline' size={30} />
+      }
       <Text style={styles.title}>{title}</Text>
       {submit && <Button title={submit} />}
     </View>

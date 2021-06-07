@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { fetchSignin } from '../reducers/userSlice';
+import { fetchSignin } from '../features/userSlice';
 import {
   KeyboardAvoidingView,
   TouchableWithoutFeedback,

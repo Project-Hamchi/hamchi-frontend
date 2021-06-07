@@ -1,7 +1,7 @@
 import React, { useState, useCallback } from 'react';
 import { useFocusEffect } from '@react-navigation/native';
 import { useSelector, useDispatch } from 'react-redux';
-import { createError } from '../reducers/userSlice';
+import { createError } from '../features/userSlice';
 import errorMessage from '../constants/errorMessage';
 
 import { View, Text, Image, FlatList, StyleSheet } from 'react-native';

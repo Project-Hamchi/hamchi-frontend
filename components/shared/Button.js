@@ -21,7 +21,10 @@ const Button = ({ text, type, onPress, customButtonStyle }) => {
   };
 
   return (
-    <TouchableOpacity style={[buttonCommonStyle, customButtonStyle]} onPress={onPress}>
+    <TouchableOpacity
+      style={[buttonCommonStyle, customButtonStyle]}
+      onPress={onPress}
+    >
       <Text style={[textCommonStyle]}>{text}</Text>
     </TouchableOpacity>
   );
