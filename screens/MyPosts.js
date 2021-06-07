@@ -1,6 +1,6 @@
 import React, { useState, useCallback, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { createError } from '../reducers/userSlice';
+import { createError } from '../features/userSlice';
 
 import {
   ActionSheetIOS,

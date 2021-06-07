@@ -1,7 +1,7 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { clearCredentials } from '../api/secureStore';
-import { signOut } from '../reducers/userSlice';
+import { signOut } from '../features/userSlice';
 
 import { StyleSheet, View, Text } from 'react-native';
 import Button from '../components/shared/Button';

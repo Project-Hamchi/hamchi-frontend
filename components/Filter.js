@@ -1,6 +1,6 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { addType, deleteType, initFeeds } from '../reducers/filteredPostSlice';
+import { addType, deleteType, initFeeds } from '../features/filteredPostSlice';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 
 import enumToString from '../constants/mapEnumToString';

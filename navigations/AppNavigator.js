@@ -1,7 +1,7 @@
 import React from 'react';
 import { Alert } from "react-native";
 import { useSelector, useDispatch } from 'react-redux';
-import { initError } from '../reducers/userSlice';
+import { initError } from '../features/userSlice';
 
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';

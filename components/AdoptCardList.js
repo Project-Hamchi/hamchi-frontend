@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState, useCallback } from 'react';
-import { fetchPosts, selectAllPosts, initPosts } from '../reducers/postSlice';
+import { fetchPosts, selectAllPosts, initPosts } from '../features/postSlice';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { TouchableOpacity, View, StyleSheet, FlatList } from 'react-native';

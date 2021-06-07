@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { createError } from '../../reducers/userSlice';
+import { createError } from '../../features/userSlice';
 import errorMessage from '../../constants/errorMessage';
 
 import { View, Text, StyleSheet } from 'react-native';

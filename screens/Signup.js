@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { createError } from '../reducers/userSlice';
+import { createError } from '../features/userSlice';
 import {
   KeyboardAvoidingView,
   TouchableWithoutFeedback,
