@@ -26,6 +26,7 @@ export const fetchSignin = createAsyncThunk(
         return response.data;
       } else {
         await clearCredentials();
+
         return thunkAPI.rejectWithValue(response);
       }
     } catch (err) {
@@ -81,8 +82,7 @@ export const userSlice = createSlice({
   }
 });
 
-const { actions, reducer } = userSlice;
-
+export const { actions, reducer } = userSlice;
 export const { signOut, createError, initError } = actions;
 
 export default reducer;

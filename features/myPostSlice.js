@@ -77,7 +77,6 @@ export const myPostSlice = createSlice({
       state.isLoading = false;
       state.isError = true;
     });
-
     builder.addCase(updateSubmissions.fulfilled, (state, action) => {
       state.isLoading = false;
     });

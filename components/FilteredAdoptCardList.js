@@ -1,8 +1,16 @@
 import React, { useEffect, useRef, useState, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchFilteredPosts, selectAllFilteredPosts, initPosts } from '../features/filteredPostSlice';
-
-import { TouchableOpacity, View, StyleSheet, FlatList } from 'react-native';
+import {
+  initFeeds,
+  fetchFilteredPosts,
+  selectAllFilteredPosts
+} from '../features/filteredPostSlice';
+import {
+  View,
+  FlatList,
+  StyleSheet,
+  TouchableOpacity
+} from 'react-native';
 import AdoptCard from './AdoptCard';
 
 const FilteredAdoptCardList = ({ scrollPosition, setScrollPosition, onPressCard }) => {
@@ -11,15 +19,14 @@ const FilteredAdoptCardList = ({ scrollPosition, setScrollPosition, onPressCard 
   const posts = useSelector(selectAllFilteredPosts);
   const selectedHamsterTypes = useSelector(state => state.filteredPost.selectedHamsterTypes);
 
-  const [isRefreshing, setIsRefreshing] = useState(false);
   const listRef = useRef(null);
+  const [isRefreshing, setIsRefreshing] = useState(false);
 
   useEffect(() => {
     const offset = scrollPosition;
+
     listRef.current.scrollToOffset({ offset, animated: false });
-
     dispatch(fetchFilteredPosts({ page, selectedHamsterTypes }));
-
   }, [selectedHamsterTypes]);
 
   function handleEndReached() {
@@ -30,13 +37,15 @@ const FilteredAdoptCardList = ({ scrollPosition, setScrollPosition, onPressCard 
     setScrollPosition(e.nativeEvent.contentOffset.y);
   }
 
-  async function init() {
-    dispatch(initPosts({ selectedHamsterTypes }));
+  async function initFilteredPost() {
+    dispatch(initFeeds());
+    dispatch(fetchFilteredPosts({ page: 1, selectedHamsterTypes }));
   }
 
   const handleRefresh = useCallback(() => {
     setIsRefreshing(true);
-    init().then(() => setIsRefreshing(false));
+    initFilteredPost()
+      .then(() => setIsRefreshing(false));
   }, []);
 
   return (
@@ -45,9 +54,9 @@ const FilteredAdoptCardList = ({ scrollPosition, setScrollPosition, onPressCard 
         style={styles.listContainer}
       >
         <FlatList
-          onScroll={handleScroll}
           ref={listRef}
           data={posts}
+          onScroll={handleScroll}
           keyExtractor={(item) => item._id}
           renderItem={({ item, index }) => {
             return (
@@ -59,7 +68,9 @@ const FilteredAdoptCardList = ({ scrollPosition, setScrollPosition, onPressCard 
                 >
                   <AdoptCard data={item} />
                 </TouchableOpacity>
-                {index === posts.length - 1 && <View style={{ height: 200 }} />}
+                {index === posts.length - 1
+                  && <View style={{ height: 200 }} />
+                }
               </>
             );
           }}

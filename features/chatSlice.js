@@ -19,7 +19,7 @@ export const chatSlice = createSlice({
   }
 });
 
-const { actions, reducer } = chatSlice;
+export const { actions, reducer } = chatSlice;
 
 export const { enterChat, leaveChat } = actions;
 
