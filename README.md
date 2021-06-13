@@ -49,28 +49,23 @@
 ## 주요 기능
 
 - 메인 화면
-
-![Simulator Screen Shot - iPhone 6s - 2021-05-27 at 16 20 28](https://user-images.githubusercontent.com/59905665/121798202-f89e1080-cc5f-11eb-9dd5-d7b90a0976cc.png){: width="300" height="1000"){: .center}
+사용자들이 올린 분양글이 최신순으로 로딩됩니다.
+스크롤이 하단에 닿을 때 설정해둔 분양글 수 만큼 서버에 요청하는 lazy loading을 합니다.
 
 - 분양글 필터
-
-![Simulator Screen Shot - iPhone 6s - 2021-05-27 at 16 23 21](https://user-images.githubusercontent.com/59905665/121798220-14091b80-cc60-11eb-8fb5-490b27ed88be.png){: width="300" height="1000"){: .center}
+햄스터의 종류에 따른 필터링을 지원합니다. 
 
 - 분양글에 대한 입양 신청서 현황
-
-![Simulator Screen Shot - iPhone 6s - 2021-05-27 at 16 22 56](https://user-images.githubusercontent.com/59905665/121798216-110e2b00-cc60-11eb-820b-33e18020580e.png){: width="300" height="1000"){: .center}
+하나의 분양글에 들어온 신청서를 리스트로 보여줍니다.
 
 - 내 신청서 현황
-
-![Simulator Screen Shot - iPhone 6s - 2021-05-27 at 16 23 56](https://user-images.githubusercontent.com/59905665/121798224-179ca280-cc60-11eb-84c4-a22f49c74352.png){: width="300" height="1000"){: .center}
+입양을 원하는 사용자가 등룍한 입양 신청 현황에 대해서 분양 진행중, 분양 실패, 매칭 완료로 표현됩니다.
 
 - 채팅방 리스트 및 미리보기
-
-![Simulator Screen Shot - iPhone 6s - 2021-05-27 at 16 24 04](https://user-images.githubusercontent.com/59905665/121798227-19666600-cc60-11eb-8037-9bd0c31420fb.png){: width="300" height="1000"){: .center}
+사용자의 채팅방 리스트와 마지막에 주고받은 메시지를 화면에 띄워 최근 메시지를 확인할 수 있습니다.
 
 - 실시간 채팅
-
-![Simulator Screen Shot - iPhone 6s - 2021-05-27 at 16 24 10](https://user-images.githubusercontent.com/59905665/121798229-1b302980-cc60-11eb-9729-633f826b863b.png){: width="300" height="1000"){: .center}
+실시간으로 분양자와 입양신청자가 메시지를 주고받을 수 있습니다.
 
 ## 고민했던 지점
 
