@@ -50,27 +50,27 @@
 
 - 메인 화면
 
-    ![https://s3-us-west-2.amazonaws.com/secure.notion-static.com/8680959f-8053-4629-a0f6-3d960a78ef5d/Simulator_Screen_Shot_-_iPhone_6s_-_2021-05-27_at_16.20.28.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/8680959f-8053-4629-a0f6-3d960a78ef5d/Simulator_Screen_Shot_-_iPhone_6s_-_2021-05-27_at_16.20.28.png)
+![Simulator Screen Shot - iPhone 6s - 2021-05-27 at 16 20 28](https://user-images.githubusercontent.com/59905665/121798202-f89e1080-cc5f-11eb-9dd5-d7b90a0976cc.png)
 
 - 분양글 필터
 
-    ![https://s3-us-west-2.amazonaws.com/secure.notion-static.com/f5d472bd-19f4-4d81-9b35-a840d5d7928b/Simulator_Screen_Shot_-_iPhone_6s_-_2021-05-27_at_16.23.21.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/f5d472bd-19f4-4d81-9b35-a840d5d7928b/Simulator_Screen_Shot_-_iPhone_6s_-_2021-05-27_at_16.23.21.png)
+![Simulator Screen Shot - iPhone 6s - 2021-05-27 at 16 23 21](https://user-images.githubusercontent.com/59905665/121798220-14091b80-cc60-11eb-8fb5-490b27ed88be.png)
 
 - 분양글에 대한 입양 신청서 현황
 
-    ![https://s3-us-west-2.amazonaws.com/secure.notion-static.com/e05f6848-412e-4249-b73a-7ada243b30ea/Simulator_Screen_Shot_-_iPhone_6s_-_2021-05-27_at_16.22.56.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/e05f6848-412e-4249-b73a-7ada243b30ea/Simulator_Screen_Shot_-_iPhone_6s_-_2021-05-27_at_16.22.56.png)
+![Simulator Screen Shot - iPhone 6s - 2021-05-27 at 16 22 56](https://user-images.githubusercontent.com/59905665/121798216-110e2b00-cc60-11eb-820b-33e18020580e.png)
 
 - 내 신청서 현황
 
-    ![https://s3-us-west-2.amazonaws.com/secure.notion-static.com/0cb2d2bd-4f8a-4e77-aeae-3feb96b58b84/Simulator_Screen_Shot_-_iPhone_6s_-_2021-05-27_at_16.23.56.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/0cb2d2bd-4f8a-4e77-aeae-3feb96b58b84/Simulator_Screen_Shot_-_iPhone_6s_-_2021-05-27_at_16.23.56.png)
+![Simulator Screen Shot - iPhone 6s - 2021-05-27 at 16 23 56](https://user-images.githubusercontent.com/59905665/121798224-179ca280-cc60-11eb-84c4-a22f49c74352.png)
 
 - 채팅방 리스트 및 미리보기
 
-    ![https://s3-us-west-2.amazonaws.com/secure.notion-static.com/c92f5a0d-d7af-4994-9f4d-657f27611b3e/Simulator_Screen_Shot_-_iPhone_6s_-_2021-05-27_at_16.24.04.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/c92f5a0d-d7af-4994-9f4d-657f27611b3e/Simulator_Screen_Shot_-_iPhone_6s_-_2021-05-27_at_16.24.04.png)
+![Simulator Screen Shot - iPhone 6s - 2021-05-27 at 16 24 04](https://user-images.githubusercontent.com/59905665/121798227-19666600-cc60-11eb-8037-9bd0c31420fb.png)
 
 - 실시간 채팅
 
-    ![https://s3-us-west-2.amazonaws.com/secure.notion-static.com/bcb43fd2-2cbe-4183-92ab-0913f4f8b184/Simulator_Screen_Shot_-_iPhone_6s_-_2021-05-27_at_16.24.10.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/bcb43fd2-2cbe-4183-92ab-0913f4f8b184/Simulator_Screen_Shot_-_iPhone_6s_-_2021-05-27_at_16.24.10.png)
+![Simulator Screen Shot - iPhone 6s - 2021-05-27 at 16 24 10](https://user-images.githubusercontent.com/59905665/121798229-1b302980-cc60-11eb-9729-633f826b863b.png)
 
 ## 고민했던 지점
 
