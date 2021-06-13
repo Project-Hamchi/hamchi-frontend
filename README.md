@@ -50,27 +50,27 @@
 
 - 메인 화면
 
-![Simulator Screen Shot - iPhone 6s - 2021-05-27 at 16 20 28](https://user-images.githubusercontent.com/59905665/121798202-f89e1080-cc5f-11eb-9dd5-d7b90a0976cc.png)
+![Simulator Screen Shot - iPhone 6s - 2021-05-27 at 16 20 28](https://user-images.githubusercontent.com/59905665/121798202-f89e1080-cc5f-11eb-9dd5-d7b90a0976cc.png){: width="300" height="1000"){: .center}
 
 - 분양글 필터
 
-![Simulator Screen Shot - iPhone 6s - 2021-05-27 at 16 23 21](https://user-images.githubusercontent.com/59905665/121798220-14091b80-cc60-11eb-8fb5-490b27ed88be.png)
+![Simulator Screen Shot - iPhone 6s - 2021-05-27 at 16 23 21](https://user-images.githubusercontent.com/59905665/121798220-14091b80-cc60-11eb-8fb5-490b27ed88be.png){: width="300" height="1000"){: .center}
 
 - 분양글에 대한 입양 신청서 현황
 
-![Simulator Screen Shot - iPhone 6s - 2021-05-27 at 16 22 56](https://user-images.githubusercontent.com/59905665/121798216-110e2b00-cc60-11eb-820b-33e18020580e.png)
+![Simulator Screen Shot - iPhone 6s - 2021-05-27 at 16 22 56](https://user-images.githubusercontent.com/59905665/121798216-110e2b00-cc60-11eb-820b-33e18020580e.png){: width="300" height="1000"){: .center}
 
 - 내 신청서 현황
 
-![Simulator Screen Shot - iPhone 6s - 2021-05-27 at 16 23 56](https://user-images.githubusercontent.com/59905665/121798224-179ca280-cc60-11eb-84c4-a22f49c74352.png)
+![Simulator Screen Shot - iPhone 6s - 2021-05-27 at 16 23 56](https://user-images.githubusercontent.com/59905665/121798224-179ca280-cc60-11eb-84c4-a22f49c74352.png){: width="300" height="1000"){: .center}
 
 - 채팅방 리스트 및 미리보기
 
-![Simulator Screen Shot - iPhone 6s - 2021-05-27 at 16 24 04](https://user-images.githubusercontent.com/59905665/121798227-19666600-cc60-11eb-8037-9bd0c31420fb.png)
+![Simulator Screen Shot - iPhone 6s - 2021-05-27 at 16 24 04](https://user-images.githubusercontent.com/59905665/121798227-19666600-cc60-11eb-8037-9bd0c31420fb.png){: width="300" height="1000"){: .center}
 
 - 실시간 채팅
 
-![Simulator Screen Shot - iPhone 6s - 2021-05-27 at 16 24 10](https://user-images.githubusercontent.com/59905665/121798229-1b302980-cc60-11eb-9729-633f826b863b.png)
+![Simulator Screen Shot - iPhone 6s - 2021-05-27 at 16 24 10](https://user-images.githubusercontent.com/59905665/121798229-1b302980-cc60-11eb-9729-633f826b863b.png){: width="300" height="1000"){: .center}
 
 ## 고민했던 지점
 
