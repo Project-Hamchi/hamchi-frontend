@@ -2,7 +2,7 @@ import {
   reducer,
   enterChat,
   leaveChat
-} from '../chatSlice';
+} from '../../features/chatSlice';
 
 describe('chat slice test', () => {
   it('enter chat', () => {

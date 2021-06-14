@@ -4,11 +4,11 @@ import { addType, deleteType, initFeeds } from '../features/filteredPostSlice';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 
 import enumToString from '../constants/mapEnumToString';
+import hamsterTypes from '../constants/hamsterTypes';
 import colors from '../theme/color';
 
 const Filter = ({ title }) => {
   const dispatch = useDispatch();
-  const hamsterTypes = ['Syrian', 'Jungle', 'Robo', 'other'];
   const selectedHamsterTypes = useSelector(state => state.filteredPost.selectedHamsterTypes);
   const mapped = enumToString.hamsterType;
 

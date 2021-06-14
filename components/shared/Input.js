@@ -2,14 +2,23 @@ import React from 'react';
 import { TextInput, StyleSheet } from 'react-native';
 import colors from '../../theme/color';
 
-const Input = ({ multiline, placeholder, value, onChangeText, secureTextEntry, customInputStyle }) => {
+const Input = (props) => {
+  const {
+    value,
+    multiline,
+    placeholder,
+    onChangeText,
+    secureTextEntry,
+    customInputStyle
+  } = props;
+
   return (
     <TextInput
-      placeholder={placeholder}
       value={value}
+      multiline={multiline}
+      placeholder={placeholder}
       onChangeText={onChangeText}
       secureTextEntry={secureTextEntry}
-      multiline={multiline}
       style={[styles.input, customInputStyle]}
     />
   );
@@ -20,9 +29,9 @@ const styles = StyleSheet.create({
     margin: 10,
     padding: 13,
     borderWidth: 1,
+    borderRadius: 5,
     textAlign: 'center',
-    borderColor: colors.outline,
-    borderRadius: 5
+    borderColor: colors.outline
   },
 });
 

@@ -3,7 +3,7 @@ import {
   addType,
   deleteType,
   initFeeds
-} from '../filteredPostSlice';
+} from '../../features/filteredPostSlice';
 
 describe('test filtered post slice', () => {
   it('test initialize feeds', () => {
@@ -39,11 +39,9 @@ describe('test filtered post slice', () => {
       errorMessage: ''
     };
     const expected = {};
-
-    expected[type] = true;
-
     const result = reducer(prevState, addType(type));
 
+    expected[type] = true;
     expect(result[key]).toEqual(expected);
   });
 

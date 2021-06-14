@@ -3,7 +3,7 @@ import {
   signOut,
   initError,
   createError,
-} from '../userSlice';
+} from '../../features/userSlice';
 
 describe('user slice test', () => {
   it('test sign out', () => {

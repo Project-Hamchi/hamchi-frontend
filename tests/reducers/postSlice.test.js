@@ -2,7 +2,7 @@ import {
   reducer,
   toggleFilter,
   initializePosts
-} from '../postSlice';
+} from '../../features/postSlice';
 
 describe('post slice test', () => {
   it('test toggle', () => {

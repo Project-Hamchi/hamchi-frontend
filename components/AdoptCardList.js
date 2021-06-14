@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { TouchableOpacity, View, StyleSheet, FlatList } from 'react-native';
 import AdoptCard from './AdoptCard';
 
-const PhotoCardList = ({ scrollPosition, setScrollPosition, onPressCard }) => {
+const AdoptCardList = ({ scrollPosition, setScrollPosition, onPressCard }) => {
   const dispatch = useDispatch();
   const posts = useSelector(selectAllPosts);
   const page = useSelector(state => state.post.page);
@@ -51,6 +51,7 @@ const PhotoCardList = ({ scrollPosition, setScrollPosition, onPressCard }) => {
             return (
               <>
                 <TouchableOpacity
+                  id={item._id}
                   key={item._id}
                   style={index % 2 === 0 ? styles.left : styles.right}
                   onPress={() => { onPressCard(item) }}
@@ -96,4 +97,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default PhotoCardList;
+export default AdoptCardList;

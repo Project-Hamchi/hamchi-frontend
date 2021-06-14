@@ -1,7 +1,7 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
 import { render } from '@testing-library/react-native';
-import AdoptCard from '../AdoptCard';
+import AdoptCard from '../../components/AdoptCard';
 
 describe('AdoptCard component test', () => {
   it('renders correctly', () => {
