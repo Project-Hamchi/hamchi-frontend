@@ -25,26 +25,6 @@ export const fetchFilteredPosts = createAsyncThunk(
   }
 );
 
-export const initPosts = createAsyncThunk(
-  'filteredPosts/initPosts',
-  async ({ selectedHamsterTypes }, thunkAPI) => {
-    try {
-      const response = await postAPI.requestGetPosts(
-        1,
-        Object.keys(selectedHamsterTypes)
-      );
-
-      if (response.data.posts.length === 0) {
-        return thunkAPI.rejectWithValue();
-      }
-
-      return response.data.posts;
-    } catch (err) {
-      return thunkAPI.rejectWithValue(response);
-    }
-  }
-);
-
 export const filteredPostsAdapter = createEntityAdapter({
   selectId: (posts) => posts._id
 });
@@ -66,9 +46,6 @@ export const filteredPostSlice = createSlice({
       state.page = 1;
       filteredPostsAdapter.removeAll(state);
     },
-    toggleFilter(state, action) {
-      state.isFiltered = action.payload;
-    },
     addType(state, action) {
       state.selectedHamsterTypes[action.payload] = true;
     },
@@ -88,20 +65,11 @@ export const filteredPostSlice = createSlice({
     builder.addCase(fetchFilteredPosts.rejected, (state, action) => {
       state.isError = true;
     });
-
-    builder.addCase(initPosts.fulfilled, (state, action) => {
-      state.isLoading = false;
-      state.page = 2;
-      filteredPostsAdapter.setAll(state, action.payload);
-    });
-    builder.addCase(initPosts.pending, (state, action) => {
-      state.isLoading = true;
-    });
   }
 });
 
-const { actions, reducer } = filteredPostSlice;
-export const { initFeeds, addType, deleteType, toggleFilter } = actions;
+export const { actions, reducer } = filteredPostSlice;
+export const { initFeeds, addType, deleteType } = actions;
 export default reducer;
 
 export const {

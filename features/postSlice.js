@@ -91,7 +91,7 @@ export const postSlice = createSlice({
   }
 });
 
-const { actions, reducer } = postSlice;
+export const { actions, reducer } = postSlice;
 export const { toggleFilter, initializePosts } = actions;
 export default reducer;
 

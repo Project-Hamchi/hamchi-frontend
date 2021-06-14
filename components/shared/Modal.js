@@ -1,10 +1,10 @@
 import React from 'react';
 import { View, Modal, StyleSheet, Pressable } from 'react-native';
 import { FontAwesome } from '@expo/vector-icons';
-import Button from '../shared/Button';
+import Button from './Button';
 import colors from '../../theme/color';
 
-const alertModal = ({ title, onConfirm, onClose, children }) => {
+const AlertModal = ({ title, onConfirm, onClose, children }) => {
   return (
     <Modal
       animationType="slide"
@@ -84,4 +84,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default alertModal;
+export default AlertModal;

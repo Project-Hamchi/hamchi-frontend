@@ -55,14 +55,21 @@ const Feeds = ({ navigation }) => {
           </View>
         </View>
       </Modal>
-      <View style={styles.filter}>
-        <TouchableWithoutFeedback
-          onPress={() => {
-            setIsModalVisible(!isModalVisible)
-          }}
-        ><Text style={styles.filterText}>필터 설정</Text>
-        </TouchableWithoutFeedback>
-        <Toggle />
+      <View style={styles.container}>
+        {!isFiltered
+          &&
+          <View style={styles.filter}>
+            <TouchableWithoutFeedback
+              onPress={() => {
+                setIsModalVisible(!isModalVisible)
+              }}
+            ><Text style={styles.filterText}>필터 설정</Text>
+            </TouchableWithoutFeedback>
+          </View>
+        }
+        <View style={styles.toggle}>
+          <Toggle />
+        </View>
       </View>
       {
         isFiltered
@@ -111,17 +118,26 @@ const styles = StyleSheet.create({
     padding: 8,
     borderRadius: 10,
   },
-  filter: {
+  container: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
-    padding: 10,
-    paddingTop: 30,
-    paddingBottom: 0,
+    width: '100%',
+    padding: 16,
+    paddingBottom: 0
+  },
+  toggle: {
+    marginLeft: 'auto'
+  },
+  filter: {
+    flexDirection: 'column',
+    justifyContent: 'center'
   },
   filterText: {
     alignSelf: 'center',
     fontSize: 15,
     fontWeight: 'bold'
+  },
+  hidden: {
+    opacity: 0
   }
 });
 

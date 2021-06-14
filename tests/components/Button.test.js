@@ -1,7 +1,7 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
 import { render, fireEvent } from '@testing-library/react-native';
-import Button from '../shared/Button';
+import Button from '../../components/shared/Button';
 
 describe('Button component test', () => {
   it('renders correctly', () => {
