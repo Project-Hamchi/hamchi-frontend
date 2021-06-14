@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { createError } from '../../features/userSlice';
-import errorMessage from '../../constants/errorMessage';
+import { createError } from '../../../features/userSlice';
+import errorMessage from '../../../constants/errorMessage';
 
-import { View, Text, StyleSheet } from 'react-native';
-import RadioButton from './RadioButton';
-import Button from './Button';
-import Input from './Input';
+import { View, Text } from 'react-native';
+import RadioButton from '../RadioButton';
+import Button from '../Button';
+import Input from '../Input';
+import styles from './styles';
 
 const getInitialState = (fieldKeys) => {
   const state = {};
@@ -59,7 +60,7 @@ const Form = ({ additionalParams, fields, action, afterSubmit }) => {
 
         return (
           <View key={key}>
-            <Text style={style.label}>{field.label}</Text>
+            <Text style={styles.label}>{field.label}</Text>
             {field.inputType === 'radio' ?
               <RadioButton
                 options={field.options}
@@ -79,23 +80,10 @@ const Form = ({ additionalParams, fields, action, afterSubmit }) => {
         text="저장"
         type="filled"
         onPress={submit}
-        customButtonStyle={style.button}
+        customButtonStyle={styles.button}
       />
     </>
   );
 };
-
-const style = StyleSheet.create({
-  label: {
-    fontWeight: 'bold',
-    textAlign: 'center',
-    marginTop: 8,
-  },
-  button: {
-    width: '30%',
-    alignSelf: 'center',
-    margin: 30
-  }
-});
 
 export default Form;

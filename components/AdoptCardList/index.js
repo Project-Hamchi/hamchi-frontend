@@ -1,11 +1,26 @@
-import React, { useEffect, useRef, useState, useCallback } from 'react';
-import { fetchPosts, selectAllPosts, initPosts } from '../features/postSlice';
+import React, {
+  useCallback,
+  useEffect,
+  useState,
+  useRef
+} from 'react';
+import {
+  selectAllPosts,
+  fetchPosts,
+  initPosts
+} from '../../features/postSlice';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { TouchableOpacity, View, StyleSheet, FlatList } from 'react-native';
-import AdoptCard from './AdoptCard';
+import { TouchableOpacity, View, FlatList } from 'react-native';
+import AdoptCard from '../AdoptCard';
+import styles from './styles';
 
-const AdoptCardList = ({ scrollPosition, setScrollPosition, onPressCard }) => {
+const AdoptCardList = (props) => {
+  const {
+    scrollPosition,
+    setScrollPosition,
+    onPressCard
+  } = props;
   const dispatch = useDispatch();
   const posts = useSelector(selectAllPosts);
   const page = useSelector(state => state.post.page);
@@ -73,28 +88,5 @@ const AdoptCardList = ({ scrollPosition, setScrollPosition, onPressCard }) => {
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    marginTop: 10,
-  },
-  left: {
-    width: '50%',
-    height: 130,
-    alignSelf: 'flex-start',
-    flexDirection: 'column',
-    justifyContent: 'space-between',
-  },
-  right: {
-    width: '50%',
-    height: 130,
-    alignSelf: 'flex-end',
-    flexDirection: 'column',
-    justifyContent: 'space-between'
-  },
-  listContainer: {
-    height: '100%',
-  }
-});
 
 export default AdoptCardList;

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Text, TouchableOpacity } from 'react-native';
-import colors from '../../theme/color';
+import colors from '../../../theme/color';
 
 const Button = ({ text, type, onPress, customButtonStyle }) => {
   const btnBgColor = type === 'filled' ? colors.main : colors.transparent;

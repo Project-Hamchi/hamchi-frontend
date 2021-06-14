@@ -1,6 +1,6 @@
 import React from 'react';
-import { TextInput, StyleSheet } from 'react-native';
-import colors from '../../theme/color';
+import { TextInput } from 'react-native';
+import styles from './styles';
 
 const Input = (props) => {
   const {
@@ -23,16 +23,5 @@ const Input = (props) => {
     />
   );
 };
-
-const styles = StyleSheet.create({
-  input: {
-    margin: 10,
-    padding: 13,
-    borderWidth: 1,
-    borderRadius: 5,
-    textAlign: 'center',
-    borderColor: colors.outline
-  },
-});
 
 export default Input;

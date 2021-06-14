@@ -4,16 +4,22 @@ import {
   initFeeds,
   fetchFilteredPosts,
   selectAllFilteredPosts
-} from '../features/filteredPostSlice';
+} from '../../features/filteredPostSlice';
 import {
   View,
   FlatList,
-  StyleSheet,
   TouchableOpacity
 } from 'react-native';
-import AdoptCard from './AdoptCard';
+import AdoptCard from '../AdoptCard';
+import styles from './styles';
 
-const FilteredAdoptCardList = ({ scrollPosition, setScrollPosition, onPressCard }) => {
+const FilteredAdoptCardList = (props) => {
+  const {
+    scrollPosition,
+    setScrollPosition,
+    onPressCard
+  } = props;
+
   const dispatch = useDispatch();
   const page = useSelector(state => state.filteredPost.page);
   const posts = useSelector(selectAllFilteredPosts);
@@ -83,28 +89,5 @@ const FilteredAdoptCardList = ({ scrollPosition, setScrollPosition, onPressCard 
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    marginTop: 10,
-  },
-  left: {
-    width: '50%',
-    height: 130,
-    alignSelf: 'flex-start',
-    flexDirection: 'column',
-    justifyContent: 'space-between',
-  },
-  right: {
-    width: '50%',
-    height: 130,
-    alignSelf: 'flex-end',
-    flexDirection: 'column',
-    justifyContent: 'space-between'
-  },
-  listContainer: {
-    height: '100%',
-  }
-});
 
 export default FilteredAdoptCardList;
