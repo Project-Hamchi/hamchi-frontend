@@ -1,16 +1,16 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import {
-  ScrollView,
-  Image,
-  View,
   Text,
-  StyleSheet
+  View,
+  Image,
+  ScrollView
 } from 'react-native';
-import Button from '../components/shared/Button';
-import mapEnumToString from '../constants/mapEnumToString';
-import { formatFullDate } from '../utils/index';
-import colors from '../theme/color';
+import Button from '../../components/shared/Button';
+import styles from './styles';
+
+import { formatFullDate } from '../../utils/index';
+import mapEnumToString from '../../constants/mapEnumToString';
 
 const Hamster = ({ route, navigation }) => {
   const post = route.params.post;
@@ -30,7 +30,6 @@ const Hamster = ({ route, navigation }) => {
         <View style={styles.field}>
           <Text style={styles.key}>이름</Text>
           <Text style={styles.text}>{post.name}</Text>
-
         </View>
         <View style={styles.divider} />
         <View style={styles.field}>
@@ -68,69 +67,5 @@ const Hamster = ({ route, navigation }) => {
     </ScrollView>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-  user: {
-    alignItems: 'flex-start',
-    height: '8%',
-    padding: '3%',
-    backgroundColor: colors.white
-  },
-  photo: {
-    alignSelf: 'center',
-    width: '100%',
-    height: undefined,
-    aspectRatio: 1,
-  },
-  divider: {
-    marginBottom: 10,
-    height: 1,
-    width: '90%',
-    backgroundColor: colors.outline
-  },
-  textContainer: {
-    padding: 12,
-    alignItems: 'center'
-  },
-  date: {
-    fontSize: 13,
-    textAlign: "center",
-    margin: 8,
-    color: 'gray',
-  },
-  field: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    width: '90%'
-  },
-  key: {
-    fontSize: 16,
-    alignSelf: 'flex-start',
-    margin: 3,
-  },
-  text: {
-    fontSize: 16,
-    textAlign: "center",
-    margin: 3,
-  },
-  details: {
-    justifyContent: 'center',
-    marginTop: 10,
-    width: '70%',
-  },
-  descriptionContainer: {
-    padding: 5,
-    paddingBottom: 20,
-    borderWidth: 1,
-    borderRadius: 10,
-    borderColor: colors.outline
-  },
-  description: {
-    alignSelf: 'center'
-  }
-});
 
 export default Hamster;

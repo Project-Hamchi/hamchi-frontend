@@ -1,11 +1,21 @@
 import React from 'react';
-import Form from '../components/shared/Form';
-import { View, Text, KeyboardAvoidingView, TouchableOpacity, Image, StyleSheet } from 'react-native';
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
-import postAPI from '../api/post';
-import mapEnumToString from '../constants/mapEnumToString';
+import {
+  View,
+  Text,
+  Image,
+  TouchableOpacity,
+  KeyboardAvoidingView
+} from 'react-native';
 import { Feather } from '@expo/vector-icons';
-import colors from '../theme/color';
+import Form from '../../components/shared/Form';
+import {
+  KeyboardAwareScrollView
+} from 'react-native-keyboard-aware-scroll-view';
+import colors from '../../theme/color';
+import styles from './styles';
+
+import mapEnumToString from '../../constants/mapEnumToString';
+import postAPI from '../../api/post';
 
 const PostForm = ({ route, navigation }) => {
   let photo = null;
@@ -20,8 +30,6 @@ const PostForm = ({ route, navigation }) => {
   }
 
   function handleAfterSubmit() {
-    // photo = null;
-    // navigation.navigate('신청현황', { screen: '내 분양글' });
     navigation.reset({
       index: 0,
       routes: [{ name: '피드' }],
@@ -106,34 +114,5 @@ const PostForm = ({ route, navigation }) => {
     </KeyboardAvoidingView>
   );
 };
-
-const styles = StyleSheet.create({
-  screen: {
-    flex: 1
-  },
-  container: {
-    backgroundColor: colors.outline,
-    alignItems: 'center',
-    justifyContent: 'center',
-    width: '100%',
-    height: 300,
-    marginBottom: 30,
-  },
-  text: {
-    fontSize: 16,
-    color: colors.bold
-  },
-  stretch: {
-    width: '100%',
-    height: undefined,
-    aspectRatio: 1,
-    marginBottom: 20
-  },
-  default: {
-    width: '30%',
-    height: '30%',
-    alignSelf: 'center',
-  }
-});
 
 export default PostForm;

@@ -1,10 +1,11 @@
 import React from 'react';
+import { clearCredentials } from '../../api/secureStore';
 import { useDispatch, useSelector } from 'react-redux';
-import { clearCredentials } from '../api/secureStore';
-import { signOut } from '../features/userSlice';
+import { signOut } from '../../features/userSlice';
 
-import { StyleSheet, View, Text } from 'react-native';
-import Button from '../components/shared/Button';
+import Button from '../../components/shared/Button';
+import { View, Text } from 'react-native';
+import styles from './styles';
 
 const MyPage = () => {
   const dispatch = useDispatch();
@@ -31,20 +32,5 @@ const MyPage = () => {
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: "center"
-  },
-  info: {
-    width: '60%',
-    marginTop: 42
-  },
-  button: {
-    width: '60%',
-    alignSelf: 'center'
-  }
-});
 
 export default MyPage;

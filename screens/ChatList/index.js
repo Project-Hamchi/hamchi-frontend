@@ -1,13 +1,13 @@
 import React, { useState, useCallback } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { createError } from '../features/userSlice';
+import { createError } from '../../features/userSlice';
 import { useFocusEffect } from '@react-navigation/native';
 
 import { View, FlatList } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import ChatListItem from '../components/ChatListItem';
-import Empty from '../components/shared/Empty';
-import chatAPI from '../api/chat';
+import ChatListItem from '../../components/ChatListItem';
+import Empty from '../../components/shared/Empty';
+import chatAPI from '../../api/chat';
 
 const ChatList = () => {
   const dispatch = useDispatch();

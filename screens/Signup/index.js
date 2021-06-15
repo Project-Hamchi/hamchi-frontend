@@ -1,21 +1,20 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { createError } from '../features/userSlice';
+import { createError } from '../../features/userSlice';
 import {
+  View,
+  Text,
+  Image,
+  Keyboard,
   KeyboardAvoidingView,
   TouchableWithoutFeedback,
-  Keyboard,
-  View,
-  Image,
-  Text,
-  StyleSheet
 } from 'react-native';
+import styles from './styles';
 
-import Input from '../components/shared/Input';
-import Button from '../components/shared/Button';
-import logo from '../assets/png/logo.png';
-import errorMessage from '../constants/errorMessage';
-import userAPI from '../api/user';
+import Input from '../../components/shared/Input';
+import Button from '../../components/shared/Button';
+import logo from '../../assets/png/logo.png';
+import userAPI from '../../api/user';
 
 const Signup = ({ navigation }) => {
   const [email, setEmail] = useState('');
@@ -91,24 +90,5 @@ const Signup = ({ navigation }) => {
     </KeyboardAvoidingView >
   );
 };
-
-const styles = StyleSheet.create({
-  screen: {
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
-    paddingTop: 50,
-  },
-  title: {
-    fontSize: 60,
-  },
-  logo: {
-    width: 150,
-    height: 150,
-  },
-  inputContainer: {
-    width: 300,
-  },
-});
 
 export default Signup;

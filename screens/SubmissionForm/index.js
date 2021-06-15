@@ -1,23 +1,23 @@
 import React from 'react';
 import {
-  TouchableWithoutFeedback,
-  KeyboardAvoidingView,
-  TouchableOpacity,
-  Keyboard,
   View,
   Text,
   Image,
-  StyleSheet
+  Keyboard,
+  TouchableOpacity,
+  KeyboardAvoidingView,
+  TouchableWithoutFeedback,
 } from 'react-native';
 import {
   KeyboardAwareScrollView
 } from 'react-native-keyboard-aware-scroll-view';
-import Form from '../components/shared/Form';
+import Form from '../../components/shared/Form';
 import { Feather } from '@expo/vector-icons';
-import colors from '../theme/color';
+import colors from '../../theme/color';
+import styles from './styles';
 
-import mapEnumToString from '../constants/mapEnumToString';
-import submissionAPI from '../api/submissions';
+import mapEnumToString from '../../constants/mapEnumToString';
+import submissionAPI from '../../api/submissions';
 
 const SubmissionForm = ({ route, navigation }) => {
   let photo;
@@ -91,27 +91,5 @@ const SubmissionForm = ({ route, navigation }) => {
     </KeyboardAvoidingView>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: colors.outline,
-    width: '100%',
-    height: 300,
-    marginBottom: 30,
-  },
-  stretch: {
-    width: '100%',
-    height: undefined,
-    aspectRatio: 1,
-    marginBottom: 20
-  },
-  text: {
-    fontSize: 16,
-    alignSelf: 'center',
-    color: colors.bold
-  },
-});
 
 export default SubmissionForm;

@@ -1,28 +1,31 @@
-import React, { useState, useCallback, useEffect } from 'react';
+import React, {
+  useState,
+  useCallback,
+  useEffect
+} from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { createError } from '../features/userSlice';
+import { createError } from '../../features/userSlice';
 
 import {
-  ActionSheetIOS,
   View,
   Text,
   FlatList,
-  StyleSheet
+  ActionSheetIOS,
 } from 'react-native';
 import { useFocusEffect } from '@react-navigation/native';
-import Button from '../components/shared/Button';
-import Input from '../components/shared/Input';
-import Modal from '../components/shared/Modal';
-import Card from '../components/shared/Card';
-import Empty from '../components/shared/Empty';
+import Button from '../../components/shared/Button';
+import Input from '../../components/shared/Input';
+import Modal from '../../components/shared/Modal';
+import Card from '../../components/shared/Card';
+import Empty from '../../components/shared/Empty';
 
-import enumToString from '../constants/mapEnumToString';
-import errorMessage from '../constants/errorMessage';
+import enumToString from '../../constants/mapEnumToString';
+import errorMessage from '../../constants/errorMessage';
 
-import submissionAPI from '../api/submissions';
-import postAPI from '../api/post';
-import chatAPI from '../api/chat';
-import colors from '../theme/color';
+import submissionAPI from '../../api/submissions';
+import postAPI from '../../api/post';
+import chatAPI from '../../api/chat';
+import styles from './styles';
 
 const MyPosts = () => {
   const dispatch = useDispatch();
@@ -266,32 +269,5 @@ const MyPosts = () => {
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    margin: 10,
-    paddingBottom: 10,
-    backgroundColor: colors.white,
-    borderRadius: 14,
-  },
-  title: {
-    alignSelf: 'center',
-    fontSize: 16,
-    fontWeight: 'bold',
-    paddingTop: 24,
-    paddingBottom: 5,
-  },
-  text: {
-    alignSelf: 'center'
-  },
-  button: {
-    width: 120,
-    height: 45,
-    alignSelf: 'flex-end',
-    margin: 12,
-    marginTop: 0,
-    borderRadius: 8
-  }
-});
 
 export default MyPosts;

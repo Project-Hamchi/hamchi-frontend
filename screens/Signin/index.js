@@ -1,23 +1,22 @@
 import React, { useEffect, useState } from 'react';
+import { fetchSignin } from '../../features/userSlice';
 import { useDispatch } from 'react-redux';
-import { fetchSignin } from '../features/userSlice';
 import {
-  KeyboardAvoidingView,
-  TouchableWithoutFeedback,
-  Keyboard,
   View,
-  Image,
   Text,
-  StyleSheet
+  Image,
+  Keyboard,
+  KeyboardAvoidingView,
+  TouchableWithoutFeedback
 } from 'react-native';
-import Input from '../components/shared/Input';
-import Button from '../components/shared/Button';
-import logo from '../assets/png/logo.png';
-import colors from '../theme/color';
+import Input from '../../components/shared/Input';
+import Button from '../../components/shared/Button';
+import logo from '../../assets/png/logo.png';
+import styles from './styles';
 
 import {
   readCredentials
-} from '../api/secureStore';
+} from '../../api/secureStore';
 
 const Signin = ({ navigation }) => {
   const [email, setEmail] = useState('');
@@ -48,7 +47,7 @@ const Signin = ({ navigation }) => {
   return (
     <KeyboardAvoidingView
       behavior="padding"
-      style={{ flex: 1 }}
+      style={styles.keboardView}
       enabled
     >
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
@@ -83,31 +82,5 @@ const Signin = ({ navigation }) => {
     </KeyboardAvoidingView>
   );
 };
-
-const styles = StyleSheet.create({
-  screen: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    padding: 50,
-  },
-  title: {
-    fontSize: 60,
-  },
-  logo: {
-    width: 150,
-    height: 150,
-  },
-  inputContainer: {
-    width: 300,
-  },
-  input: {
-    margin: 8,
-    padding: 15,
-    borderWidth: 1,
-    borderRadius: 5,
-    borderColor: colors.outline,
-  },
-});
 
 export default Signin;

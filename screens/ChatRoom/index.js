@@ -1,22 +1,21 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { enterChat, leaveChat } from '../features/chatSlice';
+import { enterChat, leaveChat } from '../../features/chatSlice';
 import { useRoute } from '@react-navigation/native';
 
 import {
-  KeyboardAvoidingView,
   View,
   Text,
-  TextInput,
   Button,
+  TextInput,
   ScrollView,
-  StyleSheet
+  KeyboardAvoidingView
 } from 'react-native';
 
 import io from 'socket.io-client';
 import { SERVER_URL } from '@env';
-import { formatTime } from '../utils';
-import colors from '../theme/color';
+import { formatTime } from '../../utils';
+import styles from './styles';
 
 const ENDPOINT = SERVER_URL;
 
@@ -131,67 +130,5 @@ const ChatRoom = () => {
     </KeyboardAvoidingView >
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    backgroundColor: colors.white,
-    flex: 1
-  },
-  chatContainer: {
-    flex: 9
-  },
-  inputContainer: {
-    flex: 1,
-    flexDirection: 'row',
-    height: '10%',
-    alignSelf: 'flex-start',
-    borderTopWidth: 1,
-    borderTopColor: colors.outline
-  },
-  textInput: {
-    flex: 3
-  },
-  buttonContainer: {
-    flex: 1,
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center'
-  },
-  button: {
-    height: 36,
-    width: '5%'
-  },
-  leftMessage: {
-    alignSelf: 'flex-start',
-    borderRadius: 20,
-    borderTopLeftRadius: 0,
-    padding: 15,
-    margin: 10,
-    backgroundColor: colors.sub
-  },
-  rightMessage: {
-    alignSelf: 'flex-end',
-    borderRadius: 20,
-    borderTopRightRadius: 0,
-    padding: 15,
-    margin: 10,
-    backgroundColor: '#efefef'
-  },
-  leftTime: {
-    alignSelf: 'flex-start'
-  },
-  rightTime: {
-    alignSelf: 'flex-end'
-  },
-  input: {
-    height: 36,
-    margin: 10,
-    padding: 5,
-    borderWidth: 1,
-    textAlign: 'center',
-    borderRadius: 20,
-    borderColor: colors.outline
-  }
-});
 
 export default ChatRoom;
