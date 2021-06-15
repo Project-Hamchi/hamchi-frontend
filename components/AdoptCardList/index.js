@@ -11,7 +11,11 @@ import {
 } from '../../features/postSlice';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { TouchableOpacity, View, FlatList } from 'react-native';
+import {
+  View,
+  FlatList,
+  TouchableOpacity,
+} from 'react-native';
 import AdoptCard from '../AdoptCard';
 import styles from './styles';
 
@@ -21,6 +25,7 @@ const AdoptCardList = (props) => {
     setScrollPosition,
     onPressCard
   } = props;
+
   const dispatch = useDispatch();
   const posts = useSelector(selectAllPosts);
   const page = useSelector(state => state.post.page);
@@ -30,7 +35,7 @@ const AdoptCardList = (props) => {
 
   useEffect(() => {
     const offset = scrollPosition;
-    listRef.current.scrollToOffset({ offset, animated: false })
+    listRef.current.scrollToOffset({ offset, animated: false });
 
     dispatch(fetchPosts(page));
   }, []);
@@ -54,9 +59,7 @@ const AdoptCardList = (props) => {
 
   return (
     <View style={styles.container}>
-      <View
-        style={styles.listContainer}
-      >
+      <View style={styles.listContainer}>
         <FlatList
           onScroll={handleScroll}
           ref={listRef}
@@ -66,12 +69,10 @@ const AdoptCardList = (props) => {
             return (
               <>
                 <TouchableOpacity
-                  id={item._id}
                   key={item._id}
-                  style={index % 2 === 0 ? styles.left : styles.right}
                   onPress={() => { onPressCard(item) }}
-                >
-                  <AdoptCard data={item} />
+                  style={index % 2 === 0 ? styles.left : styles.right}
+                ><AdoptCard data={item} />
                 </TouchableOpacity>
                 {index === posts.length - 1
                   && <View style={{ paddingBottom: 200 }} />
@@ -81,8 +82,8 @@ const AdoptCardList = (props) => {
           }}
           onEndReached={handleEndReached}
           onEndReachedThreshold={0.3}
-          refreshing={isRefreshing}
           onRefresh={handleRefresh}
+          refreshing={isRefreshing}
         />
       </View>
     </View>

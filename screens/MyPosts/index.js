@@ -16,8 +16,8 @@ import { useFocusEffect } from '@react-navigation/native';
 import Button from '../../components/shared/Button';
 import Input from '../../components/shared/Input';
 import Modal from '../../components/shared/Modal';
-import Card from '../../components/shared/Card';
 import Empty from '../../components/shared/Empty';
+import SubmissionList from '../../components/SubmissionList';
 
 import enumToString from '../../constants/mapEnumToString';
 import errorMessage from '../../constants/errorMessage';
@@ -241,7 +241,7 @@ const MyPosts = () => {
               {(index === 0 || index === openedPostsNumber)
                 && <Text style={styles.title}>{enumToString.status[item.status]}</Text>}
               <View style={styles.container}>
-                <Card
+                <SubmissionList
                   item={item}
                   selected={selectedSubmissions}
                   onSelect={handleSubmissionSelect}

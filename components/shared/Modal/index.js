@@ -1,15 +1,25 @@
 import React from 'react';
-import { View, Modal, Pressable } from 'react-native';
+import {
+  View,
+  Modal,
+  Pressable
+} from 'react-native';
 import { FontAwesome } from '@expo/vector-icons';
 import Button from '../Button';
 import styles from './styles';
 
-const AlertModal = ({ onConfirm, onClose, children }) => {
+const AlertModal = (props) => {
+  const {
+    children,
+    onConfirm,
+    onClose,
+  } = props;
+
   return (
     <Modal
-      animationType="slide"
-      transparent={true}
       visible={true}
+      transparent={true}
+      animationType="slide"
       onRequestClose={onConfirm}
     >
       <View style={styles.centeredView}>
@@ -17,8 +27,8 @@ const AlertModal = ({ onConfirm, onClose, children }) => {
           <View style={styles.close}>
             <Pressable onPress={onClose}>
               <FontAwesome
-                name="close"
                 size={16}
+                name="close"
                 color={colors.black}
               />
             </Pressable>

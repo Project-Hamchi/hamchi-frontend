@@ -19,7 +19,14 @@ const getInitialState = (fieldKeys) => {
   return state;
 };
 
-const Form = ({ additionalParams, fields, action, afterSubmit }) => {
+const Form = (props) => {
+  const {
+    fields,
+    action,
+    afterSubmit,
+    additionalParams
+  } = props;
+
   const dispatch = useDispatch();
   const userId = useSelector(state => state.user.userId);
   const username = useSelector(state => state.user.username);
@@ -61,15 +68,15 @@ const Form = ({ additionalParams, fields, action, afterSubmit }) => {
         return (
           <View key={key}>
             <Text style={styles.label}>{field.label}</Text>
-            {field.inputType === 'radio' ?
-              <RadioButton
-                options={field.options}
+            {field.inputType === 'radio'
+              ? <RadioButton
                 map={field.map}
+                options={field.options}
                 onChangeOption={(option) => onChangeValue(key, option)}
               />
               : <Input
-                {...field.inputProps}
                 value={field.value}
+                {...field.inputProps}
                 onChangeText={(text) => onChangeValue(key, text)}
               />
             }

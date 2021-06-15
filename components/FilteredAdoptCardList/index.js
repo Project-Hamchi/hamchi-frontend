@@ -1,5 +1,13 @@
-import React, { useEffect, useRef, useState, useCallback } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React, {
+  useRef,
+  useState,
+  useEffect,
+  useCallback
+} from 'react';
+import {
+  useDispatch,
+  useSelector
+} from 'react-redux';
 import {
   initFeeds,
   fetchFilteredPosts,

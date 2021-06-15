@@ -1,8 +1,17 @@
 import React, { useState } from 'react';
-import { View, Text, TouchableOpacity } from 'react-native';
+import {
+  View,
+  Text,
+  TouchableOpacity
+} from 'react-native';
 import styles from './styles';
 
-const RadioButton = ({ options, map, onChangeOption }) => {
+const RadioButton = (props) => {
+  const {
+    map,
+    options,
+    onChangeOption
+  } = props;
   const [selectedOption, setSelectedOption] = useState();
 
   function handleOptionPress(item) {
@@ -16,11 +25,15 @@ const RadioButton = ({ options, map, onChangeOption }) => {
         return (
           <TouchableOpacity
             key={option}
-            style={selectedOption === option ? styles.option : styles.selectedOption}
+            style={selectedOption === option
+              ? styles.option
+              : styles.selectedOption}
             onPress={() => handleOptionPress(option)}
           >
             <Text
-              style={selectedOption === option ? styles.text : styles.selectedText}
+              style={selectedOption === option
+                ? styles.text
+                : styles.selectedText}
             >{map[option]}</Text>
           </TouchableOpacity>
         );

@@ -1,20 +1,19 @@
 import React from 'react';
 import { View, Image } from 'react-native';
-import syrian from '../../assets/tape/syrian.png';
-import jungle from '../../assets/tape/jungle.png';
-import robo from '../../assets/tape/robo.png';
-import other from '../../assets/tape/other.png';
+import {
+  hamsterTypeList,
+  labelByHamsterType
+} from '../../constants/hamsterTypes';
 import styles from './styles';
 
 const PhotoCard = ({ uri, type }) => {
-  const labelByTypes = [robo, jungle, syrian, other];
-
   let typeIndex;
-  if (type === 'Robo') {
+
+  if (type === hamsterTypeList[0]) {
     typeIndex = 0;
-  } else if (type === 'Jungle') {
+  } else if (type === hamsterTypeList[1]) {
     typeIndex = 1;
-  } else if (type === 'Syrian') {
+  } else if (type === hamsterTypeList[2]) {
     typeIndex = 2;
   } else {
     typeIndex = 3;
@@ -24,7 +23,7 @@ const PhotoCard = ({ uri, type }) => {
     <View style={styles.cardContainer}>
       <Image
         style={styles.tape}
-        source={labelByTypes[typeIndex]}
+        source={labelByHamsterType[typeIndex]}
       />
       <View style={styles.card}>
         <Image

@@ -1,5 +1,8 @@
 import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import {
+  useDispatch,
+  useSelector
+} from 'react-redux';
 import {
   addType,
   deleteType,
@@ -12,7 +15,7 @@ import {
 } from 'react-native';
 
 import enumToString from '../../constants/mapEnumToString';
-import hamsterTypes from '../../constants/hamsterTypes';
+import { hamsterTypeList } from '../../constants/hamsterTypes';
 import styles from './styles';
 
 const Filter = ({ title }) => {
@@ -34,19 +37,23 @@ const Filter = ({ title }) => {
     <View style={styles.container}>
       <Text style={styles.text}>{title}</Text>
       <View style={styles.tagContainer}>
-        {hamsterTypes.map(type => {
+        {hamsterTypeList.map(type => {
           return (
             <TouchableOpacity
+              key={type}
               style={[
                 styles.tag,
-                selectedHamsterTypes[type] ? styles.mainBackground : styles.whiteBackground
+                selectedHamsterTypes[type]
+                  ? styles.mainBackground
+                  : styles.whiteBackground
               ]}
-              key={type}
               onPress={() => handleSelectType(type)}
             >
               <Text style={[
                 styles.text,
-                selectedHamsterTypes[type] ? styles.whiteText : styles.mainText
+                selectedHamsterTypes[type]
+                  ? styles.whiteText
+                  : styles.mainText
               ]}>{mapped[type]}</Text>
             </TouchableOpacity>
           );

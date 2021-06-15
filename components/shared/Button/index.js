@@ -2,7 +2,14 @@ import React from 'react';
 import { Text, TouchableOpacity } from 'react-native';
 import colors from '../../../theme/color';
 
-const Button = ({ text, type, onPress, customButtonStyle }) => {
+const Button = (props) => {
+  const {
+    text,
+    type,
+    onPress,
+    customButtonStyle
+  } = props;
+
   const btnBgColor = type === 'filled' ? colors.main : colors.transparent;
   const btnTextColor = type === 'filled' ? colors.white : colors.main;
 

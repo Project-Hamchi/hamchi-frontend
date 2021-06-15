@@ -1,7 +1,13 @@
 import React, { useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { toggleFilter } from '../../../features/postSlice';
-import { Animated, View, Text, Pressable, Easing } from 'react-native';
+import {
+  View,
+  Text,
+  Easing,
+  Animated,
+  Pressable
+} from 'react-native';
 import styles from './styles';
 
 const Toggle = () => {
@@ -34,20 +40,29 @@ const Toggle = () => {
       <Pressable onPress={handleSwitchToggle}
       >
         <View style={styles.toggleContainer}>
-          <Animated.View style={
-            [styles.toggleWheel,
-            { transform: [{ translateX: moveToggleWheel, scaleX: changeWheelWidth }] },
-            ]}>
+          <Animated.View style={[
+            styles.toggleWheel,
+            {
+              transform: [{
+                translateX: moveToggleWheel,
+                scaleX: changeWheelWidth
+              }]
+            },
+          ]}>
           </Animated.View>
           <View style={styles.options} >
             <View style={styles.all}>
               <Text
-                style={[styles.text, isFiltered ? styles.black : styles.main]}
+                style={[styles.text, isFiltered
+                  ? styles.black
+                  : styles.main]}
               >전체</Text>
             </View>
             <View style={styles.tag}>
               <Text
-                style={[styles.text, isFiltered ? styles.main : styles.black]}
+                style={[styles.text, isFiltered
+                  ? styles.main
+                  : styles.black]}
               >관심태그</Text>
             </View>
           </View>

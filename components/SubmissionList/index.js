@@ -9,9 +9,9 @@ import {
 import BouncyCheckbox from 'react-native-bouncy-checkbox';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 
-import enumToString from '../../../constants/mapEnumToString';
-import { formatFullDate } from '../../../utils';
-import colors from '../../../theme/color';
+import enumToString from '../../constants/mapEnumToString';
+import { formatFullDate } from '../../utils';
+import colors from '../../theme/color';
 import styles from './styles';
 
 const Card = (props) => {
@@ -30,19 +30,20 @@ const Card = (props) => {
     status
   } = item;
   const mapped = enumToString.experienceType;
+  const date = formatFullDate(new Date(createdAt));
 
   return (
     <View>
       <View style={styles.postContainer}>
-        {status === 'opened' &&
-          <Pressable
+        {status === 'opened'
+          && <Pressable
             style={styles.icon}
             onPress={() => showOptions(_id)}
           >
             <MaterialCommunityIcons
-              name="dots-horizontal-circle"
               size={32}
               color={colors.main}
+              name="dots-horizontal-circle"
             />
           </Pressable>}
         <Text style={styles.title}>{name}의 입양 신청서 목록</Text>
@@ -50,7 +51,7 @@ const Card = (props) => {
           style={styles.image}
           source={{ uri: image }}
         />
-        <Text>{formatFullDate(new Date(createdAt))}</Text>
+        <Text>{date}</Text>
         <Text>신청자 수 {submissions.length}명</Text>
       </View>
       <FlatList
