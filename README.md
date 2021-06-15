@@ -12,6 +12,24 @@
 
 - [https://github.com/Project-Hamchi/hamchi-backend](https://github.com/Project-Hamchi/hamchi-backend)
 
+## Installation
+
+**Frontend**
+```
+git clone https://github.com/Project-Hamchi/hamchi-frontend.git
+cd hamchi-frontend
+npm install
+npm start
+```
+
+**Backend**
+```
+git clone https://github.com/Project-Hamchi/hamchi-backend.git
+cd hamchi-backend
+npm install
+npm start
+```
+
 ## 프로젝트 동기
 
 - 햄스터는 우리나라에서 가장 많이 키우는 애완동물 3위입니다. 그에 비해 햄스터를 분양하고 입양할 수 있는 모바일 앱이 없어서 햄스터를 입양 또는 분양할 수 있는 앱을 제작하게 되었습니다.
@@ -48,31 +66,38 @@
 
 ## 주요 기능
 
-- 메인 화면
+**메인 피드 및 분양글 필터링**
+<div display="flex" width="80%">
+<img src="./readme-assets/main.png" width="280px" height="500px" margin="100px">
+<img src="./readme-assets/filter.png" width="280px" height="500px">
+</div>
 
-사용자들이 올린 분양글이 최신순으로 로딩됩니다.
+- 사용자들이 올린 분양글이 최신순으로 로딩됩니다.
+- 피드 화면에서 pagination 및 lazy loading을 합니다.
+- 햄스터의 종류에 따른 필터링을 지원합니다.
+<br><br>
 
-스크롤이 하단에 닿을 때 설정해둔 분양글 수 만큼 서버에 요청하는 lazy loading을 합니다.
+**분양글에 대한 입양 신청서 및 내 신청서 현황**
+<div display="flex" width="80%">
+<img src="./readme-assets/myPost.png" width="280px" height="500px">
+<img src="./readme-assets/mySubmission.png" width="280px" height="500px">
+</div>
 
-- 분양글 필터
+- 하나의 분양글에 들어온 신청서를 리스트로 보여줍니다.
+- 입양을 보내고 싶은 신청서를 체크 후 메시지 보내기를 클릭하여 분양 관련 메시지를 보낼 수 있도록 했습니다.
+- 입양을 원하는 사용자가 등룍한 입양 신청 현황에 대해서 분양 진행중, 분양 실패, 매칭 완료로 표현됩니다.
+<br><br>
 
-햄스터의 종류에 따른 필터링을 지원합니다. 
+**채팅방 리스트 및 미리보기**
 
-- 분양글에 대한 입양 신청서 현황
+<div display="flex" width="80%">
+<img src="./readme-assets/chatList.png" width="280px" height="500px">
+<img src="./readme-assets/chatRoom.png" width="280px" height="500px">
+</div>
 
-하나의 분양글에 들어온 신청서를 리스트로 보여줍니다.
-
-- 내 신청서 현황
-
-입양을 원하는 사용자가 등룍한 입양 신청 현황에 대해서 분양 진행중, 분양 실패, 매칭 완료로 표현됩니다.
-
-- 채팅방 리스트 및 미리보기
-
-사용자의 채팅방 리스트와 마지막에 주고받은 메시지를 화면에 띄워 최근 메시지를 확인할 수 있습니다.
-
-- 실시간 채팅
-
-실시간으로 분양자와 입양신청자가 메시지를 주고받을 수 있습니다.
+- 실시간으로 분양자와 입양신청자가 메시지를 주고받을 수 있습니다.
+- 사용자의 채팅방 리스트와 마지막에 주고받은 메시지를 화면에 띄워 최근 메시지를 확인할 수 있습니다.
+<br><br>
 
 ## 고민했던 지점
 
