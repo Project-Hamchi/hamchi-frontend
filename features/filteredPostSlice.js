@@ -68,10 +68,6 @@ export const filteredPostSlice = createSlice({
   }
 });
 
-export const { actions, reducer } = filteredPostSlice;
-export const { initFeeds, addType, deleteType } = actions;
-export default reducer;
-
 export const {
   selectById: selectFilteredPostById,
   selectIds: selectFilteredPostIds,
@@ -79,3 +75,8 @@ export const {
   selectAll: selectAllFilteredPosts,
   selectTotal: selectTotalFilteredPosts
 } = filteredPostsAdapter.getSelectors((state) => state.filteredPost);
+
+export const { actions, reducer } = filteredPostSlice;
+export const { initFeeds, addType, deleteType } = actions;
+
+export default reducer;

@@ -4,7 +4,6 @@ import { userSlice } from './userSlice';
 import { postSlice } from './postSlice';
 import { chatSlice } from './chatSlice';
 import { filteredPostSlice } from './filteredPostSlice';
-import { createLogger } from 'redux-logger';
 
 const middleware = [ReduxThunk];
 

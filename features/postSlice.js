@@ -76,7 +76,6 @@ export const postSlice = createSlice({
       state.isLoading = false;
       state.isError = true;
     });
-
     builder.addCase(initPosts.fulfilled, (state, action) => {
       state.isLoading = false;
       state.page = 2;
@@ -91,10 +90,6 @@ export const postSlice = createSlice({
   }
 });
 
-export const { actions, reducer } = postSlice;
-export const { toggleFilter, initializePosts } = actions;
-export default reducer;
-
 export const {
   selectById: selectPostById,
   selectIds: selectPostIds,
@@ -102,3 +97,8 @@ export const {
   selectAll: selectAllPosts,
   selectTotal: selectTotalPosts
 } = postsAdapter.getSelectors((state) => state.post);
+
+export const { actions, reducer } = postSlice;
+export const { toggleFilter, initializePosts } = actions;
+
+export default reducer;

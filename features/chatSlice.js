@@ -20,7 +20,6 @@ export const chatSlice = createSlice({
 });
 
 export const { actions, reducer } = chatSlice;
-
 export const { enterChat, leaveChat } = actions;
 
 export default reducer;
