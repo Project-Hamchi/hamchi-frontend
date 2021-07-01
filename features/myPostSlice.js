@@ -90,16 +90,6 @@ export const myPostSlice = createSlice({
   }
 });
 
-const {
-  actions,
-  reducer
-} = myPostSlice;
-
-export const {
-} = actions;
-
-export default reducer;
-
 export const {
   selectById: selectPostById,
   selectIds: selectPostIds,
@@ -107,3 +97,9 @@ export const {
   selectAll: selectAllPosts,
   selectTotal: selectTotalPosts
 } = myPostsAdapter.getSelectors((state) => state.post);
+
+const { reducer } = myPostSlice;
+
+export default reducer;
+
+
