@@ -3,7 +3,6 @@
 사람과 햄스터를 이어주는 분양 및 입양 모바일 앱입니다.
 
 ## 🔗Links
-
 **Frontend**
 
 - [https://github.com/Project-Hamchi/hamchi-frontend](https://github.com/Project-Hamchi/hamchi-frontend)
@@ -100,6 +99,18 @@ npm start
 <br><br>
 
 ## 고민했던 지점
+
+### React-Native Navigation 설정
+
+- **기본 tab navigator만 사용할 경우의 한계점**
+
+로그인 후 보이는 초기 화면에는 하단에 tab navigator를 추가하여 화면 전환을 할 수 있도록 했습니다.
+
+하지만 tab navigator로 이동할 수 있는 화면과는 별개로 도착한 화면의 이미지 또는 버튼을 클릭할 때 더 세부적인 화면으로 이동이 필요했습니다. Tab navigator로 이동한 화면으로부터 한단계 더 깊은 세부 화면으로 가기 위해서는 마찬가지로 또 다른 navigator가 필요하였는데 이러한 세부 화면으로 가는 navigator와 메인 navigator인 tab navigator를 연결하는 작업에서 어려움을 겪었습니다.
+
+- **Using nested navigators**
+
+이 문제를 해결하기 위해 세부화면 전환에 필요한 navigator를 tab navigator에 중첩하여서 문제를 해결했습니다. Tab navigator 설정시 스크린 대신 세부화면 전환에 필요한 stack navigator로 redirect될 수 있도록 했고, 해당 stack navigator의 default 경로에 tab navigator에 해당했던 스크린을 지정해서 기존의 tab navigator 또한 정상적으로 작동될 수 있도록 했습니다.
 
 ### Redux 사용 이유
 
