@@ -63,6 +63,8 @@ npm start
 
 [Task Card](https://www.notion.so/82f0005a7e5b46be81dfd23999954007?v=9c7041dd61ac46b883242ff21028ce75)
 
+[발표 영상](https://youtu.be/F8OHnevCS30)
+
 ## 주요 기능
 
 **메인 피드 및 분양글 필터링**
